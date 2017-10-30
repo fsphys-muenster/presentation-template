@@ -1,23 +1,30 @@
 % Author: Simon May
-% Date: 2015-04-25
+% Date: 2016-10-09
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Einstellungen zur richtigen Benutzung von wwustyle.sty
 \usefonttheme{professionalfonts}
 
 \usepackage{amsmath}
+\usepackage{mathtools}
+
+% Überflüssige Warnungen loswerden
+\usepackage{silence}
+\WarningFilter[spurious]{csquotes}{Using preliminary 'polyglossia' interface}
+\ActivateWarningFilters[spurious]
+
 % Schriftarten (Meta) einstellen
+\usepackage[quiet]{fontspec}
 \usepackage{unicode-math}
-\defaultfontfeatures{Ligatures=TeX}
 \setmainfont{Meta}[Path={fonts/},
 	UprightFont=*-Regular,
 	UprightFeatures={
-		SmallCapsFont={*-RegularSC}
+		SmallCapsFont={*-Normal-Caps}
 	},
 	ItalicFont=*-Italic,
 	BoldFont=*-Bold,
 	BoldFeatures={
-		SmallCapsFont={*-BoldSC}
+		SmallCapsFont={*-Medium-Caps}
 	},
 	BoldItalicFont=*-Bold,
 	BoldItalicFeatures={FakeSlant}
@@ -25,34 +32,50 @@
 \setsansfont{Meta}[Path={fonts/},
 	UprightFont=*-Regular,
 	UprightFeatures={
-		SmallCapsFont={*-RegularSC}
+		SmallCapsFont={*-Normal-Caps}
 	},
 	ItalicFont=*-Italic,
 	BoldFont=*-Bold,
 	BoldFeatures={
-		SmallCapsFont={*-BoldSC}
+		SmallCapsFont={*-Medium-Caps}
 	},
 	BoldItalicFont=*-Bold,
 	BoldItalicFeatures={FakeSlant}
 ]
+
+% \mathaccent passt wegen unterschiedlicher Schriftarten nicht für lateinische Buchstaben!
 \setmathfont{Latin Modern Math}
 \setmathfont[range=\mathup/{greek,Greek}, Scale=MatchLowercase]{Free Sans}
 \setmathfont[range=\mathit/{greek,Greek}, Scale=MatchLowercase]{Free Sans Oblique}
-\setmathfont[range=\mathup/{latin,Latin,num}, Path={fonts/}]{Meta-Regular.ttf}
-\setmathfont[range=\mathit/{latin,Latin,num}, Path={fonts/}]{Meta-Italic.ttf}
-\setmathfont[range=\mathbin, Path={fonts/}]{Meta-Regular.ttf}
+\setmathfont[range=\mathaccent, Scale=MatchLowercase]{Free Sans}
+\setmathfont[range=\mathup/{latin,Latin,num}, Path={fonts/}]{MetaLF-Regular.ttf}
+\setmathfont[range=\mathit/{latin,Latin,num}, Path={fonts/}]{MetaLF-Italic.ttf}
+% Symbole +, -, ×, ÷, ⋅, ±, %, ! aus Meta nehmen (was ist mit *, :, ∓?)
+\setmathfont[range={"0002B,"02212,\times,\div,\cdot,\pm,"00025,"00021}, Path={fonts/}]{MetaLF-Regular.ttf}
 \usepackage{polyglossia}
 \setmainlanguage{german}
 
 \usepackage[pantone312]{wwustyle}
-\usepackage{csquotes}
 \usepackage{microtype}
+\usepackage{selnolig}
+\usepackage{csquotes}
+
 \usepackage{graphicx}
-\usepackage{datetime}
+\usepackage{gincltex}
+\usepackage{grffile}
+\usepackage[useregional]{datetime2}
 \usepackage{multirow}
 \usepackage{siunitx}
 
+% latex
+\renewcommand{\arraystretch}{1.3}
+% graphicx
+% Standardmäßig „keepaspectratio“ verwenden
+% s. https://tex.stackexchange.com/a/91619/51235
+\setkeys{Gin}{keepaspectratio}
+% hyperref
 \hypersetup{unicode}
+% siunitx
 \sisetup{
 	locale=DE,
 	quotient-mode=fraction,
@@ -60,14 +83,14 @@
 	fraction-function=\sfrac,
 	mode=text
 }
+% csquotes
 \MakeOuterQuote{"}
-
-\renewcommand{\textrightarrow}{$\rightarrow$}
-\newcommand{\email}[1]{\href{mailto:#1}{\texttt{#1}}}
 
 \institutelogo{\raisebox{-1.75cm}{\includegraphics[width=4cm]{logo.pdf}}}
 \institutelogosmall{\raisebox{-1.25cm}{\includegraphics[width=2.6cm]{logo.pdf}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Zusätzliche Einstellungen/Befehle
-
+\let\strong\textbf
+\newcommand{\email}[1]{\href{mailto:#1}{\texttt{#1}}}
+\newfontfamily\DejaSans{DejaVu Sans}
