@@ -1,9 +1,11 @@
 \ProvidesPackage{wwustyle}
-%Package wwustyle
+% Package wwustyle
 %
-% A beamer style file following the corporate design of the WWU
+% A style file following the corporate design of the WWU
 % Muenster.
 %
+% Umgearbeitet fuer die Verwendung mit dem neuen Logo und neuen Hintergrundbildern.
+%   05.09.2017 Ulrich Grabowsky (gu)
 % Version: 1.9 (07.04.2014) Fixed overfull hboxes (Cudos to Matthias Kirchner for the fix)
 % Version: 1.8 (23.05.2013) Fixed some font warnings (Cudos to Dustin Demuth for the fix)
 % Version: 1.7 (07.09.2012) Updated english claim (living.knowledge)
@@ -11,7 +13,7 @@
 % Version: 1.6 (07.09.2012) Added institutelogo{,small} for institute logos
 % Version: 1.3 (01.03.2012) Make compatible with tikzlibrary "external"
 % Version: 1.2 (30.01.2012) Added option "english" for english WWU claim
-% Version: 1.1 (04.03.2011) Added new version of maketitle command for 
+% Version: 1.1 (04.03.2011) Added new version of maketitle command for
 %                           article, scrbook, etc classes in WWU style
 % Version: 1.0 (03.03.2011) Small adjustments for publication. Colors
 %                           are now globally defined and may be used in
@@ -36,17 +38,18 @@
 %           file, thats all!
 %           You may reset the main color by using COLORCODE
 %           as an option to the package, where COLORCODE is the
-%           name of the color (in one word, all in small letters) 
-%           as defined in the corporate design manual which is 
+%           name of the color (in one word, all in small letters)
+%           as defined in the corporate design manual which is
 %           to be found on the web:
 %           http://www.wwu.de/corporate-design/
 %           Furthermore, if you choose the option "wide", you will get
-%           presentations in 16:10. 
+%           presentations in 16:10.
 % Remark:   This uses the MetaNormal font, which is to be found as
-%           a latex font on the homepage of the WWU and should be available 
+%           a latex font on the homepage of the WWU and should be available
 %           for employees in the tex distribution on the WWU workstations.
-% Authors:   Sven Kaulmann, Martin Drohmann
+% Authors:  Sven Kaulmann, Martin Drohmann, Ulrich Grabowsky (04.09.2017)
 % Maintainer: Sven Kaulmann (sven.kaulmann at uni-muenster dot de)
+%           Ulrich Grabowsky (grabowsky@satzundsonders.de)
 
 %% ========= Required Packages =============
 % for the graphics
@@ -65,48 +68,148 @@
 }
 \RequirePackage{microtype}
 
-\definecolor{pantoneblack7}{RGB}{62,62,59}
-\definecolor{pantone312}{RGB}{0,157,209}
-\definecolor{pantone315}{RGB}{0,110,137}
-\definecolor{pantone3282}{RGB}{0,142,150}
-\definecolor{pantone369}{RGB}{122,181,22}
-\definecolor{pantone390}{RGB}{177,200,0}
-%\definecolor{pantone396}{RGB}{223,219,0}
-%\definecolor{pantoneprozessyellow}{RGB}{255,237,0}
-\definecolor{pantone234}{RGB}{175,0,120}
-\definecolor{pantone7462}{RGB}{0,86,138}
+%\definecolor{prinz}{RGB}{40,40,80}
+\definecolor{prinz}{RGB}{255,255,255}
+%\definecolor{pantoneblack7}{RGB}{62,62,59}
+\definecolor{pantoneblack7}{RGB}{102,102,102}
+\definecolor{white}{RGB}{230,230,230}
+\definecolor{wwublack}{RGB}{102,102,102}
+\definecolor{pantone312}{RGB}{0,157,209}    % Hellblau*
+\definecolor{pantone315}{RGB}{0,110,137}    % Dunkelblau*
+\definecolor{pantone3282}{RGB}{0,142,150}   % Dunkelgruen*
+\definecolor{pantone369}{RGB}{122,181,22}   % Hellgruen
+\definecolor{pantone390}{RGB}{177,200,0}    % Olivgruen
+\definecolor{pantone396}{RGB}{223,219,0}    % Blassgruen
+\definecolor{pantoneprozessyellow}{RGB}{255,237,0}
 
-% set pantone390 as the default main color 
-\definecolor{maincolor}{named}{pantone315}
+% set pantone390 as the default main color
+% Geaendert in pantone312
+\newcommand*{\bg@maincolor}{pantone312}
+\newcommand*{\fn@maincolor}{pantone312}
+\newcommand*{\fn@motiv}{glocke}
+\newcommand*{\wedgeskip}{0pt}
 
 % set the main color
 % for the color definitions see
 % WWU corporate design manual
-\DeclareOption{pantoneblack7}{
-\definecolor{maincolor}{named}{pantoneblack7}}
-\DeclareOption{pantone312}{
-\definecolor{maincolor}{named}{pantone312}}
-\DeclareOption{pantone315}{
-\definecolor{maincolor}{named}{pantone315}}
-\DeclareOption{pantone3282}{
-\definecolor{maincolor}{named}{pantone3282}}
-%\DeclareOption{pantone369}{
-%\definecolor{maincolor}{named}{pantone369}}
-\DeclareOption{pantone390}{
-\definecolor{maincolor}{named}{pantone390}}
-\DeclareOption{pantone396}{
-\definecolor{maincolor}{named}{pantone396}}
-%\DeclareOption{pantoneprozessyellow}{
-%\definecolor{maincolor}{named}{pantoneprozessyellow}}
-\DeclareOption{pantone234}{
-\definecolor{maincolor}{named}{pantone234}}
-\DeclareOption{pantone7462}{
-\definecolor{maincolor}{named}{pantone7462}}
+% Schriftfarbe und Hintergrundfarbe muessen gesondert festgelegt
+% werden, da nicht fuer alle Farben Hintergrunddateien vorliegen.
+% #1: Schriftfarbe
+% #2: Hintergrundfarbe (Namensteil der Hintergrunddatei)
+\newcommand*{\set@wwu@maincolor}[2]{%
+    \renewcommand*{\bg@maincolor}{#1}%
+    \renewcommand*{\fn@maincolor}{#2}%
+    \def\reserved@a{#1}%
+    \def\reserved@b{#2}%
+    \ifx\reserved@a\reserved@b
+    \else
+        \PackageWarning{wwustyle}{Background for font color #1 not available. Background color changed to #2}{}%
+    \fi
+}
+\DeclareOption{pantoneblack7}{%
+    \set@wwu@maincolor{pantoneblack7}{pantone312}}
+\DeclareOption{pantone312}{% Bilder vorhanden
+    \set@wwu@maincolor{pantone312}{pantone312}}
+\DeclareOption{pantone315}{% Bilder vorhanden
+    \set@wwu@maincolor{pantone315}{pantone315}}
+\DeclareOption{pantone3282}{% Bilder vorhanden
+    \set@wwu@maincolor{pantone3282}{pantone3282}}
+\DeclareOption{pantone369}{%
+    \set@wwu@maincolor{pantone369}{pantone312}}
+\DeclareOption{pantone390}{%
+    \set@wwu@maincolor{pantone390}{pantone312}}
+\DeclareOption{pantone396}{%
+    \set@wwu@maincolor{pantone396}{pantone312}}
+\DeclareOption{pantoneprozessyellow}{%
+    \set@wwu@maincolor{pantoneprozessyellow}{pantone312}}
 
+% Das invertierte Titelbild erscheint lediglich auf
+% dem Haupttitel. Dort muss die Schrift dann
+% weiß werden.
+% \fn@invers dient zum Einlesen der entsprechenden Hintergrunddatei
+% \bg@invers schaltet die Farbe um. 04.09.2017 gu
+\newcommand*{\fn@invers}{}
+\newcommand*{\bg@invers}{}
+\newif\if@invers
+\DeclareOption{inverse}{%
+    \@inverstrue
+    \renewcommand*{\fn@invers}{invers}%
+    \renewcommand*{\bg@invers}{invers}%
+}
+
+% Drei Motive liegen vor:
+% Glockenturm des Schlosses,
+% Textkeil,
+% WWU-Schriftzug auf dem Prinzipalmarkt.
+\DeclareOption{belltower}{%
+    \renewcommand*{\fn@motiv}{glocke}%
+}
+\newif\if@wedge
+\@wedgefalse
+\DeclareOption{wedge}{%
+    \@wedgetrue
+    \renewcommand*{\fn@motiv}{textkeil}%
+    \renewcommand*{\wedgeskip}{35mm}%
+}
+\newcommand*{\p@markt}{prinzipalmarkt}
+\DeclareOption{prinz}{%
+    \renewcommand*{\fn@motiv}{prinzipalmarkt}%
+    \@inverstrue
+    \renewcommand*{\fn@invers}{invers}%
+    \renewcommand*{\bg@invers}{invers}%
+}
+
+
+% Als Voreinstellung fuer die Verwendung der Klasse article
+% verwenden wir DIN A4 und den Befehl \make@aiv@title.
+\newcommand*{\din@format}{a4paper}
+\newcommand*{\format@options}{}
+\newif\if@poster
+\@posterfalse
+\let\set@poster\relax
+\DeclareOption{a0poster}{%
+    \let\set@poster\set@poster@null
+}
+\newcommand*{\set@poster@null}{
+    \@postertrue
+    \renewcommand*{\din@format}{a0paper}%
+    \renewcommand*{\maketitle}{\make@poster@title}%
+    \def\posterLogoScale{3.5}%
+    \def\posterClaimScale{3.5}%
+    \def\posterLogoXShift{15cm}%
+    \def\posterLogoYShift{-7cm}%
+    \def\posterClaimXShift{1cm}%
+    \def\posterClaimYShift{2.8cm}%
+    \paperwidth=841mm
+    \paperheight=1189mm
+    \columnsep=20mm
+}
+\DeclareOption{a1poster}{%
+    \let\set@poster\set@poster@one
+}
+\newcommand*{\set@poster@one}{%
+    \@postertrue
+    \renewcommand*{\din@format}{a1paper}
+    \renewcommand*{\maketitle}{\make@poster@title}
+    \def\posterLogoScale{2.5}%
+    \def\posterClaimScale{2.5}%
+    \def\posterLogoXShift{11.3cm}%
+    \def\posterLogoYShift{-4.9cm}%
+    \def\posterClaimXShift{1cm}%
+    \def\posterClaimYShift{1.9cm}%
+    \paperwidth=594mm
+    \paperheight=841mm
+    \columnsep=20mm
+}
+
+% \claimPunktYShift hinzugefuegt, um die Unterlaengen in
+% den englischen Woertern auszugleichen. 22.08.2017 gu
 \newcommand{\claimTextWissen}{wissen}
 \newcommand{\claimTextLeben}{leben}
-\newcommand{\claimPunktXShift}{-3.75mm}
-\newcommand{\claimLebenXShift}{1.4mm}
+\newcommand{\claimText}{wissenleben}
+\newcommand{\claimPunktXShift}{-5.5mm}
+\newcommand{\claimPunktYShift}{-0.8mm}
+\newcommand{\claimLebenXShift}{-1.8mm}
 \newcommand{\claimWWUXShift}{-0.47mm}
 \newcommand{\claimWWUYShift}{6.4mm}
 \newcommand{\claimWWUXXShift}{1.8666mm}
@@ -115,8 +218,10 @@
 {
 \renewcommand{\claimTextWissen}{living}
 \renewcommand{\claimTextLeben}{knowledge}
-\renewcommand{\claimPunktXShift}{-4.7mm}
-\renewcommand{\claimLebenXShift}{4.77mm}
+\newcommand{\claimText}{livingknowledge}
+\renewcommand{\claimPunktXShift}{-6.2mm}
+\renewcommand{\claimPunktYShift}{-0.6mm}
+\renewcommand{\claimLebenXShift}{0.5mm}
 \renewcommand{\claimWWUYShift}{6.9mm}
 \renewcommand{\claimWWUXShift}{0mm}
 \renewcommand{\claimWWUXXShift}{2.3366mm}
@@ -131,13 +236,28 @@
 \newcommand{\logoHeadlineFn}{\includegraphics{wwu-logo-headline}}
 \newcommand{\logoTitleFn}{\includegraphics{wwu-logo-title}}
 \newcommand{\logoTitleSmallFn}{\includegraphics{wwu-logo-title-small}}
-\newcommand{\claimSidebar}{\begin{colormixin}{25!white}\claim{1.25}{90}
+\newcommand{\claimSidebar}{\begin{colormixin}{25!white}\claim{1.25}{90}{pantoneblack7}
 \end{colormixin}}
-\newcommand{\claimMain}{\claim{1}{0}}
-\newcommand{\claimTitle}{\claim{1.75}{0}}
-\newcommand{\logoHeadline}{\wwulogo{0.44}}
-\newcommand{\logoTitle}{\wwulogo{1.12}}
-\newcommand{\logoTitleSmall}{\wwulogo{0.6}}
+% Beim Textkeil wird der gesamte Hintergrund hinterlegt,
+% andernfalls bleibt der Streifen unten frei.
+\newcommand{\claimMain}{%
+    \if@wedge
+        \if@invers
+            \claim{0.5}{0}{white}%
+        \else
+            \claim{0.5}{0}{grey}%
+        \fi
+    \else
+        \claim{0.5}{0}{grey}%
+    \fi
+    }
+\newcommand{\claimTitle}{\claim{1.05}{0}{grey}}
+\newcommand{\logoHeadline}{\wwulogo{0.3}} % Groesse veraendert. 22.08.2017 gu
+\newcommand{\logoTitle}{\wwulogo{1}}
+%\newcommand{\logoTitle}{\wwulogo{1.019}} % Diese Größe entspricht dem Original 1:1
+\newcommand{\logoAzPoster}{\wwulogo{3.5}}
+\newcommand{\logoAiPoster}{\wwulogo{4.12}}
+\newcommand{\logoTitleSmall}{\csname wwulogo\bg@invers\endcsname{0.45}} % Groesse veraendert. 22.08.2017 gu hier auf invers schalten
 \DeclareOption{fast}{
 \renewcommand{\claimSidebar}{\claimSidebarFn}
 \renewcommand{\claimMain}{\claimMainFn}
@@ -145,9 +265,6 @@
 \renewcommand{\logoHeadline}{\logoHeadlineFn}
 \renewcommand{\logoTitle}{\logoTitleFn}
 \renewcommand{\logoTitleSmall}{\logoTitleSmallFn}
-}
-\DeclareOption{noclaim}{
-\renewcommand{\claimSidebar}{}
 }
 
 \newcommand{\wwupreparefastmode}{%
@@ -179,11 +296,11 @@
 \DeclareOption{wide}{%
   \geometry{paperwidth=15.36cm,paperheight=9.6cm}
 }
-\DeclareOption{squared}{%
-  \geometry{paperwidth=12.8cm,paperheight=12.8cm}
-}
 \ProcessOptions\relax
 
+% Die Farboptionen definieren zunaechst \bg@maincolor,
+% dessen Farbangabe hier zugewiesen wird.
+\definecolor{maincolor}{named}{\bg@maincolor}
 
 
 %% ========= Images and Graphics ============
@@ -191,130 +308,159 @@
 % the claim as a tikzpicture, it uses two parameters:
 %% \parameter 1 the scale
 %% \parameter 2 the rotation
-\newcommand{\claim}[2]{
+%% #3 Farbe
+% Schriftgroesse und Groesse des Punkts geaendert. 22.08.2017 gu
+% Um drittes Argment (Farbe) ergaenzt. 04.09.2017 gu
+
+
+\newcommand*{\bgbox}[1]{\colorbox{maincolor}{#1}}
+
+\newcommand{\claim}[3]{%
+    \if@poster
+    \strut\hskip\posterClaimXShift\rlap{\includegraphics[scale=#1]{\claimText#3}}%
+    \else
+    \strut\hskip-16mm\rlap{\includegraphics[scale=#1]{\claimText#3}}%
+    \fi
+}
+
+\newcommand{\claimALT}[3]{
 \begin{tikzpicture}[scale=#1, node distance=9.9mm, rotate=#2, transform shape]
   %% wissen
   \node (wissen)  {
-    \color{pantoneblack7}
-    \fontsize{3.8mm}{1mm}\selectfont 
-    \usefont{T1}{fMt}{m}{n}
-    \claimTextWissen
+    \color{#3}
+    \fontsize{2.8mm}{1mm}\selectfont
+    \usefont{T1}{fMt}{b}{n}
+    \claimTextWissen *
   };
   %% Punkt
   \node [circle,
-    minimum width=0.9mm,
+    minimum width=0.45mm,
     inner sep=0,
-    fill=maincolor, 
-    yshift=-1mm, 
-    xshift=\claimPunktXShift, 
+    fill=#3,
+    yshift=\claimPunktYShift,
+    xshift=\claimPunktXShift,
     right of=wissen] (Punkt) {};
   %% leben
   \node[
     xshift=\claimLebenXShift,
     right of=wissen] (leben) {
-      \color{pantoneblack7}
-      \fontsize{3.8mm}{1mm}\selectfont
-      \usefont{T1}{fMt}{m}{n}
+      \color{#3}
+      \fontsize{2.8mm}{1mm}\selectfont
+      \usefont{T1}{fMt}{b}{n}
       \claimTextLeben
     };
-  %% WWU
-  \node[
-    xshift=\claimWWUXShift,
-    yshift=\claimWWUYShift,
-    below of=wissen] (WWU) {\textcolor{pantoneblack7!50}{\fontsize{3.8mm}{1mm}\selectfont
-        \usefont{T1}{fMt}{m}{n}
-        WWU}};
-  %% Mï¿½nster
-  \node[
-    xshift=\claimWWUXXShift,
-    right of=WWU] {\textcolor{pantoneblack7!50}{\fontsize{3.8mm}{1mm}\selectfont 
-        \usefont{T1}{fMt}{m}{n}
-        M\"unster}};
+
+% WWU Münster unterhalb von wissen.leben entfernt. 22.08.2017 gu
+% %% WWU
+% \node[
+%   xshift=\claimWWUXShift,
+%   yshift=\claimWWUYShift,
+%   below of=wissen] (WWU) {\textcolor{pantoneblack7!50}{\fontsize{3.8mm}{1mm}\selectfont
+%       \usefont{T1}{fMt}{m}{n}
+%       WWU}};
+% %% Mï¿½nster
+% \node[
+%   xshift=\claimWWUXXShift,
+%   right of=WWU] {\textcolor{pantoneblack7!50}{\fontsize{3.8mm}{1mm}\selectfont
+%       \usefont{T1}{fMt}{m}{n}
+%       M\"unster}};
 \end{tikzpicture}
 } % end of newcommand
 
 %% the logo as tikzpicture, is takes one parameter
 %% \parameter 1 the scale
-\newcommand{\wwulogo}[1]{
+%%% In das Logo von 2017 umgearbeitet: Balkenstaerke und Gesamthoehe
+%%% leicht veraendert, Schriftzug angepasst.
+%%% Eine Skalierung von 1.02 ergibt die Originalgroesse des neuen Logos.
+%%% 22.08.2017 gu
+\newcommand{\wwulogo}[1]{\wwu@logo{#1}{wwublack}}
+\newcommand{\wwulogoinvers}[1]{\wwu@logo{#1}{white}}
+\newcommand{\wwulogoposter}[1]{\wwu@logo{#1}{white}}
+
+\newcommand*{\wwu@logo}[2]{%
   \begin{tikzpicture}[
     node distance=1.866666666mm,
     transform shape,
     scale=#1]
-    \tikzstyle{every node}=[inner sep=0mm, fill=pantoneblack7]
+    %scale=1.02]
+    \tikzstyle{every node}=[inner sep=0mm, fill=#2]
     \tikzstyle{mytextnode}=[inner sep=0mm, below left of=bar,fill=none,
-    text=pantoneblack7]
+    color=#2]
     % the first bar
   \node[rectangle,
-             minimum height=1.45mm,
-             minimum width=0.62mm] (bar)  {};
+             color=#2,
+             minimum height=1.6mm,
+             minimum width=0.7mm] (bar)  {};
   % the second bar
   \node[below of = bar,
             rectangle,
-            minimum height=0.63mm,
+             color=#2,
+            minimum height=0.7mm,
             minimum width=2.6mm,
             yshift=0.26mm] {};
   % the third bar
   \node[below of = bar,
              rectangle,
-             minimum height=1.4mm,
+             color=#2,
+             minimum height=1.6mm,
              minimum width=4.5mm,
-             yshift=-3mm] {};
+             yshift=-3.2mm] {};
   % the fourth bar
   \node[below left of=bar,
             rectangle,
-            minimum height=1.38mm,
+             color=#2,
+            minimum height=1.5mm,
             minimum width=17.8mm,
-            yshift=-6.35mm,
+            yshift=-7mm,
             xshift=-12.1mm] (fourth) {};
   % the fifth bar
   \node[below left of=bar,
              rectangle,
-             minimum height=1.38mm,
+             color=#2,
+             minimum height=1.6mm,
              minimum width=17.8mm,
-             yshift=-6.35mm,
+             yshift=-7mm,
              xshift=14.85mm] (fifth) {};
   % the sixth bar
   \node[below of=bar,
              rectangle,
-             minimum height=0.65mm,
+             color=#2,
+             minimum height=0.7mm,
              minimum width=44.75mm,
-             yshift=-9.4mm,
+             yshift=-10.7mm,
              xshift=0.05mm] {};
   % the  seventh bar
   \node[below of=bar,
              rectangle,
-             minimum height=1.4mm,
+             color=#2,
+             minimum height=1.6mm,
              minimum width=44.75mm,
-             yshift=-15.7mm,
+             %yshift=-17.5mm,
+             yshift=-17.8mm,
              xshift=0.05mm] {};
-  % Westfï¿½lische
   \node[mytextnode,
-  yshift=-7.0mm,
-  xshift=39.8mm] {
-    \fontsize{4mm}{1mm}\selectfont
+  yshift=-9.9mm,
+  xshift=40mm] {
+    \fontsize{10.6mm}{1mm}\selectfont
     \usefont{T1}{fMt}{b}{sc}
-    \textls[15]{Westf\"alische}
+    \textls[15]{WWU}
   };
-  % Wilhelms-Universitï¿½t
   \node[mytextnode,
-  yshift=-11.5mm,
-  xshift=47.7mm] {
-    \fontsize{4mm}{1mm}\selectfont
-    \usefont{T1}{fMt}{b}{sc}
-    \textls[15]{Wilhelms-Universit\"at}
-  };
-  % Mï¿½nster
-  \node[mytextnode,
-  yshift=-15.8mm,
-  xshift=35.6mm] {
-    \fontsize{4mm}{1mm}\selectfont
-    \usefont{T1}{fMt}{b}{sc}
-    \textls[15]{M\"unster}
+  yshift=-17mm,
+  xshift=40.1mm] {
+    \fontsize{4.3mm}{1mm}\selectfont
+    \usefont{T1}{fMt}{m}{n}
+    \textls[15]{M\spatium \"U\spatium N\spatium S\spatium T\spatium E\spatium R}
   };
 
   \end{tikzpicture}
 } % end of the logo
 
+%
+\newcommand*{\spatium}{\kern0.23em}
+\newbox\bg@title
+\def\hintergrundbild{\setbox\bg@title\hbox{\includegraphics[height=\paperheight]{\fn@maincolor\fn@motiv\fn@invers.pdf}}}%
+\AtBeginDocument{\hintergrundbild}
 
 \@ifclassloaded{beamer}{%
 
@@ -337,6 +483,7 @@
 \setbeamertemplate{navigation symbols}{}
 % set the right side width so the logo fits there
 \setbeamersize{sidebar width right=1.1cm}
+\setbeamersize{sidebar width left=-.25cm}
 
 
 % by default give only current page number
@@ -368,7 +515,6 @@
 \definecolor{fu-blue}{RGB}{0, 51, 102} % blue text
 \definecolor{fu-green}{RGB}{153, 204, 0} % green text
 \definecolor{fu-red}{RGB}{204, 0, 0} % red text (used by \alert)
-\definecolor{pantoneblack7}{RGB}{62,62,59}
 
 
 
@@ -380,42 +526,114 @@
 \setbeamercolor*{example text}{fg=fu-green}
 \setbeamercolor*{structure}{fg=maincolor}
 
-\setbeamercolor*{block title}{fg=white,bg=maincolor}
+%\setbeamercolor*{block title}{fg=white,bg=maincolor}
+\setbeamercolor*{block title}{fg=pantoneblack7,bg=}
 \setbeamercolor*{block title alerted}{fg=white,bg=fu-red}
 \setbeamercolor*{block title example}{fg=white,bg=fu-green}
 
-\setbeamercolor*{block body}{bg=maincolor!5}
+\setbeamercolor*{block body}{bg=}
 \setbeamercolor*{block body alerted}{bg=fu-red!10}
 \setbeamercolor*{block body example}{bg=fu-green!10}
 
 \setbeamercolor{bibliography entry author}{fg=fu-blue}
 % TODO: this doesn't work at all:
 \setbeamercolor{bibliography entry journal}{fg=text-grey}
-\setbeamercolor{item}{fg=maincolor}
 
+
+% Die Einstellungen fuer Listen sind anscheinend nur durch
+% ein Mischmasch von Beamer- und LaTeX-Code einzustellen.
+% gu 06.09.2017
+\setbeamercolor{item}{fg=pantoneblack7}
+\setbeamertemplate{itemize/enumerate body begin}{\small}
+\setbeamertemplate{itemize/enumerate subbody begin}{\small}
+\setbeamertemplate{itemize/enumerate subsubbody begin}{\small}
+\defbeamertemplate{itemize item}{dash}{--}
+\defbeamertemplate{itemize subitem}{dash}{--}
+\defbeamertemplate{itemize subsubitem}{dash}{--}
+
+\defbeamertemplate{enumerate item}{dash}
+{
+  \hbox{%
+    \leavevmode\hbox to2.25ex{%
+      \hfil%
+      \insertenumlabel%
+      \hfil}%
+  }%
+}
+[action]
+{\setbeamerfont{item projected}{size=\normalsize}}
+
+\defbeamertemplate{enumerate subitem}{dash}
+{
+  \hbox{%
+    \hbox to2.25ex{%
+      \hfil%
+      \insertsubenumlabel%
+      \hfil}%
+  }%
+}
+
+\defbeamertemplate{enumerate subsubitem}{dash}
+{
+  \hbox{%
+    \hbox to2.25ex{%
+      \hfil%
+      \insertsubsubenumlabel%
+      \hfil}%
+  }%
+}
+
+
+\setbeamertemplate{items}[dash]
+
+\leftmargini=4mm
+\leftmarginii=4mm
+\leftmarginiii=4mm
+\labelwidth=3mm
+\labelsep=1mm
+
+% Die folgenden Definitionen erreichen das gewuenschte Ziel:
+% Verschachtelte \item haben nun denselben Durchschuss.
+% (Logisch ist das nicht.)
+\def\@listii {\leftmargin\leftmarginii
+              \labelwidth\leftmarginii
+              \advance\labelwidth-\labelsep
+              \topsep    0pt
+              \parsep    0pt
+              \itemsep   \topsep}
+\def\@listiii{\leftmargin\leftmarginiii
+              \labelwidth\leftmarginiii
+              \advance\labelwidth-\labelsep
+              \topsep    4pt
+              \parsep    0pt
+              \partopsep 0pt
+              \itemsep   \topsep}
 
 % sidebar
 \setbeamertemplate{sidebar right}{
   {
-  \skipexternalization
-  \begin{tikzpicture}[remember picture, overlay]
-    \node[anchor=east,inner sep=0,yshift=-2.25cm,xshift=0.3mm] (sidebarclaim) at (current page.east) {
-        \claimSidebar
-    };
-  \end{tikzpicture}
+% Spruch an der Seite entfernt. 22.08.2017 gu
+%  \skipexternalization
+%  \begin{tikzpicture}[remember picture, overlay]
+%    \node[anchor=east,inner sep=0,yshift=-2.25cm,xshift=0.3mm] (sidebarclaim) at (current page.east) {
+%       \claimSidebar
+%    };
+%  \end{tikzpicture}
   }
 }
 
 % frame title
-\setbeamertemplate{frametitle}{
+\setbeamertemplate{frametitle}{%
+    \vskip4mm
   \fontsize{14pt}{1pt}
   \selectfont
-    \hskip-2.4mm 
+    %\hskip-2.4mm
     \color{maincolor}
     \begin{minipage}[b][20pt]{\textwidth}
       %\textgreater\,
-      \insertframetitle
+      \textbf{\insertframetitle}%
     \end{minipage}
+    \vskip-10mm
 }
 
 % headline
@@ -434,32 +652,53 @@
   \end{tikzpicture}
   }
   \hfill
-  \insertshorttitle 
+  \textbf{\color{maincolor}\let\bgbox\relax\insertshorttitle}%
   \hskip2mm %title on the right
   \parbox[b]{10mm}{
-    {\color{maincolor}\rule{0.8pt}{12mm} }
-\hskip1mm    \textcolor{currentframenumbercolor}{\insertframenumber}
-    \textcolor{slashcolor}{/}\textcolor{totalframenumbercolor}{\inserttotalframenumber}
+    % Der Strich darf hier nur optisch entfallen, denn durch ihn reguliert
+    % sich zugleich die Hoehe der Kopfzeile.
+    % Die Seitenzahl entfaellt. 22.08.2017 gu
+    {\color{maincolor}\rule{0pt}{12mm} }
+%   \hskip1mm    \textcolor{currentframenumbercolor}{\insertframenumber}
+%    \textcolor{slashcolor}{/}\textcolor{totalframenumbercolor}{\inserttotalframenumber}
   }
 }% end headline
 % title page
+% Der Hintergrund fuer die Titelseite ist in \bg@title abgelegt.
+% Diese Box wird auf der ersten Seite ausgegeben und ist
+% anschliessend leer. 23.08.2017 gu
+\setbeamertemplate{background canvas}{%
+    \hbox to \paperwidth{\hss\box\bg@title}%
+}
 \setbeamertemplate{title page}{
  \fontsize{11pt}{1pt}
   \selectfont
-  \setlength{\leftmargin}{0mm}% 
   %% set the title and the author
   \setlength{\unitlength}{1mm}
-  \begin{picture}(0,0)
-    \put(-2.5,8){\parbox[c]{10.75cm}{
-        \fontsize{15pt}{14pt}
+  \begin{picture}(0,15)
+    \put(0,8){\parbox[c]{10.75cm}{
+        \fontsize{16pt}{20pt}
         \selectfont
-        \color{maincolor}
-        \inserttitle
+        \edef\curr@fnt@color{maincolor}%
+        \if@invers
+            \edef\curr@fnt@color{white}%
+        \fi
+        % Beim Motiv Prinzipalmarkt auf die Farbe `prinz' umschalten.
+        \ifx\p@markt\fn@motiv
+            \edef\curr@fnt@color{prinz}%
+        \fi
+        % Bei inversem Titelbild auf weiße Schrift umschalten.
+        % Der Untertitel (s.u.) steht dann besser in halbfett.
+        \color{\curr@fnt@color}
+        {\bfseries
+            \inserttitle
+        }
         \par
-        \color{black}
-        \fontsize{9pt}{14pt}
+        \vskip2mm
+        \fontsize{8pt}{10pt}
         \selectfont
-        \insertsubtitle
+        \insertsubtitle\par
+        \insertauthor
         \par
       }
     }
@@ -467,66 +706,81 @@
     {
     \skipexternalization
     \begin{tikzpicture}[overlay,remember picture]
-      \node (authornode) [yshift=0.5cm, inner sep=0,text width=0.33\linewidth, text centered, anchor=base] at (current page.south) 
-     {\color{pantoneblack7}
-       \fontsize{8pt}{14pt}
-       \selectfont
-       \insertauthor};
-      \node (datenode) [yshift=0.5cm,xshift=-1.8cm, inner sep=0, anchor=base] at (current page.south east)
-      {\color{pantoneblack7}
-       \fontsize{8pt}{14pt}
-       \selectfont
-       \insertdate};
-
+%      \node (authornode) [yshift=0.5cm, inner sep=0,text width=0.33\linewidth, text centered, anchor=base] at (current page.south)
+%     {\color{pantoneblack7}
+%       \fontsize{8pt}{14pt}
+%       \selectfont
+%       %\insertauthor
+%       };
+% Anstelle des Datums steht hier nunmehr das Institutslogo. 22.08.2017 gu
+% Ich habe es in eine \llap{} gepackt, weil nicht vorhersehbar ist,
+% was dort erscheinen soll.
+      \node (datenode) [yshift=0.7cm,xshift=-1cm, inner sep=0, anchor=base] at (current page.south east)
+      {\color{pantoneblack7}%
+      \if@wedge
+            \if@invers
+                \color{white}%
+            \fi
+        \fi
+       \llap{\fontsize{6pt}{8pt}\selectfont\@institutelogo\hskip\wedgeskip}%
+       };
    \end{tikzpicture}
    }
   \end{picture}
   {
   \skipexternalization
   \begin{tikzpicture}[remember picture,overlay]
+% Die Hintergrundbalken gibt es nicht mehr. 22.08.2017 gu
     %% the 1. rectangle
-    \node [xshift=-0.1cm,yshift=-1.95cm] at (current page.north east)
-    [rectangle, 
-    inner sep=0mm,
-    minimum height=0.45cm,
-    minimum width=0.19cm,
-    fill=maincolor
-    ] {};
-
+%    \node [xshift=-0.1cm,yshift=-1.95cm] at (current page.north east)
+%    [rectangle,
+%    inner sep=0mm,
+%    minimum height=0.45cm,
+%    minimum width=0.19cm,
+%    fill=maincolor
+%    ] {};
     %% the 2. rectangle
-    \node [xshift=-0.27cm,yshift=-2.49cm] at (current page.north east)
-    [rectangle, 
-    inner sep=0mm,
-    minimum height=0.21cm,
-    minimum width=0.53cm,
-    fill=maincolor
-    ] {};
+%    \node [xshift=-0.27cm,yshift=-2.49cm] at (current page.north east)
+%    [rectangle,
+%    inner sep=0mm,
+%    minimum height=0.21cm,
+%    minimum width=0.53cm,
+%    fill=maincolor
+%    ] {};
     %% the 3. rectangle
-    \node [xshift=-0.415cm,yshift=-3.54cm] (thirdrec) at (current page.north east)
-    [rectangle, 
-    inner sep=0,
-    minimum height=0.45cm,
-    minimum width=0.85cm,
-    fill=maincolor
-    ] {};
+%    \node [xshift=-0.415cm,yshift=-3.54cm] (thirdrec) at (current page.north east)
+%    [rectangle,
+%    inner sep=0,
+%    minimum height=0.45cm,
+%    minimum width=0.85cm,
+%    fill=maincolor
+%    ] {};
     %% the 4. rectangle
-    \node[xshift=-1.15cm, yshift=-0.46cm] (helpernode4) at (thirdrec.south){};
-    \fill[maincolor] (current page.west)+(0,0.12cm)
-    rectangle (helpernode4);
+%    \node[xshift=-1.15cm, yshift=-0.46cm] (helpernode4) at (thirdrec.south){};
+%    \fill[maincolor] (current page.west)+(0,0.12cm)
+%    rectangle (helpernode4);
     %% the 5. rectangle
-    \node[yshift=-0.71cm] (helpernode5) at (current page.east){};
-    \fill[maincolor] (current page.west)+(0,-0.94cm)
-    rectangle (helpernode5);
+%    \node[yshift=-0.71cm] (helpernode5) at (current page.east){};
+%    \fill[maincolor] (current page.west)+(0,-0.94cm)
+%    rectangle (helpernode5);
     %% the 6. rectangle
-    \node[yshift=-3.08cm] (helpernode6) at (current page.east){};
-    \fill[maincolor] (current page.west)++(0,-2.63cm)
-    rectangle (helpernode6);
+%    \node[yshift=-3.08cm] (helpernode6) at (current page.east){};
+%    \fill[maincolor] (current page.west)++(0,-2.63cm)
+%    rectangle (helpernode6);
     %% the claim
-    \node [xshift=1.72cm,yshift=0.8cm] at (current page.south west)
+    \node [xshift=1.3cm,yshift=0.8cm] at (current page.south west)
     (claim) {\claimMain};
+% Der Autor steht unten auf der Seite.
+    \node [xshift=2.72cm,yshift=0.8cm] at (current page.south west)
+    (claim) {
+        \fontsize{6pt}{8pt}
+        \selectfont
+        %\insertauthor
+        };
     %% the logo
-    \node [xshift=6.39cm,yshift=-1cm,anchor=west] at (current page.north west)
-    {\@institutelogo};
+%    \node [xshift=6.39cm,yshift=-1cm,anchor=west] at (current page.north west)
+%    {\@institutelogo};
+% Das Logo steht oben.
     \node [xshift=0.39cm,yshift=-1cm,anchor=west] at (current page.north west)
     {\logoTitleSmall};
   \end{tikzpicture}
@@ -534,24 +788,22 @@
 } %end title page
 
 % footline
+% Umgearbeitet in die neue Vorlage: Ein Strich statt zwei
+% Strichen, Seitenzahl. 22.08.2017 gu
 \setbeamertemplate{footline}{%
   \fontsize{6pt}{1pt}%
   \selectfont%
   \vskip4pt%
   \color{maincolor}%
-  \rule{\textwidth}{1.2pt}% horizontal line
-  \vskip2pt%
   \rule{\textwidth}{0.8pt}% horizontal line
-  \vskip5pt%
-  \rule{\textwidth}{1.2pt}% horizontal line
-  \vskip2pt%
+  \vskip4mm%
   \color{black}%
   \hspace{5mm}%
-  \insertshortauthor%
-  \vskip4pt%
+  \textcolor{wwublack}{\let\bgbox\relax\insertshortauthor}\hfill\textcolor{maincolor}{\fontsize{9pt}{12pt}\selectfont\textbf{\thepage}}\hspace{5mm}\strut%
+  \vskip4mm%
   }% end footline
 } % true-branch of ifclassloaded
-{
+{%
 
 % define the institute logo command
 \newcommand{\@institutelogo}{}
@@ -564,30 +816,35 @@
   \renewcommand{\@subtitle}{#1}
 }
 
+\set@poster
+\if@poster
+\else
 % force DIN-A4 paper
-\RequirePackage{geometry}
-\geometry{a4paper}
+    \RequirePackage{geometry}
+    \geometry{a4paper}
+    \renewcommand*{\maketitle}{\make@aiv@title}
+\fi
 
-\renewcommand{\maketitle}{ %replace standard LaTeX-command
+\newcommand{\make@aiv@title}{ %replace standard LaTeX-command
 \begin{titlepage}
  {
  \sf
- \setlength{\leftmargin}{0mm}% 
+ \setlength{\leftmargin}{0mm}%
  \setlength{\unitlength}{1mm}
  \skipexternalization
  \begin{tikzpicture}[remember picture,overlay]
 %  \node [yshift=-0.8mm,xshift=-0.35mm]at (current page.center) {\includegraphics[width=21cm]{seite_einzeln}};
     %% the logo
-    \node [xshift=6.4cm,yshift=-2.5cm] at (current page.north west)
+    \node [xshift=5.5cm,yshift=-2.5cm] at (current page.north west)
     {\logoTitle};
     %% the title
     \node (greaternode) [xshift=1.4cm,yshift=-7.86cm,anchor=base west] at (current page.north west)
     [inner sep=0mm] {
-      \fontsize{26pt}{11pt}\selectfont\color{maincolor}\textgreater};
+      \fontsize{26pt}{11pt}\selectfont\color{maincolor}};%\textgreater};
     \node (titlenode) [xshift=1.85cm,yshift=-7.2cm,anchor=base west] at (current page.north west)
     [inner sep=0mm,text width=16.45cm] {
       \color{maincolor}
-      \fontsize{26pt}{28pt}\selectfont\textls[15]{\@title}\par
+      \fontsize{26pt}{28pt}\selectfont\textls[15]{\llap{> }\@title}\par
     };
     \node [xshift=1.85cm,yshift=-10.65cm, anchor=south west] at (current page.north west)
     [inner sep=0mm,text width=16.45cm, minimum width=16.45cm] {
@@ -597,7 +854,7 @@
     };
     %% the 1. rectangle
     \node [yshift=-5.2cm,anchor=north east] at (current page.north east)
-    [rectangle, 
+    [rectangle,
     inner sep=0mm,
     minimum height=1.4cm,
     minimum width=0.45cm,
@@ -605,7 +862,7 @@
     ] {};
     %% the 2. rectangle
     \node [yshift=-7.2cm,anchor=north east] at (current page.north east)
-    [rectangle, 
+    [rectangle,
     inner sep=0mm,
     minimum height=0.7cm,
     minimum width=1.25cm,
@@ -613,7 +870,7 @@
     ] {};
     %% the 3. rectangle
     \node [yshift=-10.5cm,anchor=north east] (thirdrec) at (current page.north east)
-    [rectangle, 
+    [rectangle,
     inner sep=0,
     minimum height=1.4cm,
     minimum width=2.2cm,
@@ -622,7 +879,7 @@
     %% the 4. rectangle
     \node [yshift=-13.2cm, anchor=north west] (fourthrec) at (current
     page.north west)
-    [rectangle, 
+    [rectangle,
     inner sep=0,
     minimum height=1.4cm,
     minimum width=16.450cm,
@@ -631,7 +888,7 @@
     %% the 5. rectangle
     \node [yshift=-17.2cm, anchor=north west] (fifthrec) at (current
     page.north west)
-    [rectangle, 
+    [rectangle,
     inner sep=0,
     minimum height=0.7cm,
     minimum width=21cm,
@@ -640,23 +897,250 @@
     %% the 6. rectangle
     \node [yshift=-23.1cm, anchor=north west] (sixthrec) at (current
     page.north west)
-    [rectangle, 
+    [rectangle,
     inner sep=0,
     minimum height=1.4cm,
     minimum width=21cm,
     fill=maincolor
     ] {};
     %% the claim
-    \node [xshift=1.4cm,yshift=1.4cm, inner sep=0, anchor=south west] at (current page.south west)
+    \node [xshift=1.8cm,yshift=1.4cm, inner sep=0, anchor=south west] at (current page.south west)
     (claim) {\claimTitle};
-    \node [xshift=-1.4cm,yshift=1.4cm, anchor=south east] at (current page.south east)
-    [inner sep=0mm] {%,align=right] {
-      \@institutelogo
-    };
   \end{tikzpicture}
   }
 \end{titlepage}
 }
+
+\newcommand{\make@poster@title}{ %replace standard LaTeX-command
+ {%
+ \sf
+ \setlength{\unitlength}{1mm}%
+ \skipexternalization
+ \begin{tikzpicture}[remember picture,overlay]
+    %% Querbalken oben
+    \node [anchor=north west] at (current page.north west)
+    [rectangle,
+    inner sep=0mm,
+    minimum height=0.12\paperheight,
+    minimum width=\paperwidth,
+    fill=maincolor
+    ] {};
+    % Querbalken unten
+    \node [yshift=-0.94\paperheight, anchor=north west] at (current page.north west)
+    [rectangle,
+    inner sep=0mm,
+    minimum height=0.06\paperheight,
+    minimum width=\paperwidth,
+    fill=maincolor
+    ] {};
+    \node [xshift=\posterLogoXShift,yshift=\posterLogoYShift] at (current page.north west)
+    {\wwulogoposter{\posterLogoScale}};
+    %% the claim
+    \node [xshift=\posterClaimXShift, yshift=\posterClaimYShift, inner sep=0, anchor=south west] at (current page.south west)
+    (claim) {\claim{\posterClaimScale}{0}{white}};
+  \end{tikzpicture}%
+  }\ignorespaces
+}
+
+\if@poster
+    % Die Angaben fuer Schriftgroessen etc. sind hier bewusst
+    % direkt eingebunden.
+    \pdfpageheight=\paperheight
+    \pdfpagewidth=\paperwidth
+    \textheight=0.77\paperheight
+    \topmargin=0.10\paperheight
+    \oddsidemargin=\dimexpr \columnsep -1in\relax
+    \evensidemargin=\oddsidemargin
+    \textwidth=\dimexpr\paperwidth-2\columnsep\relax
+
+    \renewcommand{\rmdefault}{fMt}
+
+    \leftmargini=20pt
+    \renewcommand\normalsize{%
+       \@setfontsize\normalsize{20pt}{24pt}
+       \abovedisplayskip 20\p@ \@plus6\p@ \@minus5\p@
+       \abovedisplayshortskip \z@ \@plus9\p@
+       \belowdisplayshortskip 12\p@ \@plus9\p@ \@minus3\p@
+       \belowdisplayskip \abovedisplayskip
+       \let\@listi\@listI}
+    \normalsize
+    \renewcommand\small{%
+       \@setfontsize\small{16pt}{19pt}
+       \abovedisplayskip 14\p@ \@plus5\p@ \@minus4\p@
+       \abovedisplayshortskip \z@ \@plus4\p@
+       \belowdisplayshortskip 8\p@ \@plus4\p@ \@minus3\p@
+       \def\@listi{\leftmargin\leftmargini
+                   \topsep 4\p@ \@plus2\p@ \@minus2\p@
+                   \parsep 2\p@ \@plus\p@ \@minus\p@
+                   \itemsep \parsep}%
+       \belowdisplayskip \abovedisplayskip
+    }
+    \renewcommand\footnotesize{%
+       \@setfontsize\footnotesize{14pt}{16.8pt}%
+       \abovedisplayskip 6\p@ \@plus2\p@ \@minus4\p@
+       \abovedisplayshortskip \z@ \@plus\p@
+       \belowdisplayshortskip 3\p@ \@plus\p@ \@minus2\p@
+       \def\@listi{\leftmargin\leftmargini
+                   \topsep 3\p@ \@plus\p@ \@minus\p@
+                   \parsep 2\p@ \@plus\p@ \@minus\p@
+                   \itemsep \parsep}%
+       \belowdisplayskip \abovedisplayskip
+    }
+    \renewcommand\scriptsize{\@setfontsize\scriptsize\@viipt\@viiipt}
+    \renewcommand\tiny{\@setfontsize\tiny\@vpt\@vipt}
+    \renewcommand\large{\@setfontsize\large{40pt}{48pt}} % author
+    \renewcommand\Large{\@setfontsize\Large{60pt}{72pt}} % section
+    \renewcommand\LARGE{\@setfontsize\LARGE{70pt}{84pt}}
+    \renewcommand\huge{\@setfontsize\huge{75pt}{90pt}}
+    \renewcommand\Huge{\@setfontsize\Huge{80pt}{96pt}} % subcect
+    \setlength\parindent{0pt}
+    \setlength\parskip{3mm plus 0.5mm minus 0.5mm}
+    \setlength\smallskipamount{3\p@ \@plus 1\p@ \@minus 1\p@}
+    \setlength\medskipamount{6\p@ \@plus 2\p@ \@minus 2\p@}
+    \setlength\bigskipamount{12\p@ \@plus 4\p@ \@minus 4\p@}
+    \setlength\headheight{12\p@}
+    \setlength\headsep   {25\p@}
+    \setlength\topskip   {10\p@}
+    \setlength\footskip{30\p@}
+    \if@compatibility \setlength\maxdepth{4\p@} \else
+    \setlength\maxdepth{.5\topskip} \fi
+    \if@twocolumn
+     \setlength\marginparsep {10\p@}
+    \else
+      \setlength\marginparsep{11\p@}
+    \fi
+    \setlength\marginparpush{5\p@}
+    \setlength\footnotesep{6.65\p@}
+    \setlength{\skip\footins}{9\p@ \@plus 4\p@ \@minus 2\p@}
+    \setlength\floatsep    {12\p@ \@plus 2\p@ \@minus 2\p@}
+    \setlength\textfloatsep{20\p@ \@plus 2\p@ \@minus 4\p@}
+    \setlength\intextsep   {12\p@ \@plus 2\p@ \@minus 2\p@}
+    \setlength\dblfloatsep    {12\p@ \@plus 2\p@ \@minus 2\p@}
+    \setlength\dbltextfloatsep{20\p@ \@plus 2\p@ \@minus 4\p@}
+    \setlength\@fptop{0\p@ \@plus 1fil}
+    \setlength\@fpsep{8\p@ \@plus 2fil}
+    \setlength\@fpbot{0\p@ \@plus 1fil}
+    \setlength\@dblfptop{0\p@ \@plus 1fil}
+    \setlength\@dblfpsep{8\p@ \@plus 2fil}
+    \setlength\@dblfpbot{0\p@ \@plus 1fil}
+    \setlength\partopsep{2\p@ \@plus 1\p@ \@minus 1\p@}
+    \def\@listi{\leftmargin\leftmargini
+                \parsep 4\p@ \@plus2\p@ \@minus\p@
+                \topsep 8\p@ \@plus2\p@ \@minus4\p@
+                \itemsep4\p@ \@plus2\p@ \@minus\p@}
+    \let\@listI\@listi
+    \@listi
+    \def\@listii {\leftmargin\leftmarginii
+                  \labelwidth\leftmarginii
+                  \advance\labelwidth-\labelsep
+                  \topsep    4\p@ \@plus2\p@ \@minus\p@
+                  \parsep    2\p@ \@plus\p@  \@minus\p@
+                  \itemsep   \parsep}
+    \def\@listiii{\leftmargin\leftmarginiii
+                  \labelwidth\leftmarginiii
+                  \advance\labelwidth-\labelsep
+                  \topsep    2\p@ \@plus\p@\@minus\p@
+                  \parsep    \z@
+                  \partopsep \p@ \@plus\z@ \@minus\p@
+                  \itemsep   \topsep}
+    \def\@listiv {\leftmargin\leftmarginiv
+                  \labelwidth\leftmarginiv
+                  \advance\labelwidth-\labelsep}
+    \def\@listv  {\leftmargin\leftmarginv
+                  \labelwidth\leftmarginv
+                  \advance\labelwidth-\labelsep}
+    \def\@listvi {\leftmargin\leftmarginvi
+                  \labelwidth\leftmarginvi
+                  \advance\labelwidth-\labelsep}
+
+    \renewcommand\section{\@startsection {section}{1}{\z@}%
+                                       {-2.5ex \@plus -1ex \@minus -.2ex}%
+                                       {.3ex \@plus.2ex}%
+                                       {\normalfont\Large\color{maincolor}}}
+    \renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                         {-2.25ex\@plus -1ex \@minus -.2ex}%
+                                         {.3ex \@plus .2ex}%
+                                         {\normalfont\large\color{maincolor}}}
+    \renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                                         {-2.25ex\@plus -1ex \@minus -.2ex}%
+                                         {.3ex \@plus .2ex}%
+                                         {\normalfont\normalsize\color{maincolor}}}
+    \renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+                                        {2.25ex \@plus1ex \@minus.2ex}%
+                                        {-1em}%
+                                        {\normalfont\normalsize\bfseries}}
+    \renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+                                           {3.25ex \@plus1ex \@minus .2ex}%
+                                           {-1em}%
+                                          {\normalfont\normalsize\color{maincolor}}}
+
+
+    \newcommand*{\postersubject}[1]{{\Huge\color{maincolor} #1\par}\vskip2\baselineskip}
+
+    \newcommand*{\posterauthor}[1]{{\large #1\par}\vskip1\baselineskip}
+
+    % posterbox entspricht im wesentlichen \fbox.
+    \newbox\@posterfbox
+
+    \newcommand{\posterbox}[1]{%
+        \fboxsep=10mm
+        \fboxrule=1pt
+        \setbox\@posterfbox\vbox\bgroup%
+        \hsize=\linewidth
+        \advance\hsize by -2\fboxsep
+        \advance\hsize by -2\fboxrule
+        #1\par
+    }
+
+    \def\endposterbox{\egroup{\posterfbox{\box\@posterfbox}}}
+
+    \long\def\posterfbox#1{%
+      \leavevmode
+      \setbox\@tempboxa\hbox{%
+        \color@begingroup
+          \kern\fboxsep{#1}\kern\fboxsep
+        \color@endgroup}%
+      \poster@frameb@x\relax}
+
+    \def\poster@frameb@x#1{%
+      \@tempdima\fboxrule
+      \advance\@tempdima\fboxsep
+      \advance\@tempdima\dp\@tempboxa
+      \hbox{%
+        \lower\@tempdima\hbox{%
+          \vbox{%
+        \color@begingroup
+        \color{maincolor}
+            \hrule\@height\fboxrule
+        \color@endgroup
+            \hbox{%
+        \color@begingroup
+        \color{maincolor}
+              \vrule\@width\fboxrule
+        \color@endgroup
+              #1%
+              \vbox{%
+                \vskip\fboxsep
+                \box\@tempboxa
+                \vskip\fboxsep}%
+              #1%
+        \color@begingroup
+        \color{maincolor}
+              \vrule\@width\fboxrule
+        \color@endgroup
+              }%
+        \color@begingroup
+        \color{maincolor}
+            \hrule\@height\fboxrule
+        \color@endgroup
+            }%
+                              }%
+            }%
+    }
+
+    \pagestyle{empty}
+\fi
+
 } % false-branch of ifclassloaded{beamer}
 
 

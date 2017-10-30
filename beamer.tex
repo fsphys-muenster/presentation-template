@@ -1,7 +1,16 @@
-\documentclass{beamer}
-
-\usepackage[pantone312,english]{wwustyle}
-
+% Option          Farbe/Hintergrundbild
+% -------------------------------------
+% pantone312        Hellblau
+% pantone315        Dunkelblau
+% pantone3282       Dunkelgruen
+% prinz             Prinzipalmarkt
+% wedge             Textkeil rechts
+% belltower         Glockenturm des Schlosses (Voreinstellung)
+%
+% wide              breites Pr�sentationsformat
+% Farbe und Hintergrund sind beliebig kombinierbar.
+\documentclass[inverse, prinz]{beamer}
+\usepackage{wwustyle}
 \usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -11,11 +20,20 @@
 % \usetikzlibrary{external}
 % \tikzexternalize
 
-\author{Max Mustermann}
-\title{Zur Benutzung der WWU-Beamer Vorlage!}
-%\institutelogo{Logo on title frame}
-%\institutelogosmall{Logo on other frames}
-\subtitle{Allgemeine Hinweise und Benutzung der WWU-Vorlage}
+\author{\bgbox{Name: der Referentin / des Referenten}}
+\title{Hier steht der Titel\\ der Präsentation}
+% Der hier auskommentierte \title{} unterlegt die wei�e Schrift
+% mit einem Balken in der Hauptfarbe des Dokuments. Dies kann sinnvoll
+% sein, wenn mit der Option �prinz' der Prinzipalmarkt als
+% Hintergrundbild ausgew�hlt wurde. Der Befehl \bgbox{} entspricht
+% von der Funktion her \mbox{}, ist aber lediglich auf der Titelseite
+% der Pr�sentation aktiviert.
+\title{\bgbox{Hier steht der Titel} \\\bgbox{der Präsentation}}
+\subtitle{\bgbox{Optionen für \texttt{\string\documentclass}: inverse, wedge, Verwendung von \texttt{\string\bgbox}}}
+
+\institutelogo{\vbox{\hsize=35mm Freiraum für Sekundärlogo(s) / Name \\ des Fachbereichs, Instituts oder SFBs}}
+
+
 
 \begin{document}
 
@@ -41,31 +59,47 @@
 
 \begin{frame}
   \frametitle{Folientitel sollten kurz und pr\"agnant sein}
-  \begin{block}{Hervorhebungen}
-    \textbf{Wenn man Dinge hervorheben m\"ochte nutzt man entweder Fettdruck,}
-    \textit{ kursive Schrift} \alert{ oder das Schl\"usselwort ``alert''}.
-  Auch ``itemize''-Umgebungen werden von der Stilvorlage überschrieben:
-  \end{block}
+  {Gestufte Listen}
   \pause
   \begin{itemize}
-    \item So wird sichergestellt,
-    \item dass alle Elemente der Präsentation 
-    \item dieselbe Farbe nutzen.
+    \item \textbf{Erste Ebene}
+      \begin{itemize}
+        \item \textbf{Zweite Ebene}
+          \begin{itemize}
+            \item \textbf{Dritte Ebene}
+          \end{itemize}
+      \end{itemize}
   \end{itemize}
+  \vfill
 \end{frame}
 
 \begin{frame}
-  \frametitle{Ein Alerted-Block}
-  \begin{alertblock}{Achtung!}
-    Hier kommt Rot ins Spiel!
-  \end{alertblock}
+  \frametitle{Folientitel sollten kurz und pr\"agnant sein}
+  \begin{block}{Hervorhebungen}
+    \textbf{Wenn man Dinge hervorheben m\"ochte, nutzt man entweder Fettdruck,}
+    \textit{kursive Schrift} \alert{ oder das Schl\"usselwort ``alert''}.
+  Auch ``enumerate''-Umgebungen werden von der Stilvorlage überschrieben:
+  \end{block}
+  \pause
+  \begin{enumerate}
+    \item So wird sichergestellt,
+        \item dass alle Elemente der Präsentation
+            \item dieselbe Farbe nutzen.
+  \end{enumerate}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Ein Example-Block}
-  \begin{exampleblock}{Beispiel}
-    Hier kommt Grün ins Spiel!
-  \end{exampleblock}
-\end{frame}
+% \begin{frame}
+%   \frametitle{Ein Alerted-Block}
+%   \begin{alertblock}{Achtung!}
+%     Hier kommt Rot ins Spiel!
+%   \end{alertblock}
+% \end{frame}
+%
+% \begin{frame}
+%   \frametitle{Ein Example-Block}
+%   \begin{exampleblock}{Beispiel}
+%     Hier kommt Grün ins Spiel!
+%   \end{exampleblock}
+% \end{frame}
 
 \end{document}
