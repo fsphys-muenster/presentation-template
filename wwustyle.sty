@@ -1,9 +1,12 @@
 \ProvidesPackage{wwustyle}
-%Package wwustyle
+% Package wwustyle
 %
 % A beamer style file following the corporate design of the WWU
-% Muenster.
+% Münster.
 %
+% Version: 1.9c (21.01.2015) Simon May: Modified version removing all references to fonts
+%                            so that the TrueType fonts can also be used (font setup is
+%                            up to the user).
 % Version: 1.9 (07.04.2014) Fixed overfull hboxes (Cudos to Matthias Kirchner for the fix)
 % Version: 1.8 (23.05.2013) Fixed some font warnings (Cudos to Dustin Demuth for the fix)
 % Version: 1.7 (07.09.2012) Updated english claim (living.knowledge)
@@ -53,9 +56,6 @@
 \RequirePackage{tikz}
 \RequirePackage{xxcolor}
 
-\RequirePackage[T1]{fontenc}
-%% use MetaRoman Normal as the standard non-serif font
-\renewcommand{\sfdefault}{fMt}
 \newcommand{\skipexternalization}{%
 \ifdefined\tikzexternalize%
 \tikzset{external/export=false}%
@@ -182,18 +182,17 @@
 \newcommand{\claim}[2]{
 \begin{tikzpicture}[scale=#1, node distance=9.9mm, rotate=#2, transform shape]
   %% wissen
-  \node (wissen)  {
+  \node (wissen) {
     \color{pantoneblack7}
-    \fontsize{3.8mm}{1mm}\selectfont 
-    \usefont{T1}{fMt}{m}{n}
+    \fontsize{3.8mm}{1mm}\selectfont
     \claimTextWissen
   };
   %% Punkt
   \node [circle,
     minimum width=0.9mm,
     inner sep=0,
-    fill=maincolor, 
-    yshift=-1mm, 
+    fill=maincolor,
+    yshift=-1mm,
     xshift=\claimPunktXShift, 
     right of=wissen] (Punkt) {};
   %% leben
@@ -202,22 +201,19 @@
     right of=wissen] (leben) {
       \color{pantoneblack7}
       \fontsize{3.8mm}{1mm}\selectfont
-      \usefont{T1}{fMt}{m}{n}
       \claimTextLeben
     };
   %% WWU
   \node[
     xshift=\claimWWUXShift,
     yshift=\claimWWUYShift,
-    below of=wissen] (WWU) {\textcolor{pantoneblack7!50}{\fontsize{3.8mm}{1mm}\selectfont
-        \usefont{T1}{fMt}{m}{n}
+    below of=wissen] (WWU) {\textcolor{pantoneblack7!50}{\fontsize{3.8mm}{1mm}\selectfont%
         WWU}};
-  %% M�nster
+  %% Münster
   \node[
     xshift=\claimWWUXXShift,
-    right of=WWU] {\textcolor{pantoneblack7!50}{\fontsize{3.8mm}{1mm}\selectfont 
-        \usefont{T1}{fMt}{m}{n}
-        M\"unster}};
+    right of=WWU] {\textcolor{pantoneblack7!50}{\fontsize{3.8mm}{1mm}\selectfont%
+        Münster}};
 \end{tikzpicture}
 } % end of newcommand
 
@@ -231,18 +227,18 @@
     \tikzstyle{every node}=[inner sep=0mm, fill=pantoneblack7]
     \tikzstyle{mytextnode}=[inner sep=0mm, below left of=bar,fill=none,
     text=pantoneblack7]
-    % the first bar
+  % the first bar
   \node[rectangle,
              minimum height=1.45mm,
-             minimum width=0.62mm] (bar)  {};
+             minimum width=0.62mm] (bar) {};
   % the second bar
-  \node[below of = bar,
+  \node[below of=bar,
             rectangle,
             minimum height=0.63mm,
             minimum width=2.6mm,
             yshift=0.26mm] {};
   % the third bar
-  \node[below of = bar,
+  \node[below of=bar,
              rectangle,
              minimum height=1.4mm,
              minimum width=4.5mm,
@@ -268,36 +264,36 @@
              minimum width=44.75mm,
              yshift=-9.4mm,
              xshift=0.05mm] {};
-  % the  seventh bar
+  % the seventh bar
   \node[below of=bar,
              rectangle,
              minimum height=1.4mm,
              minimum width=44.75mm,
              yshift=-15.7mm,
              xshift=0.05mm] {};
-  % Westf�lische
-  \node[mytextnode,
+  % Westfälische
+  \node[mytextnode, right,
   yshift=-7.0mm,
-  xshift=39.8mm] {
+  xshift=27.6mm] {
     \fontsize{4mm}{1mm}\selectfont
-    \usefont{T1}{fMt}{b}{sc}
-    \textls[15]{Westf\"alische}
+    \bfseries\scshape
+    \textls[80]{Westfälische}
   };
-  % Wilhelms-Universit�t
-  \node[mytextnode,
+  % Wilhelms-Universität
+  \node[mytextnode, right,
   yshift=-11.5mm,
-  xshift=47.7mm] {
+  xshift=27.6mm] {
     \fontsize{4mm}{1mm}\selectfont
-    \usefont{T1}{fMt}{b}{sc}
-    \textls[15]{Wilhelms-Universit\"at}
+    \bfseries\scshape
+    \textls[80]{Wilhelms-Universität}
   };
-  % M�nster
-  \node[mytextnode,
+  % Münster
+  \node[mytextnode, right,
   yshift=-15.8mm,
-  xshift=35.6mm] {
+  xshift=27.6mm] {
     \fontsize{4mm}{1mm}\selectfont
-    \usefont{T1}{fMt}{b}{sc}
-    \textls[15]{M\"unster}
+    \bfseries\scshape
+    \textls[80]{Münster}
   };
 
   \end{tikzpicture}
@@ -316,8 +312,6 @@
 \newcommand{\institutelogosmall}[1]{%
   \renewcommand{\@institutelogosmall}{#1}
 }
-% use MetaNormal Roman everywhere
-\RequirePackage{meta}
 
 %% ============ Margins, spacing, etc ============
 \setbeamersize{text margin right=2mm, text margin left=7.50mm}  % text margin
@@ -387,7 +381,7 @@
   {
   \skipexternalization
   \begin{tikzpicture}[remember picture, overlay]
-    \node[anchor=east,inner sep=0,yshift=-2.25cm,xshift=0.3mm] (sidebarclaim) at (current page.east) {
+    \node[anchor=east, inner sep=0, yshift=-2.25cm, xshift=0.3mm] (sidebarclaim) at (current page.east) {
         \claimSidebar
     };
   \end{tikzpicture}
@@ -413,11 +407,11 @@
   {
   \skipexternalization
   \begin{tikzpicture}[remember picture, overlay]
-    \node[xshift=0.54cm,yshift=-1.21cm,
-    anchor=south west,
+    \node[xshift=0.54cm, yshift=-7.8mm,
+    anchor=west,
     inner sep=0] at (current page.north west) {\logoHeadline};
-    \node[xshift=4.76cm,yshift=-1.21cm,
-    anchor=south west,
+    \node[xshift=4.76cm, yshift=-7.8mm,
+    anchor=west,
     inner sep=0] at (current page.north west) {\@institutelogosmall};
   \end{tikzpicture}
   }
@@ -454,7 +448,7 @@
     \linespread{0.9}
     {
     \skipexternalization
-    \begin{tikzpicture}[overlay,remember picture]
+    \begin{tikzpicture}[remember picture, overlay]
       \node (authornode) [yshift=0.5cm, inner sep=0,text width=0.33\linewidth, text centered, anchor=base] at (current page.south) 
      {\color{pantoneblack7}
        \fontsize{8pt}{14pt}
@@ -471,7 +465,7 @@
   \end{picture}
   {
   \skipexternalization
-  \begin{tikzpicture}[remember picture,overlay]
+  \begin{tikzpicture}[remember picture, overlay]
     %% the 1. rectangle
     \node [xshift=-0.1cm,yshift=-1.95cm] at (current page.north east)
     [rectangle, 

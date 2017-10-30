@@ -1,0 +1,15 @@
+FONTFORGE
+Add Small Caps
+
+Stems:
+	X Uniform Scaling
+	Height of Horizontal/Width of Vertical Stems: 86% + 0
+	X Activate diagonal stem processing
+	
+Horizontal:
+	X Uniform Scaling
+	Counter Size: 70%
+
+Vertical:
+	X Control Vertical Mapping (use for Latin, Greek, Cyrillic)
+	Vertical Scale: 80%

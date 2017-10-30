@@ -1,0 +1,73 @@
+% Author: Simon May
+% Date: 2015-04-25
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Einstellungen zur richtigen Benutzung von wwustyle.sty
+\usefonttheme{professionalfonts}
+
+\usepackage{amsmath}
+% Schriftarten (Meta) einstellen
+\usepackage{unicode-math}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Meta}[Path={fonts/},
+	UprightFont=*-Regular,
+	UprightFeatures={
+		SmallCapsFont={*-RegularSC}
+	},
+	ItalicFont=*-Italic,
+	BoldFont=*-Bold,
+	BoldFeatures={
+		SmallCapsFont={*-BoldSC}
+	},
+	BoldItalicFont=*-Bold,
+	BoldItalicFeatures={FakeSlant}
+]
+\setsansfont{Meta}[Path={fonts/},
+	UprightFont=*-Regular,
+	UprightFeatures={
+		SmallCapsFont={*-RegularSC}
+	},
+	ItalicFont=*-Italic,
+	BoldFont=*-Bold,
+	BoldFeatures={
+		SmallCapsFont={*-BoldSC}
+	},
+	BoldItalicFont=*-Bold,
+	BoldItalicFeatures={FakeSlant}
+]
+\setmathfont{Latin Modern Math}
+\setmathfont[range=\mathup/{greek,Greek}, Scale=MatchLowercase]{Free Sans}
+\setmathfont[range=\mathit/{greek,Greek}, Scale=MatchLowercase]{Free Sans Oblique}
+\setmathfont[range=\mathup/{latin,Latin,num}, Path={fonts/}]{Meta-Regular.ttf}
+\setmathfont[range=\mathit/{latin,Latin,num}, Path={fonts/}]{Meta-Italic.ttf}
+\setmathfont[range=\mathbin, Path={fonts/}]{Meta-Regular.ttf}
+\usepackage{polyglossia}
+\setmainlanguage{german}
+
+\usepackage[pantone312]{wwustyle}
+\usepackage{csquotes}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{datetime}
+\usepackage{multirow}
+\usepackage{siunitx}
+
+\hypersetup{unicode}
+\sisetup{
+	locale=DE,
+	quotient-mode=fraction,
+	per-mode=fraction,
+	fraction-function=\sfrac,
+	mode=text
+}
+\MakeOuterQuote{"}
+
+\renewcommand{\textrightarrow}{$\rightarrow$}
+\newcommand{\email}[1]{\href{mailto:#1}{\texttt{#1}}}
+
+\institutelogo{\raisebox{-1.75cm}{\includegraphics[width=4cm]{logo.pdf}}}
+\institutelogosmall{\raisebox{-1.25cm}{\includegraphics[width=2.6cm]{logo.pdf}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zusätzliche Einstellungen/Befehle
+
