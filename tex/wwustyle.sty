@@ -4,11 +4,14 @@
 % A beamer style file following the corporate design of the WWU
 % Münster.
 %
-% Version: 1.9d (09.10.2016) Simon May: Remove \textls[80] in WWU logo to make it look
-%                            right when the proper font is used (Meta-Medium-Caps.ttf)
-% Version: 1.9c (21.01.2015) Simon May: Modified version removing all references to fonts
-%                            so that the TrueType fonts can also be used (font setup is
-%                            up to the user).
+% Version: 1.9e (01.10.2017) Simon May: Update logo and claim to new corporate
+%                            design.
+% Version: 1.9d (09.10.2016) Simon May: Remove \textls[80] in WWU logo to make it
+%                            look right when the proper font is used
+%                            (Meta-Medium-Caps.ttf)
+% Version: 1.9c (21.01.2015) Simon May: Modified version removing all references
+%                            to fonts so that the TrueType fonts can also be used
+%                            (font setup is up to the user).
 % Version: 1.9 (07.04.2014) Fixed overfull hboxes (Cudos to Matthias Kirchner for the fix)
 % Version: 1.8 (23.05.2013) Fixed some font warnings (Cudos to Dustin Demuth for the fix)
 % Version: 1.7 (07.09.2012) Updated english claim (living.knowledge)
@@ -131,9 +134,10 @@
 \end{colormixin}}
 \newcommand{\claimMain}{\claim{1}{0}}
 \newcommand{\claimTitle}{\claim{1.75}{0}}
-\newcommand{\logoHeadline}{\wwulogo{0.44}}
-\newcommand{\logoTitle}{\wwulogo{1.12}}
-\newcommand{\logoTitleSmall}{\wwulogo{0.6}}
+% === modify logo scaling for new logo [Simon May]
+\newcommand{\logoHeadline}{\wwulogo{0.5}}
+\newcommand{\logoTitle}{\wwulogo{1.2}}
+\newcommand{\logoTitleSmall}{\wwulogo{0.7}}
 \DeclareOption{fast}{
 \renewcommand{\claimSidebar}{\claimSidebarFn}
 \renewcommand{\claimMain}{\claimMainFn}
@@ -152,7 +156,8 @@
 \tikzsetnextfilename{wwu-claim-title}
 \claimTitle
 \tikzsetnextfilename{wwu-logo-headline}
-\wwulogo{0.44}
+% === modify logo scaling for new logo [Simon May]
+\wwulogo{0.5}
 \tikzsetnextfilename{wwu-logo-title-small}
 \logoTitleSmall
 \tikzsetnextfilename{wwu-logo-title}
@@ -205,102 +210,24 @@
       \fontsize{3.8mm}{1mm}\selectfont
       \claimTextLeben
     };
-  %% WWU
-  \node[
-    xshift=\claimWWUXShift,
-    yshift=\claimWWUYShift,
-    below of=wissen] (WWU) {\textcolor{pantoneblack7!50}{\fontsize{3.8mm}{1mm}\selectfont%
-        WWU}};
-  %% Münster
-  \node[
-    xshift=\claimWWUXXShift,
-    right of=WWU] {\textcolor{pantoneblack7!50}{\fontsize{3.8mm}{1mm}\selectfont%
-        Münster}};
+%  %% WWU
+%  \node[
+%    xshift=\claimWWUXShift,
+%    yshift=\claimWWUYShift,
+%    below of=wissen] (WWU) {\textcolor{pantoneblack7!50}{\fontsize{3.8mm}{1mm}\selectfont%
+%        WWU}};
+%  %% Münster
+%  \node[
+%    xshift=\claimWWUXXShift,
+%    right of=WWU] {\textcolor{pantoneblack7!50}{\fontsize{3.8mm}{1mm}\selectfont%
+%        Münster}};
 \end{tikzpicture}
 } % end of newcommand
 
 %% the logo as tikzpicture, is takes one parameter
 %% \parameter 1 the scale
-\newcommand{\wwulogo}[1]{
-  \begin{tikzpicture}[
-    node distance=1.866666666mm,
-    transform shape,
-    scale=#1]
-    \tikzstyle{every node}=[inner sep=0mm, fill=pantoneblack7]
-    \tikzstyle{mytextnode}=[inner sep=0mm, below left of=bar,fill=none,
-    text=pantoneblack7]
-  % the first bar
-  \node[rectangle,
-             minimum height=1.45mm,
-             minimum width=0.62mm] (bar) {};
-  % the second bar
-  \node[below of=bar,
-            rectangle,
-            minimum height=0.63mm,
-            minimum width=2.6mm,
-            yshift=0.26mm] {};
-  % the third bar
-  \node[below of=bar,
-             rectangle,
-             minimum height=1.4mm,
-             minimum width=4.5mm,
-             yshift=-3mm] {};
-  % the fourth bar
-  \node[below left of=bar,
-            rectangle,
-            minimum height=1.38mm,
-            minimum width=17.8mm,
-            yshift=-6.35mm,
-            xshift=-12.1mm] (fourth) {};
-  % the fifth bar
-  \node[below left of=bar,
-             rectangle,
-             minimum height=1.38mm,
-             minimum width=17.8mm,
-             yshift=-6.35mm,
-             xshift=14.85mm] (fifth) {};
-  % the sixth bar
-  \node[below of=bar,
-             rectangle,
-             minimum height=0.65mm,
-             minimum width=44.75mm,
-             yshift=-9.4mm,
-             xshift=0.05mm] {};
-  % the seventh bar
-  \node[below of=bar,
-             rectangle,
-             minimum height=1.4mm,
-             minimum width=44.75mm,
-             yshift=-15.7mm,
-             xshift=0.05mm] {};
-  % Westfälische
-  \node[mytextnode, right,
-  yshift=-7.0mm,
-  xshift=27.6mm] {
-    \fontsize{4mm}{1mm}\selectfont
-    \bfseries\scshape
-    Westfälische
-  };
-  % Wilhelms-Universität
-  \node[mytextnode, right,
-  yshift=-11.5mm,
-  xshift=27.6mm] {
-    \fontsize{4mm}{1mm}\selectfont
-    \bfseries\scshape
-    Wilhelms-Universität
-  };
-  % Münster
-  \node[mytextnode, right,
-  yshift=-15.8mm,
-  xshift=27.6mm] {
-    \fontsize{4mm}{1mm}\selectfont
-    \bfseries\scshape
-    Münster
-  };
-
-  \end{tikzpicture}
-} % end of the logo
-
+% === Changed logo from TikZ to included PDF [Simon May]
+\newcommand{\wwulogo}[1]{\includegraphics[scale=#1]{wwulogo.pdf}}
 
 \@ifclassloaded{beamer}{%
 
@@ -506,7 +433,8 @@
     \fill[maincolor] (current page.west)++(0,-2.63cm)
     rectangle (helpernode6);
     %% the claim
-    \node [xshift=1.72cm,yshift=0.8cm] at (current page.south west)
+    % === modify yshift for updated 2017 claim [Simon May]
+    \node [xshift=1.72cm,yshift=0.64cm] at (current page.south west)
     (claim) {\claimMain};
     %% the logo
     \node [xshift=6.39cm,yshift=-1cm,anchor=west] at (current page.north west)

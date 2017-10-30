@@ -1,5 +1,5 @@
 % Author: Simon May
-% Date: 2016-10-09
+% Date: 2017-10-03
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Einstellungen zur richtigen Benutzung von wwustyle.sty
@@ -7,11 +7,6 @@
 
 \usepackage{amsmath}
 \usepackage{mathtools}
-
-% Überflüssige Warnungen loswerden
-\usepackage{silence}
-\WarningFilter[spurious]{csquotes}{Using preliminary 'polyglossia' interface}
-\ActivateWarningFilters[spurious]
 
 % Schriftarten (Meta) einstellen
 \usepackage[quiet]{fontspec}
@@ -43,15 +38,28 @@
 	BoldItalicFeatures={FakeSlant}
 ]
 
-% \mathaccent passt wegen unterschiedlicher Schriftarten nicht für lateinische Buchstaben!
 \setmathfont{Latin Modern Math}
-\setmathfont[range=\mathup/{greek,Greek}, Scale=MatchLowercase]{Free Sans}
-\setmathfont[range=\mathit/{greek,Greek}, Scale=MatchLowercase]{Free Sans Oblique}
-\setmathfont[range=\mathaccent, Scale=MatchLowercase]{Free Sans}
-\setmathfont[range=\mathup/{latin,Latin,num}, Path={fonts/}]{MetaLF-Regular.ttf}
-\setmathfont[range=\mathit/{latin,Latin,num}, Path={fonts/}]{MetaLF-Italic.ttf}
-% Symbole +, -, ×, ÷, ⋅, ±, %, ! aus Meta nehmen (was ist mit *, :, ∓?)
-\setmathfont[range={"0002B,"02212,\times,\div,\cdot,\pm,"00025,"00021}, Path={fonts/}]{MetaLF-Regular.ttf}
+% Sans-Schriftart für griechische Großbuchstaben nutzen
+\setmathfont{Latin Modern Sans}[range=up/{Greek}]
+\setmathfont{Latin Modern Sans}[range=it/{Greek}]
+% Meta für die Bereiche nutzen, für die Glyphen existieren
+\setmathfont{MetaLF-Regular.ttf}[Path={fonts/}, range=up/{latin,Latin,num}]
+\setmathfont{MetaLF-Italic.ttf}[Path={fonts/}, range=it/{latin,Latin,num}]
+% Symbole aus Meta nehmen (enthält leider nicht das Symbol ∓)
+\setmathfont{MetaLF-Regular.ttf}[Path={fonts/},
+	range={`\+, `\-, `\×, `\÷, `\⋅, `\*, `\/, `\±, `\%, `\‰, `\!, `\?,
+		`\., `\,, `\:, `\;}
+]
+% Am Ende wieder eine echte Mathe-Schriftart laden (range ist egal),
+% um Fehler in unicode-math/LuaTeX zu umgehen
+% s. https://tex.stackexchange.com/questions/95304
+%    https://github.com/wspr/unicode-math/issues/353
+\setmathfont{Latin Modern Math}[range=\int]
+% Schriftarten \mathrm etc. ebenfalls ändern (für \sin, \exp etc.)
+\setmathfontface\mathrm{Meta-Regular.ttf}[Path={fonts/}]
+\setmathfontface\mathit{Meta-Italic.ttf}[Path={fonts/}]
+\setmathfontface\mathbf{Meta-Bold.ttf}[Path={fonts/}]
+
 \usepackage{polyglossia}
 \setmainlanguage{german}
 
@@ -88,6 +96,31 @@
 
 \institutelogo{\raisebox{-1.75cm}{\includegraphics[width=4cm]{logo.pdf}}}
 \institutelogosmall{\raisebox{-1.25cm}{\includegraphics[width=2.6cm]{logo.pdf}}}
+
+% \framesubtitle aktivieren
+\setbeamertemplate{frametitle}{
+	\fontsize{14pt}{1pt}
+	\selectfont
+	\hskip-2.4mm
+	\color{maincolor}
+	\begin{minipage}[b][20pt]{\textwidth}
+		%\textgreater\,
+		\insertframetitle
+	\end{minipage}
+	\ifx\insertframesubtitle\empty%
+	\else
+	\\
+	\vspace{-4pt}
+	\fontsize{12pt}{1pt}
+	\selectfont
+	\hskip-2.4mm
+	\color{black}
+	\begin{minipage}[b][18pt]{\textwidth}
+		%\textgreater\,
+		\insertframesubtitle
+	\end{minipage}
+	\fi%
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Zusätzliche Einstellungen/Befehle
