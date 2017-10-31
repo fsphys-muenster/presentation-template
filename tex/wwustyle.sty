@@ -545,7 +545,8 @@
 \setbeamercolor*{block title alerted}{fg=white,bg=fu-red}
 \setbeamercolor*{block title example}{fg=white,bg=fu-green}
 
-\setbeamercolor*{block body}{bg=}
+% Restore block background color [Simon May]
+\setbeamercolor*{block body}{bg=maincolor!5}
 \setbeamercolor*{block body alerted}{bg=fu-red!10}
 \setbeamercolor*{block body example}{bg=fu-green!10}
 
@@ -647,7 +648,8 @@
       %\textgreater\,
       \textbf{\insertframetitle}%
     \end{minipage}
-    \vskip-10mm
+    % Remove \vskip to avoid title overlapping contents [Simon May]
+%    \vskip-10mm
 }
 
 % headline
