@@ -1,0 +1,129 @@
+% Author: Simon May
+% Date: 2017-11-01
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Einstellungen zur richtigen Benutzung von wwustyle.sty
+\usefonttheme{professionalfonts}
+
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+% Schriftarten (Meta) einstellen
+\usepackage[quiet]{fontspec}
+\usepackage{unicode-math}
+\setmainfont{Meta}[Path={fonts/},
+	UprightFont=*-Regular,
+	UprightFeatures={
+		SmallCapsFont={*-Normal-Caps}
+	},
+	ItalicFont=*-Italic,
+	BoldFont=*-Bold,
+	BoldFeatures={
+		SmallCapsFont={*-Medium-Caps}
+	},
+	BoldItalicFont=*-Bold,
+	BoldItalicFeatures={FakeSlant}
+]
+\setsansfont{Meta}[Path={fonts/},
+	UprightFont=*-Regular,
+	UprightFeatures={
+		SmallCapsFont={*-Normal-Caps}
+	},
+	ItalicFont=*-Italic,
+	BoldFont=*-Bold,
+	BoldFeatures={
+		SmallCapsFont={*-Medium-Caps}
+	},
+	BoldItalicFont=*-Bold,
+	BoldItalicFeatures={FakeSlant}
+]
+
+\setmathfont{Latin Modern Math}
+% Sans-Schriftart für griechische Großbuchstaben nutzen
+\setmathfont{Latin Modern Sans}[range=up/{Greek}]
+\setmathfont{Latin Modern Sans}[range=it/{Greek}]
+% Meta für die Bereiche nutzen, für die Glyphen existieren
+\setmathfont{MetaLF-Regular.ttf}[Path={fonts/}, range=up/{latin,Latin,num}]
+\setmathfont{MetaLF-Italic.ttf}[Path={fonts/}, range=it/{latin,Latin,num}]
+% Symbole aus Meta nehmen (enthält leider nicht das Symbol ∓)
+\setmathfont{MetaLF-Regular.ttf}[Path={fonts/},
+	range={`\+, `\-, `\×, `\÷, `\⋅, `\*, `\/, `\±, `\%, `\‰, `\!, `\?,
+		`\., `\,, `\:, `\;}
+]
+% Am Ende wieder eine echte Mathe-Schriftart laden (range ist egal),
+% um Fehler in unicode-math/LuaTeX zu umgehen
+% s. https://tex.stackexchange.com/questions/95304
+%    https://github.com/wspr/unicode-math/issues/353
+\setmathfont{Latin Modern Math}[range=\int]
+% Schriftarten \mathrm etc. ebenfalls ändern (für \sin, \exp etc.)
+\setmathfontface\mathrm{Meta-Regular.ttf}[Path={fonts/}]
+\setmathfontface\mathit{Meta-Italic.ttf}[Path={fonts/}]
+\setmathfontface\mathbf{Meta-Bold.ttf}[Path={fonts/}]
+
+\usepackage{polyglossia}
+\setmainlanguage{german}
+
+\usepackage[pantone312]{wwustyle}
+\usepackage{microtype}
+\usepackage{selnolig}
+\usepackage{csquotes}
+
+\usepackage{graphicx}
+\usepackage{gincltex}
+\usepackage{grffile}
+\usepackage[useregional]{datetime2}
+\usepackage{multirow}
+\usepackage{siunitx}
+
+% latex
+\renewcommand{\arraystretch}{1.3}
+% graphicx
+% Standardmäßig „keepaspectratio“ verwenden
+% s. https://tex.stackexchange.com/a/91619/51235
+\setkeys{Gin}{keepaspectratio}
+% hyperref
+\hypersetup{unicode}
+% siunitx
+\sisetup{
+	locale=DE,
+	quotient-mode=fraction,
+	per-mode=fraction,
+	fraction-function=\sfrac,
+	mode=text
+}
+% csquotes
+\MakeOuterQuote{"}
+
+\institutelogo{\raisebox{-5.75mm}{\includegraphics[width=3.8cm]{fsphys-logo.pdf}}}
+\institutelogosmall{\raisebox{-3mm}[0pt][0pt]{\includegraphics[width=2.6cm]{fsphys-logo.pdf}}}
+
+% \framesubtitle aktivieren
+\setbeamertemplate{frametitle}{
+	\fontsize{14pt}{1pt}
+	\selectfont
+	\hskip-2.4mm
+	\color{maincolor}
+	\begin{minipage}[b][20pt]{\textwidth}
+		%\textgreater\,
+		\insertframetitle
+	\end{minipage}
+	\ifx\insertframesubtitle\empty%
+	\else
+	\\
+	\vspace{-4pt}
+	\fontsize{12pt}{1pt}
+	\selectfont
+	\hskip-2.4mm
+	\color{black}
+	\begin{minipage}[b][18pt]{\textwidth}
+		%\textgreater\,
+		\insertframesubtitle
+	\end{minipage}
+	\fi%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zusätzliche Einstellungen/Befehle
+\let\strong\textbf
+\newcommand{\email}[1]{\href{mailto:#1}{\texttt{#1}}}
+\newfontfamily\DejaSans{DejaVu Sans}
