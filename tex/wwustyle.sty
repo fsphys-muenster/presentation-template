@@ -4,6 +4,8 @@
 % A style file following the corporate design of the WWU
 % Muenster.
 %
+% Entfernung des veralteten Pakets meta.sty (und einige weitere Verbesserungen).
+%   31.10.2017 Simon May
 % Umgearbeitet fuer die Verwendung mit dem neuen Logo und neuen Hintergrundbildern.
 %   05.09.2017 Ulrich Grabowsky (gu)
 % Version: 1.9 (07.04.2014) Fixed overfull hboxes (Cudos to Matthias Kirchner for the fix)
@@ -56,9 +58,10 @@
 \RequirePackage{tikz}
 \RequirePackage{xxcolor}
 
-\RequirePackage[T1]{fontenc}
+% === Disable hard-coded font setup [Simon May]
+%\RequirePackage[T1]{fontenc}
 %% use MetaRoman Normal as the standard non-serif font
-\renewcommand{\sfdefault}{fMt}
+%\renewcommand{\sfdefault}{fMt}
 \newcommand{\skipexternalization}{%
 \ifdefined\tikzexternalize%
 \tikzset{external/export=false}%
@@ -332,7 +335,9 @@
   \node (wissen)  {
     \color{#3}
     \fontsize{2.8mm}{1mm}\selectfont
-    \usefont{T1}{fMt}{b}{n}
+    % === Disable hard-coded font setup [Simon May]
+%    \usefont{T1}{fMt}{b}{n}
+    \bfseries
     \claimTextWissen *
   };
   %% Punkt
@@ -349,7 +354,9 @@
     right of=wissen] (leben) {
       \color{#3}
       \fontsize{2.8mm}{1mm}\selectfont
-      \usefont{T1}{fMt}{b}{n}
+      % === Disable hard-coded font setup [Simon May]
+%      \usefont{T1}{fMt}{b}{n}
+      \bfseries
       \claimTextLeben
     };
 
@@ -445,14 +452,17 @@
   yshift=-9.9mm,
   xshift=40mm] {
     \fontsize{10.6mm}{1mm}\selectfont
-    \usefont{T1}{fMt}{b}{sc}
+    % === Disable hard-coded font setup [Simon May]
+%    \usefont{T1}{fMt}{b}{sc}
+    \bfseries\scshape
     \textls[15]{WWU}
   };
   \node[mytextnode,
   yshift=-17mm,
   xshift=40.1mm] {
     \fontsize{4.3mm}{1mm}\selectfont
-    \usefont{T1}{fMt}{m}{n}
+    % === Disable hard-coded font setup [Simon May]
+%    \usefont{T1}{fMt}{m}{n}
     \textls[15]{M\spatium \"U\spatium N\spatium S\spatium T\spatium E\spatium R}
   };
 
@@ -477,8 +487,9 @@
 \newcommand{\institutelogosmall}[1]{%
   \renewcommand{\@institutelogosmall}{#1}
 }
-% use MetaNormal Roman everywhere
-\RequirePackage{meta}
+% === Disable hard-coded font setup [Simon May]
+%% use MetaNormal Roman everywhere
+%\RequirePackage{meta}
 
 %% ============ Margins, spacing, etc ============
 \setbeamersize{text margin right=2mm, text margin left=7.50mm}  % text margin
@@ -956,7 +967,8 @@
     \evensidemargin=\oddsidemargin
     \textwidth=\dimexpr\paperwidth-2\columnsep\relax
 
-    \renewcommand{\rmdefault}{fMt}
+    % === Disable hard-coded font setup [Simon May]
+%    \renewcommand{\rmdefault}{fMt}
 
     \leftmargini=20pt
     \renewcommand\normalsize{%
