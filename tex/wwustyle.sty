@@ -468,6 +468,20 @@
 
   \end{tikzpicture}
 } % end of the logo
+% === use standard WWU logo files instead of redrawing the logo in TikZ
+\renewcommand*{\wwu@logo}[2]{%
+	\def\temp@a{#2}\def\temp@b{white}%
+	\ifx\temp@a\temp@b%
+		\includegraphics[scale=#1]{WWUMuenster_Logo_2017_negativ}
+	\else%
+		% The file WWUMuenster_Logo_2017_4c.pdf contains margins which have to
+		% be cropped. There is a horizontal margin of 2.5mm and a vertical
+		% margin of 2.66mm on each side. The trim option of \includegraphics
+		% takes values in bp (1bp = 1/72in), so 2.5mm ≈ 7.08bp and
+		% 2.66mm ≈ 7.54bp.
+		\includegraphics[trim=7.08 7.54 7.08 7.54, clip, scale=#1]{WWUMuenster_Logo_2017_4c}
+	\fi%
+}
 
 %
 \newcommand*{\spatium}{\kern0.23em}
