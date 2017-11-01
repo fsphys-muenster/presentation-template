@@ -55,6 +55,23 @@
 % restore block background color
 \setbeamercolor*{block body}{bg=maincolor!5}
 
+% make footline background non-transparent so that frame content cannot “slide
+% into” the footer
+\setbeamercolor*{footlinecolor}{bg=truewhite}
+\setbeamertemplate{footline}{%
+	\begin{beamercolorbox}[wd=\paperwidth]{footlinecolor}
+		\fontsize{6pt}{1pt}%
+		\selectfont%
+		\color{maincolor}%
+		\rule{\textwidth}{0.8pt}% horizontal line
+		\vskip4mm%
+		\color{black}%
+		\hspace{5mm}%
+		\textcolor{wwublack}{\let\bgbox\relax\insertshortauthor}\hfill\textcolor{maincolor}{\fontsize{9pt}{12pt}\selectfont\smash{\textbf{\thepage}}}\hspace{5mm}\strut%
+		\vskip4mm%
+	\end{beamercolorbox}%
+}
+
 % restore original beamer list settings overwritten by wwustyle.sty
 \setbeamercolor{item}{fg=maincolor}
 \setbeamertemplate{itemize/enumerate body begin}[default]
