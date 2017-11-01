@@ -46,8 +46,28 @@
 % some improvements and modifications to wwustyle.sty
 \renewcommand*{\bgbox}[1]{\texorpdfstring{\colorbox{maincolor}{#1}}{#1}}
 
+% use standard WWU logo files instead of redrawing the logo in TikZ
+\renewcommand*{\wwu@logo}[2]{%
+	\def\temp@a{#2}\def\temp@b{white}%
+	\ifx\temp@a\temp@b%
+		\includegraphics[scale=#1]{WWUMuenster_Logo_2017_negativ}
+	\else%
+		% The file WWUMuenster_Logo_2017_4c.pdf contains margins which have to
+		% be cropped. There is a horizontal margin of 2.5mm and a vertical
+		% margin of 2.66mm on each side. The trim option of \includegraphics
+		% takes values in bp (1bp = 1/72in), so 2.5mm ≈ 7.08bp and
+		% 2.66mm ≈ 7.54bp.
+		\includegraphics[trim=7.08 7.54 7.08 7.54, clip, scale=#1]{WWUMuenster_Logo_2017_4c}
+	\fi%
+}
+
 % define an actual white (since the normal white was overwritten in wwustyle)
 \definecolor{truewhite}{RGB}{255,255,255}
+% correct definition of pantoneblack7
+\definecolor{pantoneblack7}{RGB}{62,62,59}
+% set text color to 80% of pantoneblack7
+\colorlet{wwublack}{pantoneblack7!80}
+\setbeamercolor*{normal text}{fg=pantoneblack7!80}
 % restore block title colors
 \setbeamercolor*{block title}{fg=truewhite,bg=maincolor}
 \setbeamercolor*{block title alerted}{fg=truewhite,bg=fu-red}
@@ -65,7 +85,6 @@
 		\color{maincolor}%
 		\rule{\textwidth}{0.8pt}% horizontal line
 		\vskip4mm%
-		\color{black}%
 		\hspace{5mm}%
 		\textcolor{wwublack}{\let\bgbox\relax\insertshortauthor}\hfill\textcolor{maincolor}{\fontsize{9pt}{12pt}\selectfont\smash{\textbf{\thepage}}}\hspace{5mm}\strut%
 		\vskip4mm%
@@ -92,7 +111,7 @@
 	\else
 	\fontsize{12pt}{12pt}
 	\selectfont
-	\color{black}
+	\color{pantoneblack7}
 	\mdseries
 	\insertframesubtitle
 	\fi%
