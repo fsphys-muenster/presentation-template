@@ -113,27 +113,21 @@ range={`\+, `\-, `\×, `\÷, `\⋅, `\*, `\/, `\⁄, `\±,
 \institutelogosmall{\raisebox{-2.5mm}[0pt][0pt]{\includegraphics[width=2.6cm]{fsphys-logo.pdf}}}
 
 % \framesubtitle aktivieren
-\setbeamertemplate{frametitle}{
-	\fontsize{14pt}{1pt}
+\setbeamertemplate{frametitle}{%
+	\vskip4mm
+	\fontsize{14pt}{14pt}
 	\selectfont
-	\hskip-2.4mm
 	\color{maincolor}
-	\begin{minipage}[b][20pt]{\textwidth}
-		%\textgreater\,
-		\insertframetitle
-	\end{minipage}
+	\bfseries
+	\insertframetitle
+	\par
 	\ifx\insertframesubtitle\empty%
 	\else
-	\\
-	\vspace{-4pt}
-	\fontsize{12pt}{1pt}
+	\fontsize{12pt}{12pt}
 	\selectfont
-	\hskip-2.4mm
 	\color{black}
-	\begin{minipage}[b][18pt]{\textwidth}
-		%\textgreater\,
-		\insertframesubtitle
-	\end{minipage}
+	\mdseries
+	\insertframesubtitle
 	\fi%
 }
 
