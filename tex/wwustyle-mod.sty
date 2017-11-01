@@ -21,6 +21,8 @@
 \let\usefont@saved=\usefont
 \let\rmdefault@saved=\rmdefault
 \let\sfdefault@saved=\sfdefault
+\let\@listii@saved=\@listii
+\let\@listiii@saved=\@listiii
 % disable the commands \RequirePackage and \usefont before loading wwustyle
 % so that it doesn’t load fontenc.sty or meta.sty and doesn’t set the fonts
 \renewcommand*{\RequirePackage}[2][]{}
@@ -32,6 +34,8 @@
 \let\usefont=\usefont@saved
 \let\rmdefault=\rmdefault@saved
 \let\sfdefault=\sfdefault@saved
+\let\@listii=\@listii@saved
+\let\@listiii=\@listiii@saved
 
 % =============================================================================
 
@@ -50,6 +54,13 @@
 \setbeamercolor*{block title example}{fg=truewhite,bg=fu-green}
 % restore block background color
 \setbeamercolor*{block body}{bg=maincolor!5}
+
+% restore original beamer list settings overwritten by wwustyle.sty
+\setbeamercolor{item}{fg=maincolor}
+\setbeamertemplate{itemize/enumerate body begin}[default]
+\setbeamertemplate{itemize/enumerate subbody begin}[default]
+\setbeamertemplate{itemize/enumerate subsubbody begin}[default]
+\setbeamertemplate{items}[default]
 
 % fix \frametitle and add output for \framesubtitle
 \setbeamertemplate{frametitle}{%
