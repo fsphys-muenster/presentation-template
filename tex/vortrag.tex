@@ -7,7 +7,7 @@
 \title[Kurzer Titel]{Ausführlicher Titel}
 \subtitle{Untertitel}
 % \subject wird von der Vorlage nicht direkt verwendet
-%\subject{}
+%\subject{Thema}
 % Autor angeben
 \author{Autor}
 % \institute wird von der Vorlage nicht direkt verwendet
@@ -23,9 +23,41 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Überschrift}
+	\frametitle{Folien-Überschrift}
 
 	Hier kommt Text!
+
+	\begin{block}{Ein "normaler" Block}
+		Inhalt hier.
+	\end{block}
+
+	\texttt{itemize} und \texttt{enumerate}:
+	\begin{itemize}
+		\item Ein Punkt
+		\item Noch ein Punkt
+		\item Ein dritter Punkt
+	\end{itemize}
+	\begin{enumerate}
+		\item Ein Punkt
+		\item Noch ein Punkt
+		\item Ein dritter Punkt
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Ein Alert-Block}
+
+	\begin{alertblock}{Achtung!}
+		Hier kommt Rot ins Spiel!
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Ein Example-Block}
+
+	\begin{exampleblock}{Beispiel}
+		Hier kommt Grün ins Spiel!
+	\end{exampleblock}
 \end{frame}
 
 \begin{frame}
