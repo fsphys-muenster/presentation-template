@@ -62,7 +62,7 @@ range={`\+, `\-, `\×, `\÷, `\⋅, `\*, `\/, `\⁄, `\±,
 \setmainlanguage{german}
 
 % Offizielles WWU-LaTeX-Paket für Präsentation (leicht modifiziert)
-\usepackage[pantone312]{wwustyle}
+\usepackage[pantone312]{wwustyle-mod}
 % Typographische Verbesserungen (Verbot mancher Ligaturen)
 \usepackage{selnolig}
 % Typographische Verbesserungen (Mikrotypographie)
@@ -111,25 +111,6 @@ range={`\+, `\-, `\×, `\÷, `\⋅, `\*, `\/, `\⁄, `\±,
 
 \institutelogo{\raisebox{-5.75mm}{\includegraphics[width=3.8cm]{fsphys-logo.pdf}}}
 \institutelogosmall{\raisebox{-2.5mm}[0pt][0pt]{\includegraphics[width=2.6cm]{fsphys-logo.pdf}}}
-
-% \framesubtitle aktivieren
-\setbeamertemplate{frametitle}{%
-	\vskip4mm
-	\fontsize{14pt}{14pt}
-	\selectfont
-	\color{maincolor}
-	\bfseries
-	\insertframetitle
-	\par
-	\ifx\insertframesubtitle\empty%
-	\else
-	\fontsize{12pt}{12pt}
-	\selectfont
-	\color{black}
-	\mdseries
-	\insertframesubtitle
-	\fi%
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

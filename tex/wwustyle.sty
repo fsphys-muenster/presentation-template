@@ -4,8 +4,6 @@
 % A style file following the corporate design of the WWU
 % Muenster.
 %
-% Entfernung des veralteten Pakets meta.sty (und einige weitere Verbesserungen).
-%   31.10.2017 Simon May
 % Umgearbeitet fuer die Verwendung mit dem neuen Logo und neuen Hintergrundbildern.
 %   05.09.2017 Ulrich Grabowsky (gu)
 % Version: 1.9 (07.04.2014) Fixed overfull hboxes (Cudos to Matthias Kirchner for the fix)
@@ -58,10 +56,9 @@
 \RequirePackage{tikz}
 \RequirePackage{xxcolor}
 
-% === Disable hard-coded font setup [Simon May]
-%\RequirePackage[T1]{fontenc}
+\RequirePackage[T1]{fontenc}
 %% use MetaRoman Normal as the standard non-serif font
-%\renewcommand{\sfdefault}{fMt}
+\renewcommand{\sfdefault}{fMt}
 \newcommand{\skipexternalization}{%
 \ifdefined\tikzexternalize%
 \tikzset{external/export=false}%
@@ -70,9 +67,6 @@
 \fi%
 }
 \RequirePackage{microtype}
-
-% === add resource directory to search path [Simon May]
-\graphicspath{{wwustyle/}}
 
 %\definecolor{prinz}{RGB}{40,40,80}
 \definecolor{prinz}{RGB}{255,255,255}
@@ -131,7 +125,7 @@
 
 % Das invertierte Titelbild erscheint lediglich auf
 % dem Haupttitel. Dort muss die Schrift dann
-% weiÃŸ werden.
+% weiß werden.
 % \fn@invers dient zum Einlesen der entsprechenden Hintergrunddatei
 % \bg@invers schaltet die Farbe um. 04.09.2017 gu
 \newcommand*{\fn@invers}{}
@@ -260,7 +254,7 @@
 \newcommand{\claimTitle}{\claim{1.05}{0}{grey}}
 \newcommand{\logoHeadline}{\wwulogo{0.3}} % Groesse veraendert. 22.08.2017 gu
 \newcommand{\logoTitle}{\wwulogo{1}}
-%\newcommand{\logoTitle}{\wwulogo{1.019}} % Diese GrÃ¶ÃŸe entspricht dem Original 1:1
+%\newcommand{\logoTitle}{\wwulogo{1.019}} % Diese Größe entspricht dem Original 1:1
 \newcommand{\logoAzPoster}{\wwulogo{3.5}}
 \newcommand{\logoAiPoster}{\wwulogo{4.12}}
 \newcommand{\logoTitleSmall}{\csname wwulogo\bg@invers\endcsname{0.45}} % Groesse veraendert. 22.08.2017 gu hier auf invers schalten
@@ -318,8 +312,8 @@
 % Schriftgroesse und Groesse des Punkts geaendert. 22.08.2017 gu
 % Um drittes Argment (Farbe) ergaenzt. 04.09.2017 gu
 
-% === fix use of \bgbox in title [Simon May]
-\newcommand*{\bgbox}[1]{\texorpdfstring{\colorbox{maincolor}{#1}}{#1}}
+
+\newcommand*{\bgbox}[1]{\colorbox{maincolor}{#1}}
 
 \newcommand{\claim}[3]{%
     \if@poster
@@ -335,9 +329,7 @@
   \node (wissen)  {
     \color{#3}
     \fontsize{2.8mm}{1mm}\selectfont
-    % === Disable hard-coded font setup [Simon May]
-%    \usefont{T1}{fMt}{b}{n}
-    \bfseries
+    \usefont{T1}{fMt}{b}{n}
     \claimTextWissen *
   };
   %% Punkt
@@ -354,13 +346,11 @@
     right of=wissen] (leben) {
       \color{#3}
       \fontsize{2.8mm}{1mm}\selectfont
-      % === Disable hard-coded font setup [Simon May]
-%      \usefont{T1}{fMt}{b}{n}
-      \bfseries
+      \usefont{T1}{fMt}{b}{n}
       \claimTextLeben
     };
 
-% WWU MÃ¼nster unterhalb von wissen.leben entfernt. 22.08.2017 gu
+% WWU Münster unterhalb von wissen.leben entfernt. 22.08.2017 gu
 % %% WWU
 % \node[
 %   xshift=\claimWWUXShift,
@@ -368,7 +358,7 @@
 %   below of=wissen] (WWU) {\textcolor{pantoneblack7!50}{\fontsize{3.8mm}{1mm}\selectfont
 %       \usefont{T1}{fMt}{m}{n}
 %       WWU}};
-% %% MÃ¼nster
+% %% Mï¿½nster
 % \node[
 %   xshift=\claimWWUXXShift,
 %   right of=WWU] {\textcolor{pantoneblack7!50}{\fontsize{3.8mm}{1mm}\selectfont
@@ -452,36 +442,19 @@
   yshift=-9.9mm,
   xshift=40mm] {
     \fontsize{10.6mm}{1mm}\selectfont
-    % === Disable hard-coded font setup [Simon May]
-%    \usefont{T1}{fMt}{b}{sc}
-    \bfseries\scshape
+    \usefont{T1}{fMt}{b}{sc}
     \textls[15]{WWU}
   };
   \node[mytextnode,
   yshift=-17mm,
   xshift=40.1mm] {
     \fontsize{4.3mm}{1mm}\selectfont
-    % === Disable hard-coded font setup [Simon May]
-%    \usefont{T1}{fMt}{m}{n}
+    \usefont{T1}{fMt}{m}{n}
     \textls[15]{M\spatium \"U\spatium N\spatium S\spatium T\spatium E\spatium R}
   };
 
   \end{tikzpicture}
 } % end of the logo
-% === use standard WWU logo files instead of redrawing the logo in TikZ
-\renewcommand*{\wwu@logo}[2]{%
-	\def\temp@a{#2}\def\temp@b{white}%
-	\ifx\temp@a\temp@b%
-		\includegraphics[scale=#1]{WWUMuenster_Logo_2017_negativ}
-	\else%
-		% The file WWUMuenster_Logo_2017_4c.pdf contains margins which have to
-		% be cropped. There is a horizontal margin of 2.5mm and a vertical
-		% margin of 2.66mm on each side. The trim option of \includegraphics
-		% takes values in bp (1bp = 1/72in), so 2.5mm â‰ˆ 7.08bp and
-		% 2.66mm â‰ˆ 7.54bp.
-		\includegraphics[trim=7.08 7.54 7.08 7.54, clip, scale=#1]{WWUMuenster_Logo_2017_4c}
-	\fi%
-}
 
 %
 \newcommand*{\spatium}{\kern0.23em}
@@ -501,9 +474,8 @@
 \newcommand{\institutelogosmall}[1]{%
   \renewcommand{\@institutelogosmall}{#1}
 }
-% === Disable hard-coded font setup [Simon May]
-%% use MetaNormal Roman everywhere
-%\RequirePackage{meta}
+% use MetaNormal Roman everywhere
+\RequirePackage{meta}
 
 %% ============ Margins, spacing, etc ============
 \setbeamersize{text margin right=2mm, text margin left=7.50mm}  % text margin
@@ -544,24 +516,22 @@
 \definecolor{fu-green}{RGB}{153, 204, 0} % green text
 \definecolor{fu-red}{RGB}{204, 0, 0} % red text (used by \alert)
 
-% === define an actual white (since the normal white was overwritten above) [Simon May]
-\definecolor{truewhite}{RGB}{255,255,255}
+
 
 %% ================= Redefinition of Styles ============
 % colors
 \usecolortheme{lily}
-\setbeamercolor*{normal text}{fg=pantoneblack7,bg=truewhite}
+\setbeamercolor*{normal text}{fg=pantoneblack7,bg=white}
 \setbeamercolor*{alerted text}{fg=fu-red}
 \setbeamercolor*{example text}{fg=fu-green}
 \setbeamercolor*{structure}{fg=maincolor}
 
-% === restore title background color [Simon May]
-\setbeamercolor*{block title}{fg=truewhite,bg=maincolor}
-\setbeamercolor*{block title alerted}{fg=truewhite,bg=fu-red}
-\setbeamercolor*{block title example}{fg=truewhite,bg=fu-green}
+%\setbeamercolor*{block title}{fg=white,bg=maincolor}
+\setbeamercolor*{block title}{fg=pantoneblack7,bg=}
+\setbeamercolor*{block title alerted}{fg=white,bg=fu-red}
+\setbeamercolor*{block title example}{fg=white,bg=fu-green}
 
-% === restore block background color [Simon May]
-\setbeamercolor*{block body}{bg=maincolor!5}
+\setbeamercolor*{block body}{bg=}
 \setbeamercolor*{block body alerted}{bg=fu-red!10}
 \setbeamercolor*{block body example}{bg=fu-green!10}
 
@@ -663,8 +633,7 @@
       %\textgreater\,
       \textbf{\insertframetitle}%
     \end{minipage}
-    % Remove \vskip to avoid title overlapping contents [Simon May]
-%    \vskip-10mm
+    \vskip-10mm
 }
 
 % headline
@@ -708,8 +677,6 @@
   \setlength{\unitlength}{1mm}
   \begin{picture}(0,15)
     \put(0,8){\parbox[c]{10.75cm}{
-        % === donâ€™t try to justify the title [Simon May]
-        \raggedright
         \fontsize{16pt}{20pt}
         \selectfont
         \edef\curr@fnt@color{maincolor}%
@@ -720,7 +687,7 @@
         \ifx\p@markt\fn@motiv
             \edef\curr@fnt@color{prinz}%
         \fi
-        % Bei inversem Titelbild auf weiÃŸe Schrift umschalten.
+        % Bei inversem Titelbild auf weiße Schrift umschalten.
         % Der Untertitel (s.u.) steht dann besser in halbfett.
         \color{\curr@fnt@color}
         {\bfseries
@@ -986,8 +953,7 @@
     \evensidemargin=\oddsidemargin
     \textwidth=\dimexpr\paperwidth-2\columnsep\relax
 
-    % === Disable hard-coded font setup [Simon May]
-%    \renewcommand{\rmdefault}{fMt}
+    \renewcommand{\rmdefault}{fMt}
 
     \leftmargini=20pt
     \renewcommand\normalsize{%

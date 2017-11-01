@@ -1,0 +1,71 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{wwustyle-mod}[%
+	2017/11/01 Modifications/patches for wwustyle.sty%
+]
+
+\RequirePackage{graphicx}
+% add resource directory to search path
+\graphicspath{{wwustyle/}}
+
+% load the same packages as wwustyle
+\RequirePackage{tikz}
+\RequirePackage{xxcolor}
+\RequirePackage{microtype}
+
+% pass all options to wwustyle
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{wwustyle}}
+\ProcessOptions\relax
+
+% save commands that will temporarily be overwritten
+\let\RequirePackage@saved=\RequirePackage
+\let\usefont@saved=\usefont
+\let\rmdefault@saved=\rmdefault
+\let\sfdefault@saved=\sfdefault
+% disable the commands \RequirePackage and \usefont before loading wwustyle
+% so that it doesn’t load fontenc.sty or meta.sty and doesn’t set the fonts
+\renewcommand*{\RequirePackage}[2][]{}
+\renewcommand*{\usefont}[4]{}
+% load wwustyle
+\RequirePackage@saved{wwustyle}
+% restore commands
+\let\RequirePackage=\RequirePackage@saved
+\let\usefont=\usefont@saved
+\let\rmdefault=\rmdefault@saved
+\let\sfdefault=\sfdefault@saved
+
+% =============================================================================
+
+% redefine \@arrayparboxrestore so that the presentation title (which is set
+% using a \parbox) uses \raggedright instead of justifying text
+\g@addto@macro\@arrayparboxrestore{\raggedright}
+
+% some improvements and modifications to wwustyle.sty
+\renewcommand*{\bgbox}[1]{\texorpdfstring{\colorbox{maincolor}{#1}}{#1}}
+
+% define an actual white (since the normal white was overwritten in wwustyle)
+\definecolor{truewhite}{RGB}{255,255,255}
+% restore block title colors
+\setbeamercolor*{block title}{fg=truewhite,bg=maincolor}
+\setbeamercolor*{block title alerted}{fg=truewhite,bg=fu-red}
+\setbeamercolor*{block title example}{fg=truewhite,bg=fu-green}
+% restore block background color
+\setbeamercolor*{block body}{bg=maincolor!5}
+
+% fix \frametitle and add output for \framesubtitle
+\setbeamertemplate{frametitle}{%
+	\vskip4mm
+	\fontsize{14pt}{14pt}
+	\selectfont
+	\color{maincolor}
+	\bfseries
+	\insertframetitle
+	\par
+	\ifx\insertframesubtitle\empty%
+	\else
+	\fontsize{12pt}{12pt}
+	\selectfont
+	\color{black}
+	\mdseries
+	\insertframesubtitle
+	\fi%
+}
