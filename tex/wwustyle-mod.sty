@@ -12,7 +12,10 @@
 \RequirePackage{xxcolor}
 \RequirePackage{microtype}
 
-% pass all options to wwustyle
+% intercept option “english” to fix avoid error in wwustyle.sty
+\newif\ifwwumod@english
+\DeclareOption{english}{\wwumod@englishtrue}
+% pass all (other) options to wwustyle
 \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{wwustyle}}
 \ProcessOptions\relax
 
@@ -38,6 +41,25 @@
 \let\@listiii=\@listiii@saved
 
 % =============================================================================
+
+% fix broken package option “english”
+\renewcommand{\switchToEnglish}{
+	\renewcommand{\claimTextWissen}{living}
+	\renewcommand{\claimTextLeben}{knowledge}
+	% this line had to be fixed (was “\newcommand{\claimText}{livingknowledge}”)
+	\renewcommand{\claimText}{livingknowledge}
+	\renewcommand{\claimPunktXShift}{-6.2mm}
+	\renewcommand{\claimPunktYShift}{-0.6mm}
+	\renewcommand{\claimLebenXShift}{0.5mm}
+	\renewcommand{\claimWWUYShift}{6.9mm}
+	\renewcommand{\claimWWUXShift}{0mm}
+	\renewcommand{\claimWWUXXShift}{2.3366mm}
+	\renewcommand{\claimDeEn}{-en}
+}
+% switch to English if package option “english” was specified
+\ifwwumod@english
+	\switchToEnglish
+\fi
 
 % redefine \@arrayparboxrestore so that the presentation title (which is set
 % using a \parbox) uses \raggedright instead of justifying text
