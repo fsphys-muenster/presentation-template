@@ -112,7 +112,8 @@
 		\rule{\textwidth}{0.8pt}% horizontal line
 		\vskip4mm%
 		\hspace{5mm}%
-		\textcolor{wwublack}{\let\bgbox\relax\insertshortauthor}\hfill\textcolor{maincolor}{\fontsize{9pt}{12pt}\selectfont\smash{\textbf{\thepage}}}\hspace{5mm}\strut%
+		% fix frame numbering (use \insertframenumber instead of \thepage)
+		\textcolor{wwublack}{\let\bgbox\relax\insertshortauthor}\hfill\textcolor{maincolor}{\fontsize{9pt}{12pt}\selectfont\smash{\textbf{\insertframenumber}}}\hspace{5mm}\strut%
 		\vskip4mm%
 	\end{beamercolorbox}%
 }
