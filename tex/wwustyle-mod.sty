@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{wwustyle-mod}[%
-	2017/11/20 Modifications/patches for wwustyle.sty%
+	2017/11/21 Modifications/patches for wwustyle.sty%
 ]
 
 \RequirePackage{graphicx}
@@ -115,9 +115,15 @@
 	\fi%
 }
 
-% make right sidebar smaller now that the claim isn’t shown there anymore
-% (same size as left sidebar)
-\setbeamersize{sidebar width right=0.25cm}
+% disable left sidebar (empty)
+\setbeamersize{sidebar width left=0cm}
+% disable right sidebar now that the claim isn’t shown there anymore
+\setbeamersize{sidebar width right=0cm}
+% set text margins to 0.5cm
+% this gives the same margins as before with the sidebars
+% (with empty sidebars and sidebar width left=-0.25cm, sidebar width right=0.25cm)
+\setbeamersize{text margin left=0.5cm}
+\setbeamersize{text margin right=0.5cm}
 
 % define an actual white (since the normal white was overwritten in wwustyle)
 \definecolor{truewhite}{RGB}{255, 255, 255}
@@ -174,8 +180,8 @@
 	}
 	\hfill
 	\textbf{\color{maincolor}\let\bgbox\relax\insertshorttitle}%
-	% same space to the right as sidebar width
-	\hspace{0.25cm}%
+	% same space to the right as text margin
+	\hspace{0.5cm}%
 	\rule{0pt}{12mm}%
 }
 
