@@ -129,19 +129,27 @@
 \definecolor{truewhite}{RGB}{255, 255, 255}
 % correct definition of pantoneblack7
 \definecolor{pantoneblack7}{RGB}{62, 62, 59}
+
+% restore original background canvas
+\setbeamertemplate{background canvas}[default]
+% use template background for title page background instead of background canvas
+\setbeamertemplate{background}{\hbox to \paperwidth{\hss\box\bg@title}}
 % set text color to pantoneblack7, 85%
+% set frame background to same color as title page background
 \colorlet{wwublack}{pantoneblack7!85}
-\setbeamercolor*{normal text}{fg=pantoneblack7!85}
+\definecolor{wwumodbackground}{RGB}{244, 244, 244}
+\setbeamercolor{normal text}{fg=wwublack, bg=wwumodbackground}
+
 % restore block title colors
-\setbeamercolor*{block title}{fg=truewhite,bg=maincolor}
-\setbeamercolor*{block title alerted}{fg=truewhite,bg=fu-red}
-\setbeamercolor*{block title example}{fg=truewhite,bg=fu-green}
+\setbeamercolor{block title}{fg=truewhite, bg=maincolor}
+\setbeamercolor{block title alerted}{fg=truewhite, bg=fu-red}
+\setbeamercolor{block title example}{fg=truewhite, bg=fu-green}
 % restore block background color
-\setbeamercolor*{block body}{bg=maincolor!5}
+\setbeamercolor{block body}{bg=maincolor!5}
 
 % make footline background non-transparent so that frame content cannot “slide
 % into” the footer
-\setbeamercolor*{footlinecolor}{bg=truewhite}
+\setbeamercolor{footlinecolor}{bg=wwumodbackground}
 \setbeamertemplate{footline}{%
 	\begin{beamercolorbox}[wd=\paperwidth]{footlinecolor}
 		\fontsize{6pt}{1pt}%
