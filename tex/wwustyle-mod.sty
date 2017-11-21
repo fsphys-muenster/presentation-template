@@ -120,12 +120,12 @@
 \setbeamersize{sidebar width right=0.25cm}
 
 % define an actual white (since the normal white was overwritten in wwustyle)
-\definecolor{truewhite}{RGB}{255,255,255}
+\definecolor{truewhite}{RGB}{255, 255, 255}
 % correct definition of pantoneblack7
-\definecolor{pantoneblack7}{RGB}{62,62,59}
-% set text color to 80% of pantoneblack7
-\colorlet{wwublack}{pantoneblack7!80}
-\setbeamercolor*{normal text}{fg=pantoneblack7!80}
+\definecolor{pantoneblack7}{RGB}{62, 62, 59}
+% set text color to pantoneblack7, 85%
+\colorlet{wwublack}{pantoneblack7!85}
+\setbeamercolor*{normal text}{fg=pantoneblack7!85}
 % restore block title colors
 \setbeamercolor*{block title}{fg=truewhite,bg=maincolor}
 \setbeamercolor*{block title alerted}{fg=truewhite,bg=fu-red}
@@ -192,6 +192,7 @@
 	\else
 	\fontsize{12pt}{12pt}
 	\selectfont
+	% set frame subtitles in pantoneblack7, 100%
 	\color{pantoneblack7}
 	\mdseries
 	\insertframesubtitle
