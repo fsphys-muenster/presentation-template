@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{wwustyle-mod}[%
-	2017/11/08 Modifications/patches for wwustyle.sty%
+	2017/11/20 Modifications/patches for wwustyle.sty%
 ]
 
 \RequirePackage{graphicx}
@@ -15,6 +15,30 @@
 % intercept option “english” to fix avoid error in wwustyle.sty
 \newif\ifwwumod@english
 \DeclareOption{english}{\wwumod@englishtrue}
+% correct color options and add missing colors
+% the files for the title page images are named incorrectly:
+% – pantone315<…>.pdf actually uses pantone7462
+% – pantone3282<…>.pdf actually uses pantone3135
+\newif\ifwwumod@color
+\newcommand*{\wwumod@bgcolor}{pantone312}
+\newcommand*{\wwumod@fncolor}{pantone312}
+\definecolor{pantone7462}{RGB}{0,  78, 138}
+\definecolor{pantone3135}{RGB}{0, 142, 150}
+\DeclareOption{pantone315}{
+	\wwumod@colortrue
+	\renewcommand*{\wwumod@bgcolor}{pantone315}
+	\renewcommand*{\wwumod@fncolor}{pantone3282} % actually pantone3135
+}
+\DeclareOption{pantone3135}{
+	\wwumod@colortrue
+	\renewcommand*{\wwumod@bgcolor}{pantone3135}
+	\renewcommand*{\wwumod@fncolor}{pantone3282} % actually pantone3135
+}
+\DeclareOption{pantone7462}{
+	\wwumod@colortrue
+	\renewcommand*{\wwumod@bgcolor}{pantone7462}
+	\renewcommand*{\wwumod@fncolor}{pantone315} % actually pantone7462
+}
 % pass all (other) options to wwustyle
 \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{wwustyle}}
 \ProcessOptions\relax
@@ -30,8 +54,10 @@
 % so that it doesn’t load fontenc.sty or meta.sty and doesn’t set the fonts
 \renewcommand*{\RequirePackage}[2][]{}
 \renewcommand*{\usefont}[4]{}
+
 % load wwustyle
 \RequirePackage@saved{wwustyle}
+
 % restore commands
 \let\RequirePackage=\RequirePackage@saved
 \let\usefont=\usefont@saved
@@ -59,6 +85,12 @@
 % switch to English if package option “english” was specified
 \ifwwumod@english
 	\switchToEnglish
+\fi
+
+% fix color package options
+\ifwwumod@color
+	\set@wwu@maincolor{\wwumod@bgcolor}{\wwumod@fncolor}
+	\definecolor{maincolor}{named}{\bg@maincolor}
 \fi
 
 % redefine \@arrayparboxrestore so that the presentation title (which is set
