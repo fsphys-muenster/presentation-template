@@ -157,6 +157,28 @@
 \setbeamertemplate{itemize/enumerate subsubbody begin}[default]
 \setbeamertemplate{items}[default]
 
+% fix positioning of title in headline
+\setbeamertemplate{headline}{
+	\fontsize{6pt}{1pt}
+	\selectfont
+	{
+		\skipexternalization
+		\begin{tikzpicture}[remember picture, overlay]
+		\node[xshift=0.54cm,yshift=-1.21cm,
+		anchor=south west,
+		inner sep=0] at (current page.north west) {\logoHeadline};
+		\node[xshift=4.76cm,yshift=-1.21cm,
+		anchor=south west,
+		inner sep=0] at (current page.north west) {\@institutelogosmall};
+		\end{tikzpicture}
+	}
+	\hfill
+	\textbf{\color{maincolor}\let\bgbox\relax\insertshorttitle}%
+	% same space to the right as sidebar width
+	\hspace{0.25cm}%
+	\rule{0pt}{12mm}%
+}
+
 % fix \frametitle and add output for \framesubtitle
 \setbeamertemplate{frametitle}{%
 	\vskip4mm
