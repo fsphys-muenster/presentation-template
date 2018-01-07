@@ -218,7 +218,7 @@
 {
 \renewcommand{\claimTextWissen}{living}
 \renewcommand{\claimTextLeben}{knowledge}
-\newcommand{\claimText}{livingknowledge}
+\renewcommand{\claimText}{livingknowledge}
 \renewcommand{\claimPunktXShift}{-6.2mm}
 \renewcommand{\claimPunktYShift}{-0.6mm}
 \renewcommand{\claimLebenXShift}{0.5mm}
@@ -490,20 +490,17 @@
 \definecolor{currentframenumbercolor}{RGB}{62,62,59}
 \definecolor{slashcolor}{RGB}{255,255,255}
 \definecolor{totalframenumbercolor}{RGB}{255,255,255}
+\newcommand*{\@@insert@framenumber}{\insertframenumber}
 
 
 % %% ========= Possible options for beamer ==============
 % % decide, whether the page number should show up
-% \DeclareOption{nopagenumbering}{
-% \definecolor{currentframenumbercolor}{RGB}{255,255,255}
-% \definecolor{slashcolor}{RGB}{255,255,255}
-% \definecolor{totalframenumbercolor}{RGB}{255,255,255}
-% }
-% \DeclareOption{fullpagenumbering}{
-% \definecolor{currentframenumbercolor}{RGB}{62,62,59}
-% \definecolor{slashcolor}{RGB}{62,62,59}
-% \definecolor{totalframenumbercolor}{RGB}{62,62,59}
-% }
+%\DeclareOption{nopagenumbering}{%
+%    \renewcommand*{\@@insert@framenumber}{}%
+%}
+%\DeclareOption{fullpagenumbering}{%
+%    \renewcommand*{\@@insert@framenumber}{\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber}%
+%}
 % \ProcessOptions\relax
 
 
@@ -604,7 +601,7 @@
 \def\@listiii{\leftmargin\leftmarginiii
               \labelwidth\leftmarginiii
               \advance\labelwidth-\labelsep
-              \topsep    4pt
+              \topsep    0pt
               \parsep    0pt
               \partopsep 0pt
               \itemsep   \topsep}
@@ -668,7 +665,10 @@
 % Diese Box wird auf der ersten Seite ausgegeben und ist
 % anschliessend leer. 23.08.2017 gu
 \setbeamertemplate{background canvas}{%
-    \hbox to \paperwidth{\hss\box\bg@title}%
+    \hbox{\hbox to 0pt{%
+        \color{black!10}%
+        \vrule height \paperheight width \paperwidth depth0pt\hss}%
+    \hbox to \paperwidth{\hss\box\bg@title}}%
 }
 \setbeamertemplate{title page}{
  \fontsize{11pt}{1pt}
@@ -791,6 +791,7 @@
 % Umgearbeitet in die neue Vorlage: Ein Strich statt zwei
 % Strichen, Seitenzahl. 22.08.2017 gu
 \setbeamertemplate{footline}{%
+\vbox to 0pt{\vss
   \fontsize{6pt}{1pt}%
   \selectfont%
   \vskip4pt%
@@ -799,8 +800,9 @@
   \vskip4mm%
   \color{black}%
   \hspace{5mm}%
-  \textcolor{wwublack}{\let\bgbox\relax\insertshortauthor}\hfill\textcolor{maincolor}{\fontsize{9pt}{12pt}\selectfont\textbf{\thepage}}\hspace{5mm}\strut%
+  \textcolor{wwublack}{\let\bgbox\relax\insertshortauthor}\vrule height7pt depth3pt width0pt\hfill\textcolor{maincolor}{\fontsize{9pt}{12pt}\selectfont\textbf{\@@insert@framenumber}}\hspace{5mm}\strut%
   \vskip4mm%
+  }
   }% end footline
 } % true-branch of ifclassloaded
 {%
