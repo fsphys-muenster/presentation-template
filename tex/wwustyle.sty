@@ -84,6 +84,8 @@
 	\fi
 }
 
+\newcommand*{\logoHeadline}{\wwulogo{2cm}}
+\newcommand*{\logoTitleSmall}{\csname wwulogo\bg@invers\endcsname{3.5cm}}
 
 
 %% ========= possible package options ===========================
@@ -148,7 +150,7 @@
 \DeclareOption{wedge}{%
 	\@wedgetrue
 	\renewcommand*{\fn@motiv}{textkeil}%
-	\renewcommand*{\wedgeskip}{35mm}%
+	\renewcommand*{\wedgeskip}{3.5cm}%
 }
 \newcommand*{\p@markt}{prinzipalmarkt}
 \DeclareOption{prinz}{%
@@ -171,12 +173,12 @@
 \newcommand*{\claimMain}{%
 	\if@wedge%
 		\if@invers%
-			\claim{0.5}{white}%
+			\claim{white}%
 		\else%
-			\claim{0.5}{grey}%
+			\claim{grey}%
 		\fi%
 	\else%
-		\claim{0.5}{grey}%
+		\claim{grey}%
 	\fi%
 }
 
@@ -187,10 +189,6 @@
 \DeclareOption{fullpagenumbering}{%
 	\renewcommand*{\@@insert@framenumber}{\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber}%
 }
-\newcommand*{\claimTitle}{\claim{1.05}{grey}}
-\newcommand*{\logoHeadline}{\wwulogo{0.3}}
-\newcommand*{\logoTitle}{\wwulogo{1}}
-\newcommand*{\logoTitleSmall}{\csname wwulogo\bg@invers\endcsname{0.45}}
 
 \ProcessOptions\relax
 
@@ -201,29 +199,31 @@
 %% =============== images and graphics ==========================
 \newcommand*{\bgbox}[1]{\texorpdfstring{\colorbox{maincolor}{#1}}{#1}}
 
-% WWU claim with \includegraphics; it uses two parameters:
-% parameter #1: scale
-% parameter #2: color
-\newcommand*{\claim}[2]{%
-	\strut\hskip-16mm\rlap{\includegraphics[scale=#1]{\claimText#2}}%
+% WWU claim with \includegraphics; uses one parameter:
+% parameter #1: color
+\newcommand*{\claim}[1]{%
+	% unfortunately, the image must be scaled here instead of using a fixed
+	% width or height, because the German and English versions of the claim
+	% differ in both
+	\rlap{\includegraphics[scale=0.5]{\claimText#1}}%
 }
 
-% WWU logo with \includegraphics; takes one parameter
-% parameter #1: scale
+% WWU logo with \includegraphics; uses one parameter
+% parameter #1: width
 \newcommand*{\wwulogo}[1]{\wwu@logo{#1}{wwu-textcolor}}
 \newcommand*{\wwulogoinvers}[1]{\wwu@logo{#1}{white}}
 
 \newcommand*{\wwu@logo}[2]{%
 	\def\temp@a{#2}\def\temp@b{white}%
 	\ifx\temp@a\temp@b%
-	\includegraphics[scale=#1]{WWUMuenster_Logo_2017_negativ}
+		\includegraphics[width=#1]{WWUMuenster_Logo_2017_negativ}
 	\else%
-	% The file WWUMuenster_Logo_2017_4c.pdf contains margins which have to
-	% be cropped. There is a horizontal margin of 2.5mm and a vertical
-	% margin of 2.66mm on each side. The trim option of \includegraphics
-	% takes values in bp (1bp = 1/72in), so 2.5mm ≈ 7.08bp and
-	% 2.66mm ≈ 7.54bp.
-	\includegraphics[trim=7.08 7.54 7.08 7.54, clip, scale=#1]{WWUMuenster_Logo_2017_4c}
+		% The file WWUMuenster_Logo_2017_4c.pdf contains margins which have to
+		% be cropped. There is a horizontal margin of 2.5mm and a vertical
+		% margin of 2.66mm on each side. The trim option of \includegraphics
+		% takes values in bp (1bp = 1/72in), so 2.5mm ≈ 7.08bp and
+		% 2.66mm ≈ 7.54bp.
+		\includegraphics[trim=7.08 7.54 7.08 7.54, clip, width=#1]{WWUMuenster_Logo_2017_4c}
 	\fi%
 }
 
@@ -352,24 +352,25 @@
 			% Anstelle des Datums steht hier nunmehr das Institutslogo. 22.08.2017 gu
 			% Ich habe es in eine \llap{} gepackt, weil nicht vorhersehbar ist,
 			% was dort erscheinen soll.
-			\node (datenode) [yshift=0.7cm,xshift=-1cm, inner sep=0, anchor=base] at (current page.south east)
-			{\color{pantoneblack7}%
-			\if@wedge
-				\if@invers
-					\color{white}%
+			\node (datenode) [yshift=0.7cm, xshift=-1cm, inner sep=0, anchor=base]
+				at (current page.south east)
+				{\color{pantoneblack7}%
+				\if@wedge
+					\if@invers
+						\color{white}%
+					\fi
 				\fi
-			\fi
-			\llap{\fontsize{6pt}{8pt}\selectfont\@institutelogo\hskip\wedgeskip}%
-			};
+				\llap{\fontsize{6pt}{8pt}\selectfont\@institutelogo\hskip\wedgeskip}%
+				};
 		\end{tikzpicture}
 		}
 	\end{picture}
 	{
 		\begin{tikzpicture}[remember picture, overlay]
 			%% the claim
-			\node [xshift=1.3cm, yshift=0.6cm] at (current page.south west)
+			\node [xshift=0.5cm, yshift=0.6cm] at (current page.south west)
 				(claim) {\claimMain};
-			\node [xshift=0.39cm, yshift=-1cm, anchor=west] at (current page.north west)
+			\node [xshift=0.4cm, yshift=-1cm, anchor=west] at (current page.north west)
 				{\logoTitleSmall};
 		\end{tikzpicture}
 	}
@@ -379,11 +380,11 @@
 \setbeamertemplate{headline}{
 	\fontsize{6pt}{1pt}%
 	\selectfont%
-	{
+	{%
 		\begin{tikzpicture}[remember picture, overlay]
-			\node[xshift=0.54cm, yshift=-1.21cm, anchor=south west, inner sep=0]
+			\node[xshift=0.5cm, yshift=-1cm, anchor=south west, inner sep=0]
 				at (current page.north west) {\logoHeadline};
-			\node[xshift=3.5cm, yshift=-1.21cm, anchor=south west, inner sep=0]
+			\node[xshift=3.5cm, yshift=-1cm, anchor=south west, inner sep=0]
 				at (current page.north west) {\@institutelogosmall};
 		\end{tikzpicture}
 	}%
