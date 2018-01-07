@@ -49,7 +49,6 @@
 %           for employees in the tex distribution on the WWU workstations.
 % Authors:  Sven Kaulmann, Martin Drohmann, Ulrich Grabowsky (04.09.2017)
 % Maintainer: Sven Kaulmann (sven.kaulmann at uni-muenster dot de)
-%           Ulrich Grabowsky (grabowsky@satzundsonders.de)
 
 %% ========= Required Packages =============
 % for the graphics
@@ -92,10 +91,6 @@
 % set the main color
 % for the color definitions see
 % WWU corporate design manual
-% Schriftfarbe und Hintergrundfarbe muessen gesondert festgelegt
-% werden, da nicht fuer alle Farben Hintergrunddateien vorliegen.
-% #1: Schriftfarbe
-% #2: Hintergrundfarbe (Namensteil der Hintergrunddatei)
 \newcommand*{\set@wwu@maincolor}[2]{%
     \renewcommand*{\bg@maincolor}{#1}%
     \renewcommand*{\fn@maincolor}{#2}%
@@ -123,11 +118,6 @@
 \DeclareOption{pantoneprozessyellow}{%
     \set@wwu@maincolor{pantoneprozessyellow}{pantone312}}
 
-% Das invertierte Titelbild erscheint lediglich auf
-% dem Haupttitel. Dort muss die Schrift dann
-% weiß werden.
-% \fn@invers dient zum Einlesen der entsprechenden Hintergrunddatei
-% \bg@invers schaltet die Farbe um. 04.09.2017 gu
 \newcommand*{\fn@invers}{}
 \newcommand*{\bg@invers}{}
 \newif\if@invers
@@ -137,10 +127,6 @@
     \renewcommand*{\bg@invers}{invers}%
 }
 
-% Drei Motive liegen vor:
-% Glockenturm des Schlosses,
-% Textkeil,
-% WWU-Schriftzug auf dem Prinzipalmarkt.
 \DeclareOption{belltower}{%
     \renewcommand*{\fn@motiv}{glocke}%
 }
@@ -202,8 +188,6 @@
     \columnsep=20mm
 }
 
-% \claimPunktYShift hinzugefuegt, um die Unterlaengen in
-% den englischen Woertern auszugleichen. 22.08.2017 gu
 \newcommand{\claimTextWissen}{wissen}
 \newcommand{\claimTextLeben}{leben}
 \newcommand{\claimText}{wissenleben}
@@ -218,7 +202,7 @@
 {
 \renewcommand{\claimTextWissen}{living}
 \renewcommand{\claimTextLeben}{knowledge}
-\newcommand{\claimText}{livingknowledge}
+\renewcommand{\claimText}{livingknowledge}
 \renewcommand{\claimPunktXShift}{-6.2mm}
 \renewcommand{\claimPunktYShift}{-0.6mm}
 \renewcommand{\claimLebenXShift}{0.5mm}
@@ -238,8 +222,6 @@
 \newcommand{\logoTitleSmallFn}{\includegraphics{wwu-logo-title-small}}
 \newcommand{\claimSidebar}{\begin{colormixin}{25!white}\claim{1.25}{90}{pantoneblack7}
 \end{colormixin}}
-% Beim Textkeil wird der gesamte Hintergrund hinterlegt,
-% andernfalls bleibt der Streifen unten frei.
 \newcommand{\claimMain}{%
     \if@wedge
         \if@invers
@@ -298,8 +280,6 @@
 }
 \ProcessOptions\relax
 
-% Die Farboptionen definieren zunaechst \bg@maincolor,
-% dessen Farbangabe hier zugewiesen wird.
 \definecolor{maincolor}{named}{\bg@maincolor}
 
 
@@ -309,8 +289,6 @@
 %% \parameter 1 the scale
 %% \parameter 2 the rotation
 %% #3 Farbe
-% Schriftgroesse und Groesse des Punkts geaendert. 22.08.2017 gu
-% Um drittes Argment (Farbe) ergaenzt. 04.09.2017 gu
 
 
 \newcommand*{\bgbox}[1]{\colorbox{maincolor}{#1}}
@@ -350,7 +328,6 @@
       \claimTextLeben
     };
 
-% WWU Münster unterhalb von wissen.leben entfernt. 22.08.2017 gu
 % %% WWU
 % \node[
 %   xshift=\claimWWUXShift,
@@ -369,10 +346,6 @@
 
 %% the logo as tikzpicture, is takes one parameter
 %% \parameter 1 the scale
-%%% In das Logo von 2017 umgearbeitet: Balkenstaerke und Gesamthoehe
-%%% leicht veraendert, Schriftzug angepasst.
-%%% Eine Skalierung von 1.02 ergibt die Originalgroesse des neuen Logos.
-%%% 22.08.2017 gu
 \newcommand{\wwulogo}[1]{\wwu@logo{#1}{wwublack}}
 \newcommand{\wwulogoinvers}[1]{\wwu@logo{#1}{white}}
 \newcommand{\wwulogoposter}[1]{\wwu@logo{#1}{white}}
@@ -490,20 +463,17 @@
 \definecolor{currentframenumbercolor}{RGB}{62,62,59}
 \definecolor{slashcolor}{RGB}{255,255,255}
 \definecolor{totalframenumbercolor}{RGB}{255,255,255}
+\newcommand*{\@@insert@framenumber}{\insertframenumber}
 
 
 % %% ========= Possible options for beamer ==============
 % % decide, whether the page number should show up
-% \DeclareOption{nopagenumbering}{
-% \definecolor{currentframenumbercolor}{RGB}{255,255,255}
-% \definecolor{slashcolor}{RGB}{255,255,255}
-% \definecolor{totalframenumbercolor}{RGB}{255,255,255}
-% }
-% \DeclareOption{fullpagenumbering}{
-% \definecolor{currentframenumbercolor}{RGB}{62,62,59}
-% \definecolor{slashcolor}{RGB}{62,62,59}
-% \definecolor{totalframenumbercolor}{RGB}{62,62,59}
-% }
+%\DeclareOption{nopagenumbering}{%
+%    \renewcommand*{\@@insert@framenumber}{}%
+%}
+%\DeclareOption{fullpagenumbering}{%
+%    \renewcommand*{\@@insert@framenumber}{\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber}%
+%}
 % \ProcessOptions\relax
 
 
@@ -540,9 +510,6 @@
 \setbeamercolor{bibliography entry journal}{fg=text-grey}
 
 
-% Die Einstellungen fuer Listen sind anscheinend nur durch
-% ein Mischmasch von Beamer- und LaTeX-Code einzustellen.
-% gu 06.09.2017
 \setbeamercolor{item}{fg=pantoneblack7}
 \setbeamertemplate{itemize/enumerate body begin}{\small}
 \setbeamertemplate{itemize/enumerate subbody begin}{\small}
@@ -592,9 +559,6 @@
 \labelwidth=3mm
 \labelsep=1mm
 
-% Die folgenden Definitionen erreichen das gewuenschte Ziel:
-% Verschachtelte \item haben nun denselben Durchschuss.
-% (Logisch ist das nicht.)
 \def\@listii {\leftmargin\leftmarginii
               \labelwidth\leftmarginii
               \advance\labelwidth-\labelsep
@@ -604,7 +568,7 @@
 \def\@listiii{\leftmargin\leftmarginiii
               \labelwidth\leftmarginiii
               \advance\labelwidth-\labelsep
-              \topsep    4pt
+              \topsep    0pt
               \parsep    0pt
               \partopsep 0pt
               \itemsep   \topsep}
@@ -612,7 +576,6 @@
 % sidebar
 \setbeamertemplate{sidebar right}{
   {
-% Spruch an der Seite entfernt. 22.08.2017 gu
 %  \skipexternalization
 %  \begin{tikzpicture}[remember picture, overlay]
 %    \node[anchor=east,inner sep=0,yshift=-2.25cm,xshift=0.3mm] (sidebarclaim) at (current page.east) {
@@ -655,20 +618,17 @@
   \textbf{\color{maincolor}\let\bgbox\relax\insertshorttitle}%
   \hskip2mm %title on the right
   \parbox[b]{10mm}{
-    % Der Strich darf hier nur optisch entfallen, denn durch ihn reguliert
-    % sich zugleich die Hoehe der Kopfzeile.
-    % Die Seitenzahl entfaellt. 22.08.2017 gu
     {\color{maincolor}\rule{0pt}{12mm} }
 %   \hskip1mm    \textcolor{currentframenumbercolor}{\insertframenumber}
 %    \textcolor{slashcolor}{/}\textcolor{totalframenumbercolor}{\inserttotalframenumber}
   }
 }% end headline
 % title page
-% Der Hintergrund fuer die Titelseite ist in \bg@title abgelegt.
-% Diese Box wird auf der ersten Seite ausgegeben und ist
-% anschliessend leer. 23.08.2017 gu
 \setbeamertemplate{background canvas}{%
-    \hbox to \paperwidth{\hss\box\bg@title}%
+    \hbox{\hbox to 0pt{%
+        \color{black!10}%
+        \vrule height \paperheight width \paperwidth depth0pt\hss}%
+    \hbox to \paperwidth{\hss\box\bg@title}}%
 }
 \setbeamertemplate{title page}{
  \fontsize{11pt}{1pt}
@@ -712,9 +672,6 @@
 %       \selectfont
 %       %\insertauthor
 %       };
-% Anstelle des Datums steht hier nunmehr das Institutslogo. 22.08.2017 gu
-% Ich habe es in eine \llap{} gepackt, weil nicht vorhersehbar ist,
-% was dort erscheinen soll.
       \node (datenode) [yshift=0.7cm,xshift=-1cm, inner sep=0, anchor=base] at (current page.south east)
       {\color{pantoneblack7}%
       \if@wedge
@@ -730,7 +687,6 @@
   {
   \skipexternalization
   \begin{tikzpicture}[remember picture,overlay]
-% Die Hintergrundbalken gibt es nicht mehr. 22.08.2017 gu
     %% the 1. rectangle
 %    \node [xshift=-0.1cm,yshift=-1.95cm] at (current page.north east)
 %    [rectangle,
@@ -788,9 +744,8 @@
 } %end title page
 
 % footline
-% Umgearbeitet in die neue Vorlage: Ein Strich statt zwei
-% Strichen, Seitenzahl. 22.08.2017 gu
 \setbeamertemplate{footline}{%
+\vbox to 0pt{\vss
   \fontsize{6pt}{1pt}%
   \selectfont%
   \vskip4pt%
@@ -799,8 +754,9 @@
   \vskip4mm%
   \color{black}%
   \hspace{5mm}%
-  \textcolor{wwublack}{\let\bgbox\relax\insertshortauthor}\hfill\textcolor{maincolor}{\fontsize{9pt}{12pt}\selectfont\textbf{\thepage}}\hspace{5mm}\strut%
+  \textcolor{wwublack}{\let\bgbox\relax\insertshortauthor}\vrule height7pt depth3pt width0pt\hfill\textcolor{maincolor}{\fontsize{9pt}{12pt}\selectfont\textbf{\@@insert@framenumber}}\hspace{5mm}\strut%
   \vskip4mm%
+  }
   }% end footline
 } % true-branch of ifclassloaded
 {%
@@ -943,8 +899,6 @@
 }
 
 \if@poster
-    % Die Angaben fuer Schriftgroessen etc. sind hier bewusst
-    % direkt eingebunden.
     \pdfpageheight=\paperheight
     \pdfpagewidth=\paperwidth
     \textheight=0.77\paperheight

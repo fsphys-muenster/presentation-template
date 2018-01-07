@@ -9,7 +9,7 @@
 %
 % wide              breites Pr‰sentationsformat
 % Farbe und Hintergrund sind beliebig kombinierbar.
-\documentclass[inverse, prinz]{beamer}
+\documentclass[belltower, wide]{beamer}
 \usepackage{wwustyle}
 \usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
@@ -20,16 +20,18 @@
 % \usetikzlibrary{external}
 % \tikzexternalize
 
-\author{\bgbox{Name: der Referentin / des Referenten}}
 \title{Hier steht der Titel\\ der Pr√§sentation}
+\subtitle{Dies ist der Unteritel}
+\author{Name: der Referentin / des Referenten}
 % Der hier auskommentierte \title{} unterlegt die weiﬂe Schrift
 % mit einem Balken in der Hauptfarbe des Dokuments. Dies kann sinnvoll
 % sein, wenn mit der Option ¥prinz' der Prinzipalmarkt als
 % Hintergrundbild ausgew‰hlt wurde. Der Befehl \bgbox{} entspricht
 % von der Funktion her \mbox{}, ist aber lediglich auf der Titelseite
 % der Pr‰sentation aktiviert.
-\title{\bgbox{Hier steht der Titel} \\\bgbox{der Pr√§sentation}}
-\subtitle{\bgbox{Optionen f√ºr \texttt{\string\documentclass}: inverse, wedge, Verwendung von \texttt{\string\bgbox}}}
+%\title{\bgbox{Hier steht der Titel} \\\bgbox{der Pr√§sentation}}
+%\subtitle{\bgbox{Optionen f√ºr \texttt{\string\documentclass}: inverse, wedge, Verwendung von \texttt{\string\bgbox}}}
+%\author{\bgbox{Name: der Referentin / des Referenten}}
 
 \institutelogo{\vbox{\hsize=35mm Freiraum f√ºr Sekund√§rlogo(s) / Name \\ des Fachbereichs, Instituts oder SFBs}}
 
@@ -58,7 +60,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Folientitel sollten kurz und pr\"agnant sein}
+  \frametitle{Frame 1: Folientitel sollten kurz und pr\"agnant sein}
   {Gestufte Listen}
   \pause
   \begin{itemize}
@@ -68,13 +70,30 @@
           \begin{itemize}
             \item \textbf{Dritte Ebene}
           \end{itemize}
+          \begin{itemize}
+            \item \textbf{Dritte Ebene}
+          \end{itemize}
       \end{itemize}
   \end{itemize}
-  \vfill
+  {Gestufte Listen}
+  \pause
+  \begin{itemize}
+    \item \textbf{Erste Ebene}
+      \begin{itemize}
+        \item \textbf{Zweite Ebene}
+          \begin{itemize}
+            \item \textbf{Dritte Ebene} mit Text dahinter
+            \item \textbf{Dritte Ebene}
+
+                mit Text darunter
+
+          \end{itemize}
+      \end{itemize}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Folientitel sollten kurz und pr\"agnant sein}
+  \frametitle{Frame 2: Folientitel sollten kurz und pr\"agnant sein}
   \begin{block}{Hervorhebungen}
     \textbf{Wenn man Dinge hervorheben m\"ochte, nutzt man entweder Fettdruck,}
     \textit{kursive Schrift} \alert{ oder das Schl\"usselwort ``alert''}.
@@ -86,6 +105,16 @@
         \item dass alle Elemente der Pr√§sentation
             \item dieselbe Farbe nutzen.
   \end{enumerate}
+  \vfill
+\end{frame}
+
+\begin{frame}
+  \frametitle{Frame 3: Folientitel sollten kurz und pr\"agnant sein}
+  \begin{block}{Hervorhebungen}
+    \textbf{Wenn man Dinge hervorheben m\"ochte, nutzt man entweder Fettdruck,}
+    \textit{kursive Schrift} \alert{ oder das Schl\"usselwort ``alert''}.
+  Auch ``enumerate''-Umgebungen werden von der Stilvorlage √ºberschrieben:
+  \end{block}
 \end{frame}
 
 % \begin{frame}
