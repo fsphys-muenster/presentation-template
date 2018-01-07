@@ -15,13 +15,15 @@
 % Maintainers: Simon May (simon.may@uni-muenster.de)
 %              Fachschaft Physik (fsphys@uni-muenster.de)
 
-%% ========= required packages =============
+%% =============== required packages ============================
 \RequirePackage{tikz}
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
 % add resource directory to search path
 \graphicspath{{wwustyle/}}
 
+
+%% =============== definitions (\definecolor, \newcommand) ======
 % available font and background colors
 % RGB color values have been taken from the WWU corporate design manual
 % https://sso.uni-muenster.de/intern/marketing/corporatedesign/cdmanual.html
@@ -83,15 +85,8 @@
 }
 
 
-% %% ========= possible package options ==============
-% decide whether the page number should show up
-\DeclareOption{nopagenumbering}{%
-	\renewcommand*{\@@insert@framenumber}{}%
-}
-\DeclareOption{fullpagenumbering}{%
-	\renewcommand*{\@@insert@framenumber}{\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber}%
-}
 
+%% ========= possible package options ===========================
 % Take care!
 % the files for the title page images are named incorrectly:
 % – pantone315<…>.pdf actually uses pantone7462
@@ -141,10 +136,10 @@
 	\renewcommand*{\bg@invers}{invers}%
 }
 
-% Drei Motive liegen vor:
-% Glockenturm des Schlosses,
-% Textkeil,
-% WWU-Schriftzug auf dem Prinzipalmarkt.
+% There are three title images:
+% - castle bell tower
+% - text wedge
+% - WWU letters at Prinzipalmarkt
 \DeclareOption{belltower}{%
 	\renewcommand*{\fn@motiv}{glocke}%
 }
@@ -163,42 +158,34 @@
 	\renewcommand*{\bg@invers}{invers}%
 }
 
-\newcommand*{\claimTextWissen}{wissen}
-\newcommand*{\claimTextLeben}{leben}
 \newcommand*{\claimText}{wissenleben}
-\newcommand*{\claimPunktXShift}{-5.5mm}
-\newcommand*{\claimPunktYShift}{-0.8mm}
-\newcommand*{\claimLebenXShift}{-1.8mm}
-\newcommand*{\claimWWUXShift}{-0.47mm}
-\newcommand*{\claimWWUYShift}{6.4mm}
-\newcommand*{\claimWWUXXShift}{1.8666mm}
 \newcommand*{\claimDeEn}{}
 
 \DeclareOption{english}{
-	\renewcommand*{\claimTextWissen}{living}
-	\renewcommand*{\claimTextLeben}{knowledge}
 	\renewcommand*{\claimText}{livingknowledge}
-	\renewcommand*{\claimPunktXShift}{-6.2mm}
-	\renewcommand*{\claimPunktYShift}{-0.6mm}
-	\renewcommand*{\claimLebenXShift}{0.5mm}
-	\renewcommand*{\claimWWUYShift}{6.9mm}
-	\renewcommand*{\claimWWUXShift}{0mm}
-	\renewcommand*{\claimWWUXXShift}{2.3366mm}
 	\renewcommand*{\claimDeEn}{-en}
 }
 
-% Beim Textkeil wird der gesamte Hintergrund hinterlegt,
-% andernfalls bleibt der Streifen unten frei.
+% For the text wedge, the whole background is colored.
+% For the other images, a white strip remains at the bottom.
 \newcommand*{\claimMain}{%
-	\if@wedge
-		\if@invers
+	\if@wedge%
+		\if@invers%
 			\claim{0.5}{white}%
-		\else
+		\else%
 			\claim{0.5}{grey}%
-		\fi
-	\else
+		\fi%
+	\else%
 		\claim{0.5}{grey}%
-	\fi
+	\fi%
+}
+
+% decide whether the page number should show up
+\DeclareOption{nopagenumbering}{%
+	\renewcommand*{\@@insert@framenumber}{}%
+}
+\DeclareOption{fullpagenumbering}{%
+	\renewcommand*{\@@insert@framenumber}{\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber}%
 }
 \newcommand*{\claimTitle}{\claim{1.05}{grey}}
 \newcommand*{\logoHeadline}{\wwulogo{0.3}}
@@ -211,7 +198,7 @@
 \colorlet{maincolor}{\fn@maincolor}
 
 
-%% ========= images and graphics ============
+%% =============== images and graphics ==========================
 \newcommand*{\bgbox}[1]{\texorpdfstring{\colorbox{maincolor}{#1}}{#1}}
 
 % WWU claim with \includegraphics; it uses two parameters:
@@ -255,7 +242,7 @@
 	\renewcommand*{\@institutelogosmall}{#1}
 }
 
-%% ============ margins, spacing, etc. ============
+%% =============== margins, spacing, etc. =======================
 % disable left sidebar (empty)
 \setbeamersize{sidebar width left=0cm}
 % disable right sidebar now that the claim isn’t shown there anymore
@@ -271,7 +258,7 @@
 \beamertemplatenavigationsymbolsempty
 
 
-%% ============ color definitions for beamer ================
+%% =============== color definitions for beamer =================
 % colors to be used
 \definecolor{text-grey}{rgb}{0.45, 0.45, 0.45} % grey text on white background
 \definecolor{fu-blue} {RGB}{0,   51, 102} % blue text
@@ -279,7 +266,7 @@
 \definecolor{fu-red}  {RGB}{204, 0,    0} % red text (used by \alert)
 
 
-%% ================= redefinition of styles ============
+%% =============== redefinition of styles =======================
 % colors
 \usecolortheme{lily}
 \setbeamercolor{normal text}{fg=wwu-textcolor, bg=wwu-bgcolor}
@@ -342,12 +329,11 @@
 			\if@invers
 				\edef\curr@fnt@color{white}%
 			\fi
-			% Beim Motiv Prinzipalmarkt auf die Farbe „prinz“ umschalten.
+			% switch to color “prinz” for motive “Prinzipalmarkt”
 			\ifx\p@markt\fn@motiv
 				\edef\curr@fnt@color{prinz}%
 			\fi
-			% Bei inversem Titelbild auf weiße Schrift umschalten.
-			% Der Untertitel (s.u.) steht dann besser in halbfett.
+			% with inverse title image: switch to white text
 			\color{\curr@fnt@color}
 			{\bfseries
 				\inserttitle
@@ -387,9 +373,7 @@
 				{\logoTitleSmall};
 		\end{tikzpicture}
 	}
-} %end title page
-
-
+}
 
 % headline
 \setbeamertemplate{headline}{
