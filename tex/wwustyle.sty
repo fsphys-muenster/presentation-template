@@ -167,10 +167,10 @@
 		\if@invers%
 			\claim{white}%
 		\else%
-			\claim{grey}%
+			\claim{gray}%
 		\fi%
 	\else%
-		\claim{grey}%
+		\claim{gray}%
 	\fi%
 }
 
@@ -208,14 +208,9 @@
 \newcommand*{\wwu@logo}[2]{%
 	\def\temp@a{#2}\def\temp@b{white}%
 	\ifx\temp@a\temp@b%
-		\includegraphics[width=#1]{WWUMuenster_Logo_2017_negativ}
+		\includegraphics[width=#1]{WWUMuenster_Logo_2017_rgb_negativ}
 	\else%
-		% The file WWUMuenster_Logo_2017_4c.pdf contains margins which have to
-		% be cropped. There is a horizontal margin of 2.5mm and a vertical
-		% margin of 2.66mm on each side. The trim option of \includegraphics
-		% takes values in bp (1bp = 1/72in), so 2.5mm ≈ 7.08bp and
-		% 2.66mm ≈ 7.54bp.
-		\includegraphics[trim=7.08 7.54 7.08 7.54, clip, width=#1]{WWUMuenster_Logo_2017_4c}
+		\includegraphics[width=#1]{WWUMuenster_Logo_2017_rgb_beamergray}
 	\fi%
 }
 
@@ -252,7 +247,7 @@
 
 %% =============== color definitions for beamer =================
 % colors to be used
-\definecolor{text-grey}{rgb}{0.45, 0.45, 0.45} % grey text on white background
+\definecolor{text-gray}{rgb}{0.45, 0.45, 0.45} % gray text on white background
 \definecolor{fu-blue} {RGB}{0,   51, 102} % blue text
 \definecolor{fu-green}{RGB}{153, 204,  0} % green text
 \definecolor{fu-red}  {RGB}{204, 0,    0} % red text (used by \alert)
@@ -274,7 +269,7 @@
 \setbeamercolor{block body example}{bg=fu-green!10}
 
 \setbeamercolor{bibliography entry author}{fg=fu-blue}
-\setbeamercolor{bibliography entry journal}{fg=text-grey}
+\setbeamercolor{bibliography entry journal}{fg=text-gray}
 
 % frame title
 \setbeamertemplate{frametitle}{%
