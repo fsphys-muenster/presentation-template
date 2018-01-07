@@ -318,30 +318,6 @@
 	\fi%
 }
 
-% headline
-\setbeamertemplate{headline}{
-	\fontsize{6pt}{1pt}
-	\selectfont
-	{
-		\begin{tikzpicture}[remember picture, overlay]
-			\node[xshift=0.54cm, yshift=-1.21cm,
-			anchor=south west,
-			inner sep=0] at (current page.north west) {\logoHeadline};
-			\node[xshift=3.5cm, yshift=-1.21cm,
-			anchor=south west,
-			inner sep=0] at (current page.north west) {\@institutelogosmall};
-		\end{tikzpicture}
-	}
-	\hfill
-	\bfseries%
-	\color{maincolor}%
-	\let\bgbox\relax\insertshorttitle%
-	% same space to the right as text margin
-	\hspace{0.5cm}%
-	% invisible rule to set headline height
-	\rule{0pt}{12mm}%
-}
-
 % title page
 
 % Der Hintergrund für die Titelseite ist in \bg@title abgelegt.
@@ -413,6 +389,30 @@
 	}
 } %end title page
 
+
+
+% headline
+\setbeamertemplate{headline}{
+	\fontsize{6pt}{1pt}%
+	\selectfont%
+	{
+		\begin{tikzpicture}[remember picture, overlay]
+			\node[xshift=0.54cm, yshift=-1.21cm, anchor=south west, inner sep=0]
+				at (current page.north west) {\logoHeadline};
+			\node[xshift=3.5cm, yshift=-1.21cm, anchor=south west, inner sep=0]
+				at (current page.north west) {\@institutelogosmall};
+		\end{tikzpicture}
+	}%
+	\hfill%
+	\bfseries%
+	\color{maincolor}%
+	\let\bgbox\relax\insertshorttitle%
+	% same space to the right as text margin
+	\hspace{0.5cm}%
+	% invisible rule to set headline height
+	\rule{0pt}{10mm}%
+}
+
 % footline
 % make footline background non-transparent so that frame content cannot “slide
 % into” the footer
@@ -423,11 +423,18 @@
 		\selectfont%
 		\color{maincolor}%
 		\rule{\textwidth}{0.8pt}% horizontal line
-		\vskip4mm%
+		\vskip2mm%
 		\hspace{5mm}%
-		\textcolor{wwu-textcolor}{\let\bgbox\relax\insertshortauthor}\vrule height7pt depth3pt width0pt\hfill\textcolor{maincolor}{\fontsize{9pt}{12pt}\selectfont\textbf{\@@insert@framenumber}}%
+		\color{wwu-textcolor}%
+		\let\bgbox\relax\insertshortauthor%
+		\vrule height7pt depth3pt width0pt\hfill%
+		\fontsize{9pt}{12pt}%
+		\selectfont%
+		\color{maincolor}%
+		\bfseries%
+		\@@insert@framenumber%
 		\hspace{5mm}%
 		\strut%
-		\vskip4mm%
+		\vskip3mm%
 	\end{beamercolorbox}%
-}% end footline
+}
