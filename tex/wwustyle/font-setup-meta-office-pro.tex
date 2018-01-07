@@ -1,0 +1,56 @@
+% Einstellungen der Schriftart (Meta Office Pro) für Text und Mathematik
+% math**=sym angeben, damit auch diese Befehle die Schriftart Meta verwenden
+\usepackage[mathrm=sym, mathit=sym, mathsf=sym, mathbf=sym]{unicode-math}
+\setmainfont{MetaOffcPro}[Path=fonts/,
+	Extension=.ttf,
+	UprightFont=*-Norm,
+	UprightFeatures={
+		SmallCapsFont={MetaScOffcPro-Norm}
+	},
+	ItalicFont=*-NormIta,
+	ItalicFeatures={
+		SmallCapsFont={MetaScOffcPro-NormIta}
+	},
+	BoldFont=*-Bold,
+	BoldFeatures={
+		SmallCapsFont={MetaScOffcPro-Bold}
+	},
+	BoldItalicFont=*-Bold,
+	BoldItalicFeatures={FakeSlant},
+]
+\setsansfont{MetaOffcPro}[Path=fonts/,
+	Extension=.ttf,
+	UprightFont=*-Norm,
+	UprightFeatures={
+		SmallCapsFont={MetaScOffcPro-Norm}
+	},
+	ItalicFont=*-NormIta,
+	ItalicFeatures={
+		SmallCapsFont={MetaScOffcPro-NormIta}
+	},
+	BoldFont=*-Bold,
+	BoldFeatures={
+		SmallCapsFont={MetaScOffcPro-Bold}
+	},
+	BoldItalicFont=*-Bold,
+	BoldItalicFeatures={FakeSlant},
+]
+
+\setmathfont{Latin Modern Math}
+% Meta Office Pro für die Bereiche nutzen, für die Glyphen existieren
+\setmathfont{MetaOffcPro-Norm.ttf}[Path=fonts/,
+	range=up/{greek,Greek,latin,Latin,num}]
+\setmathfont{MetaOffcPro-NormIta.ttf}[Path=fonts/,
+	range=it/{greek,Greek,latin,Latin,num}]
+\setmathfont{MetaOffcPro-Bold.ttf}[Path=fonts/,
+	range=bfup/{greek,Greek,latin,Latin,num}]
+\setmathfont{MetaOffcPro-Bold.ttf}[Path=fonts/, UprightFeatures={FakeSlant},
+	range=bfit/{greek,Greek,latin,Latin,num}]
+% Symbole (leider enthält Meta Office Pro nicht das Symbol ∓)
+\setmathfont{MetaOffcPro-Norm.ttf}[Path=fonts/,
+	range={`\+, `\-, `\×, `\÷, `\⋅, `\*, `\/, `\⁄, `\±,
+		`\=, `\≠, `\≈, `\<, `\>, `\≤, `\≥, \partial, `\∞, `\†, `\‡,
+		`\%, `\‰, `\!, `\?, `\., `\,, `\:, `\;, `\&, `\#, `\@,
+		`\§, `\€, `\$, `\£, `\¥, `\©, `\®,
+	}
+]
