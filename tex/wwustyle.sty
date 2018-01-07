@@ -69,10 +69,10 @@
 % for the color definitions see
 % WWU corporate design manual
 % https://sso.uni-muenster.de/intern/marketing/corporatedesign/cdmanual.html
-% Schriftfarbe und Hintergrundfarbe muessen gesondert festgelegt
-% werden, da nicht fuer alle Farben Hintergrunddateien vorliegen.
-% #1: Schriftfarbe
-% #2: Hintergrundfarbe (Namensteil der Hintergrunddatei)
+% Font and background color must be set separately because background images are
+% not available for all colors.
+% #1: font color
+% #2: background color (fragment of the background image file)
 \newcommand*{\set@wwu@maincolor}[2]{%
 	\renewcommand*{\bg@maincolor}{#1}%
 	\renewcommand*{\fn@maincolor}{#2}%
@@ -124,11 +124,10 @@
 \DeclareOption{pantoneprozessyellow}{%
 	\set@wwu@maincolor{pantoneprozessyellow}{pantone312}}
 
-% Das invertierte Titelbild erscheint lediglich auf
-% dem Haupttitel. Dort muss die Schrift dann
-% weiß werden.
-% \fn@invers dient zum Einlesen der entsprechenden Hintergrunddatei
-% \bg@invers schaltet die Farbe um. 04.09.2017 gu
+% The inverted title image only appears on the title page.
+% The text color must be white there.
+% \fn@invers is used to read the corresponding background image file
+% \bg@invers is used to switch the text color
 \newcommand*{\fn@invers}{}
 \newcommand*{\bg@invers}{}
 \newif\if@invers
@@ -307,9 +306,8 @@
 
 % title page
 
-% Der Hintergrund für die Titelseite ist in \bg@title abgelegt.
-% Diese Box wird auf der ersten Seite ausgegeben und ist
-% anschließend leer.
+% The background for the title page is saved in \bg@title.
+% This box is output on the first page and is empty afterwards.
 \setbeamertemplate{background}{\hbox to \paperwidth{\hss\box\bg@title}}
 
 % redefine \@arrayparboxrestore so that the presentation title (which is set
