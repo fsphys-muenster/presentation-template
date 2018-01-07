@@ -149,7 +149,7 @@
 \DeclareOption{wedge}{%
 	\@wedgetrue
 	\renewcommand*{\fn@motiv}{textkeil}%
-	\renewcommand*{\wedgeskip}{3.5cm}%
+	\renewcommand*{\wedgeskip}{4.5cm}%
 }
 \newcommand*{\p@markt}{prinzipalmarkt}
 \DeclareOption{prinz}{%
@@ -314,64 +314,64 @@
 % using a \parbox) uses \raggedright instead of justifying text
 \g@addto@macro\@arrayparboxrestore{\raggedright}
 
-\setbeamertemplate{title page}{
-	\fontsize{11pt}{1pt}
-	\selectfont
-	%% set the title and the author
+\setbeamertemplate{title page}{%
+	% set the title, subtitle, author and date
 	\setlength{\unitlength}{1mm}
 	\begin{picture}(0,15)
-		\put(0,8){\parbox[c]{10.75cm}{
-			\fontsize{16pt}{20pt}
-			\selectfont
+		\put(0,4){\parbox[c]{10cm}{%
 			\edef\curr@fnt@color{maincolor}%
-			\if@invers
+			\if@invers%
 				\edef\curr@fnt@color{white}%
-			\fi
-			% switch to color “prinz” for motive “Prinzipalmarkt”
-			\ifx\p@markt\fn@motiv
+			\fi%
+			% switch to color “prinz” for image “Prinzipalmarkt”
+			\ifx\p@markt\fn@motiv%
 				\edef\curr@fnt@color{prinz}%
-			\fi
+			\fi%
 			% with inverse title image: switch to white text
-			\color{\curr@fnt@color}
-			{\bfseries
-				\inserttitle
-			}
-			\par
-			\vskip2mm
-			\fontsize{8pt}{10pt}
-			\selectfont
-			\insertsubtitle\par
-			\insertauthor
-			\par
+			\color{\curr@fnt@color}%
+			% title
+			\LARGE%
+			\bfseries%
+			\inserttitle%
+			\par%
+			\vskip2mm%
+			% subtitle
+			\footnotesize%
+			\normalfont%
+			\insertsubtitle%
+			\smallskip%
+			% author
+			\par%
+			\insertauthor%
+			\par%
+			% date
+			\medskip%
+			\scriptsize%
+			\color{wwu-textcolor}%
+			\insertdate%
+			\par%
 		}}
-		{
-		\begin{tikzpicture}[remember picture, overlay]
-			% Anstelle des Datums steht hier nunmehr das Institutslogo. 22.08.2017 gu
-			% Ich habe es in eine \llap{} gepackt, weil nicht vorhersehbar ist,
-			% was dort erscheinen soll.
-			\node (datenode) [yshift=0.7cm, xshift=-1cm, inner sep=0, anchor=base]
-				at (current page.south east)
-				{\color{pantoneblack7}%
-				\if@wedge
-					\if@invers
-						\color{white}%
-					\fi
-				\fi
-				\llap{\fontsize{6pt}{8pt}\selectfont\@institutelogo\hskip\wedgeskip}%
-				};
-		\end{tikzpicture}
-		}
 	\end{picture}
-	{
-		\begin{tikzpicture}[remember picture, overlay]
-			% the claim
-			\node [xshift=0.5cm, yshift=0.6cm] at (current page.south west)
-				(claim) {\claimMain};
-			% the logo
-			\node [xshift=0.4cm, yshift=-1cm, anchor=west] at (current page.north west)
-				{\logoTitleSmall};
-		\end{tikzpicture}
-	}
+	\begin{tikzpicture}[remember picture, overlay]
+		% WWU logo (top left)
+		\node[xshift=0.4cm, yshift=-1cm, anchor=west]
+			at (current page.north west)
+			{\logoTitleSmall};
+		% WWU claim (bottom left)
+		\node[xshift=0.5cm, yshift=0.65cm]
+			at (current page.south west)
+			{\claimMain};
+		% institute logo (bottom right)
+		\node[xshift=-0.5cm, yshift=0.8cm, inner sep=0, anchor=east]
+			at (current page.south east) {%
+				\if@wedge%
+					\if@invers%
+						\color{white}%
+					\fi%
+				\fi%
+				\@institutelogo\hspace*{\wedgeskip}%
+			};
+	\end{tikzpicture}
 }
 
 % headline
