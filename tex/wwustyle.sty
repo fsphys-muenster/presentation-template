@@ -67,14 +67,14 @@
 % #1: Schriftfarbe
 % #2: Hintergrundfarbe (Namensteil der Hintergrunddatei)
 \newcommand*{\set@wwu@maincolor}[2]{%
-    \renewcommand*{\bg@maincolor}{#1}%
-    \renewcommand*{\fn@maincolor}{#2}%
-    \def\reserved@a{#1}%
-    \def\reserved@b{#2}%
-    \ifx\reserved@a\reserved@b
-    \else
-        \PackageWarning{wwustyle}{Background for font color #1 not available. Background color changed to #2}{}%
-    \fi
+	\renewcommand*{\bg@maincolor}{#1}%
+	\renewcommand*{\fn@maincolor}{#2}%
+	\def\reserved@a{#1}%
+	\def\reserved@b{#2}%
+	\ifx\reserved@a\reserved@b
+	\else
+		\PackageWarning{wwustyle}{Background for font color #1 not available. Background color changed to #2}{}%
+	\fi
 }
 
 % Take care!
@@ -121,9 +121,9 @@
 \newcommand*{\bg@invers}{}
 \newif\if@invers
 \DeclareOption{inverse}{%
-    \@inverstrue
-    \renewcommand*{\fn@invers}{invers}%
-    \renewcommand*{\bg@invers}{invers}%
+	\@inverstrue
+	\renewcommand*{\fn@invers}{invers}%
+	\renewcommand*{\bg@invers}{invers}%
 }
 
 % Drei Motive liegen vor:
@@ -131,21 +131,21 @@
 % Textkeil,
 % WWU-Schriftzug auf dem Prinzipalmarkt.
 \DeclareOption{belltower}{%
-    \renewcommand*{\fn@motiv}{glocke}%
+	\renewcommand*{\fn@motiv}{glocke}%
 }
 \newif\if@wedge
 \@wedgefalse
 \DeclareOption{wedge}{%
-    \@wedgetrue
-    \renewcommand*{\fn@motiv}{textkeil}%
-    \renewcommand*{\wedgeskip}{35mm}%
+	\@wedgetrue
+	\renewcommand*{\fn@motiv}{textkeil}%
+	\renewcommand*{\wedgeskip}{35mm}%
 }
 \newcommand*{\p@markt}{prinzipalmarkt}
 \DeclareOption{prinz}{%
-    \renewcommand*{\fn@motiv}{prinzipalmarkt}%
-    \@inverstrue
-    \renewcommand*{\fn@invers}{invers}%
-    \renewcommand*{\bg@invers}{invers}%
+	\renewcommand*{\fn@motiv}{prinzipalmarkt}%
+	\@inverstrue
+	\renewcommand*{\fn@invers}{invers}%
+	\renewcommand*{\bg@invers}{invers}%
 }
 
 \newcommand*{\claimTextWissen}{wissen}
@@ -175,15 +175,15 @@
 % Beim Textkeil wird der gesamte Hintergrund hinterlegt,
 % andernfalls bleibt der Streifen unten frei.
 \newcommand*{\claimMain}{%
-    \if@wedge
-        \if@invers
-            \claim{0.5}{white}%
-        \else
-            \claim{0.5}{grey}%
-        \fi
-    \else
-        \claim{0.5}{grey}%
-    \fi
+	\if@wedge
+		\if@invers
+			\claim{0.5}{white}%
+		\else
+			\claim{0.5}{grey}%
+		\fi
+	\else
+		\claim{0.5}{grey}%
+	\fi
 }
 \newcommand*{\claimTitle}{\claim{1.05}{grey}}
 \newcommand*{\logoHeadline}{\wwulogo{0.3}}
@@ -192,7 +192,7 @@
 
 % create a presentation in 16:10 format
 \DeclareOption{wide}{%
-  \geometry{paperwidth=15.36cm, paperheight=9.6cm}
+	\geometry{paperwidth=15.36cm, paperheight=9.6cm}
 }
 
 \ProcessOptions\relax
@@ -267,10 +267,10 @@
 % %% ========= possible package options ==============
 % % decide, whether the page number should show up
 %\DeclareOption{nopagenumbering}{%
-%    \renewcommand*{\@@insert@framenumber}{}%
+%	\renewcommand*{\@@insert@framenumber}{}%
 %}
 %\DeclareOption{fullpagenumbering}{%
-%    \renewcommand*{\@@insert@framenumber}{\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber}%
+%	\renewcommand*{\@@insert@framenumber}{\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber}%
 %}
 % \ProcessOptions\relax
 
@@ -356,64 +356,63 @@
 \g@addto@macro\@arrayparboxrestore{\raggedright}
 
 \setbeamertemplate{title page}{
- \fontsize{11pt}{1pt}
-  \selectfont
-  %% set the title and the author
-  \setlength{\unitlength}{1mm}
-  \begin{picture}(0,15)
-    \put(0,8){\parbox[c]{10.75cm}{
-        \fontsize{16pt}{20pt}
-        \selectfont
-        \edef\curr@fnt@color{maincolor}%
-        \if@invers
-            \edef\curr@fnt@color{white}%
-        \fi
-        % Beim Motiv Prinzipalmarkt auf die Farbe `prinz' umschalten.
-        \ifx\p@markt\fn@motiv
-            \edef\curr@fnt@color{prinz}%
-        \fi
-        % Bei inversem Titelbild auf weiße Schrift umschalten.
-        % Der Untertitel (s.u.) steht dann besser in halbfett.
-        \color{\curr@fnt@color}
-        {\bfseries
-            \inserttitle
-        }
-        \par
-        \vskip2mm
-        \fontsize{8pt}{10pt}
-        \selectfont
-        \insertsubtitle\par
-        \insertauthor
-        \par
-      }
-    }
-    \linespread{0.9}
-    {
-    \begin{tikzpicture}[remember picture, overlay]
-	% Anstelle des Datums steht hier nunmehr das Institutslogo. 22.08.2017 gu
-	% Ich habe es in eine \llap{} gepackt, weil nicht vorhersehbar ist,
-	% was dort erscheinen soll.
-      \node (datenode) [yshift=0.7cm,xshift=-1cm, inner sep=0, anchor=base] at (current page.south east)
-      {\color{pantoneblack7}%
-      \if@wedge
-            \if@invers
-                \color{white}%
-            \fi
-        \fi
-       \llap{\fontsize{6pt}{8pt}\selectfont\@institutelogo\hskip\wedgeskip}%
-       };
-   \end{tikzpicture}
-   }
-  \end{picture}
-  {
-	\begin{tikzpicture}[remember picture, overlay]
-		%% the claim
-		\node [xshift=1.3cm, yshift=0.6cm] at (current page.south west)
-			(claim) {\claimMain};
-		\node [xshift=0.39cm, yshift=-1cm, anchor=west] at (current page.north west)
-			{\logoTitleSmall};
-	\end{tikzpicture}
-  }
+	\fontsize{11pt}{1pt}
+	\selectfont
+	%% set the title and the author
+	\setlength{\unitlength}{1mm}
+	\begin{picture}(0,15)
+		\put(0,8){\parbox[c]{10.75cm}{
+			\fontsize{16pt}{20pt}
+			\selectfont
+			\edef\curr@fnt@color{maincolor}%
+			\if@invers
+				\edef\curr@fnt@color{white}%
+			\fi
+			% Beim Motiv Prinzipalmarkt auf die Farbe „prinz“ umschalten.
+			\ifx\p@markt\fn@motiv
+				\edef\curr@fnt@color{prinz}%
+			\fi
+			% Bei inversem Titelbild auf weiße Schrift umschalten.
+			% Der Untertitel (s.u.) steht dann besser in halbfett.
+			\color{\curr@fnt@color}
+			{\bfseries
+				\inserttitle
+			}
+			\par
+			\vskip2mm
+			\fontsize{8pt}{10pt}
+			\selectfont
+			\insertsubtitle\par
+			\insertauthor
+			\par
+		}}
+		\linespread{0.9}
+		{
+		\begin{tikzpicture}[remember picture, overlay]
+			% Anstelle des Datums steht hier nunmehr das Institutslogo. 22.08.2017 gu
+			% Ich habe es in eine \llap{} gepackt, weil nicht vorhersehbar ist,
+			% was dort erscheinen soll.
+			\node (datenode) [yshift=0.7cm,xshift=-1cm, inner sep=0, anchor=base] at (current page.south east)
+			{\color{pantoneblack7}%
+			\if@wedge
+				\if@invers
+					\color{white}%
+				\fi
+			\fi
+			\llap{\fontsize{6pt}{8pt}\selectfont\@institutelogo\hskip\wedgeskip}%
+			};
+		\end{tikzpicture}
+		}
+	\end{picture}
+	{
+		\begin{tikzpicture}[remember picture, overlay]
+			%% the claim
+			\node [xshift=1.3cm, yshift=0.6cm] at (current page.south west)
+				(claim) {\claimMain};
+			\node [xshift=0.39cm, yshift=-1cm, anchor=west] at (current page.north west)
+				{\logoTitleSmall};
+		\end{tikzpicture}
+	}
 } %end title page
 
 % footline
