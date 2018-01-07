@@ -346,7 +346,6 @@
 			\insertauthor
 			\par
 		}}
-		\linespread{0.9}
 		{
 		\begin{tikzpicture}[remember picture, overlay]
 			% Anstelle des Datums steht hier nunmehr das Institutslogo. 22.08.2017 gu
@@ -367,9 +366,10 @@
 	\end{picture}
 	{
 		\begin{tikzpicture}[remember picture, overlay]
-			%% the claim
+			% the claim
 			\node [xshift=0.5cm, yshift=0.6cm] at (current page.south west)
 				(claim) {\claimMain};
+			% the logo
 			\node [xshift=0.4cm, yshift=-1cm, anchor=west] at (current page.north west)
 				{\logoTitleSmall};
 		\end{tikzpicture}
