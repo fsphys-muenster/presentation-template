@@ -84,46 +84,6 @@
 	\fi
 }
 
-\newcommand*{\logoHeadline}{\wwulogo{2cm}}
-\newcommand*{\logoTitleSmall}{\csname wwulogo\bg@invers\endcsname{3.5cm}}
-
-
-%% ========= possible package options ===========================
-% Take care!
-% the files for the title page images are named incorrectly:
-% – pantone315<…>.pdf actually uses pantone7462
-% – pantone3282<…>.pdf actually uses pantone3135
-% Pantone 312: “variant 1” of the PowerPoint template
-\DeclareOption{pantone312}{
-	\set@wwu@maincolor{pantone312}{pantone312}}
-% Pantone 3135: “variant 2” of the PowerPoint template
-\DeclareOption{pantone3135}{
-	% background “pantone3282” is actually pantone3135
-	\set@wwu@maincolor{pantone3135}{pantone3282}}
-% Pantone 7462: “variant 3” of the PowerPoint template
-\DeclareOption{pantone7462}{
-	% background “pantone315” is actually pantone7462
-	\set@wwu@maincolor{pantone7462}{pantone315}}
-% the remaining colors are only available as text colors and will use one of the
-% three available background colors instead
-\DeclareOption{pantoneblack7}{%
-	\set@wwu@maincolor{pantoneblack7}{pantone312}}
-\DeclareOption{pantone315}{
-	% background “pantone3282” is actually pantone3135
-	\set@wwu@maincolor{pantone315}{pantone3282}}
-\DeclareOption{pantone369}{%
-	\set@wwu@maincolor{pantone369}{pantone312}}
-\DeclareOption{pantone390}{%
-	\set@wwu@maincolor{pantone390}{pantone312}}
-% the following colors are no longer part of the WWU corporate design and remain
-% available only for compatibility.
-\DeclareOption{pantone3282}{
-	\set@wwu@maincolor{pantone3282}{pantone3282}}
-\DeclareOption{pantone396}{%
-	\set@wwu@maincolor{pantone396}{pantone312}}
-\DeclareOption{pantoneprozessyellow}{%
-	\set@wwu@maincolor{pantoneprozessyellow}{pantone312}}
-
 % The inverted title image only appears on the title page.
 % The text color must be white there.
 % \fn@invers is used to read the corresponding background image file
@@ -131,18 +91,54 @@
 \newcommand*{\fn@invers}{}
 \newcommand*{\bg@invers}{}
 \newif\if@invers
+
+\newcommand*{\logoHeadline}{\wwulogo{2cm}}
+\newcommand*{\logoTitleSmall}{\csname wwulogo\bg@invers\endcsname{3.5cm}}
+
+\newcommand*{\claimText}{wissenleben}
+\newcommand*{\claimDeEn}{}
+
+%% ========= possible package options ===========================
+% Pantone 312: “variant 1” of the PowerPoint template
+\DeclareOption{pantone312}{
+	\set@wwu@maincolor{pantone312}{pantone312}}
+% Pantone 3135: “variant 2” of the PowerPoint template
+\DeclareOption{pantone3135}{
+	\set@wwu@maincolor{pantone3135}{pantone3135}}
+% Pantone 7462: “variant 3” of the PowerPoint template
+\DeclareOption{pantone7462}{
+	\set@wwu@maincolor{pantone7462}{pantone7462}}
+% the remaining colors are only available as text colors and will use one of the
+% three available background colors instead
+\DeclareOption{pantoneblack7}{%
+	\set@wwu@maincolor{pantoneblack7}{pantone312}}
+\DeclareOption{pantone315}{
+	\set@wwu@maincolor{pantone315}{pantone3135}}
+\DeclareOption{pantone369}{%
+	\set@wwu@maincolor{pantone369}{pantone312}}
+\DeclareOption{pantone390}{%
+	\set@wwu@maincolor{pantone390}{pantone312}}
+% the following colors are no longer part of the WWU corporate design and remain
+% available only for compatibility.
+\DeclareOption{pantone3282}{
+	\set@wwu@maincolor{pantone3282}{pantone3135}}
+\DeclareOption{pantone396}{%
+	\set@wwu@maincolor{pantone396}{pantone312}}
+\DeclareOption{pantoneprozessyellow}{%
+	\set@wwu@maincolor{pantoneprozessyellow}{pantone312}}
+
 \DeclareOption{inverse}{%
 	\@inverstrue
-	\renewcommand*{\fn@invers}{invers}%
-	\renewcommand*{\bg@invers}{invers}%
+	\renewcommand*{\fn@invers}{invers}
+	\renewcommand*{\bg@invers}{invers}
 }
 
 % There are three title images:
 % - castle bell tower
 % - text wedge
 % - WWU letters at Prinzipalmarkt
-\DeclareOption{belltower}{%
-	\renewcommand*{\fn@motiv}{glocke}%
+\DeclareOption{belltower}{
+	\renewcommand*{\fn@motiv}{glocke}
 }
 \newif\if@wedge
 \@wedgefalse
@@ -158,9 +154,6 @@
 	\renewcommand*{\fn@invers}{invers}%
 	\renewcommand*{\bg@invers}{invers}%
 }
-
-\newcommand*{\claimText}{wissenleben}
-\newcommand*{\claimDeEn}{}
 
 \DeclareOption{english}{
 	\renewcommand*{\claimText}{livingknowledge}
