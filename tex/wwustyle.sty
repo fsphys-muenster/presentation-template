@@ -55,10 +55,15 @@
 % set pantone312 as the default main color
 \newcommand*{\bg@maincolor}{pantone312}
 \newcommand*{\fn@maincolor}{pantone312}
+% set bell tower as default background
 \newcommand*{\fn@motiv}{glocke}
+
 \newcommand*{\wedgeskip}{0pt}
 
-% set the main color
+% by default give only current page number
+\newcommand*{\@@insert@framenumber}{\insertframenumber}
+
+% command to set the main color
 % for the color definitions see
 % WWU corporate design manual
 % https://sso.uni-muenster.de/intern/marketing/corporatedesign/cdmanual.html
@@ -75,6 +80,16 @@
 	\else
 		\PackageWarning{wwustyle}{Background for font color #1 not available. Background color changed to #2}{}%
 	\fi
+}
+
+
+% %% ========= possible package options ==============
+% decide whether the page number should show up
+\DeclareOption{nopagenumbering}{%
+	\renewcommand*{\@@insert@framenumber}{}%
+}
+\DeclareOption{fullpagenumbering}{%
+	\renewcommand*{\@@insert@framenumber}{\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber}%
 }
 
 % Take care!
@@ -255,20 +270,6 @@
 % switch off the navigation symbols
 \beamertemplatenavigationsymbolsempty
 
-% by default give only current page number
-\newcommand*{\@@insert@framenumber}{\insertframenumber}
-
-
-% %% ========= possible package options ==============
-% % decide, whether the page number should show up
-%\DeclareOption{nopagenumbering}{%
-%	\renewcommand*{\@@insert@framenumber}{}%
-%}
-%\DeclareOption{fullpagenumbering}{%
-%	\renewcommand*{\@@insert@framenumber}{\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber}%
-%}
-% \ProcessOptions\relax
-
 
 %% ============ color definitions for beamer ================
 % colors to be used
@@ -332,7 +333,9 @@
 		\end{tikzpicture}
 	}
 	\hfill
-	\textbf{\color{maincolor}\let\bgbox\relax\insertshorttitle}%
+	\bfseries%
+	\color{maincolor}%
+	\let\bgbox\relax\insertshorttitle%
 	% same space to the right as text margin
 	\hspace{0.5cm}%
 	% invisible rule to set headline height
@@ -422,7 +425,9 @@
 		\rule{\textwidth}{0.8pt}% horizontal line
 		\vskip4mm%
 		\hspace{5mm}%
-		\textcolor{wwu-textcolor}{\let\bgbox\relax\insertshortauthor}\vrule height7pt depth3pt width0pt\hfill\textcolor{maincolor}{\fontsize{9pt}{12pt}\selectfont\textbf{\@@insert@framenumber}}\hspace{5mm}\strut%
+		\textcolor{wwu-textcolor}{\let\bgbox\relax\insertshortauthor}\vrule height7pt depth3pt width0pt\hfill\textcolor{maincolor}{\fontsize{9pt}{12pt}\selectfont\textbf{\@@insert@framenumber}}%
+		\hspace{5mm}%
+		\strut%
 		\vskip4mm%
 	\end{beamercolorbox}%
 }% end footline
