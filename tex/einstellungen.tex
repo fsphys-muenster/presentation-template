@@ -1,42 +1,11 @@
 %%% Einstellungen zur richtigen Benutzung von wwustyle.sty
-\usefonttheme{professionalfonts}
-
 \input{wwustyle/font-setup-meta-office-pro.tex}
 
-% Spracheinstellung
-\usepackage{polyglossia}
-\setmainlanguage{german}
-
-% Offizielles WWU-LaTeX-Paket für Präsentationen
-% Mögliche Optionen:
-% - english: Verwendet englischen Claim („living.knowledge“)
-% - Verschiedene Farbvarianten:
-%   pantone312, pantone3135, pantone7462,
-%   pantoneblack7, pantone315, pantone369, pantone390
-% - Verschiedene Titel-Motive:
-%   - belltower (Standard-Wert): Glockenturm des Schlosses
-%   - wedge: Textkeil
-%   - prinz: WWU-Schriftzug auf dem Prinzipalmarkt (Foto)
-% - inverse: Inverses Titelbild (Weiß auf farbigem Hintergrund statt Farbe auf
-%            weißem Hintergrund)
-% - nopagenumbering:   Nummerierung der Folien deaktivieren
-% - fullpagenumbering: Neben aktueller Folienzahl auch Gesamtzahl anzeigen
-\usepackage[pantone312]{wwustyle}
+%% =============== Pakete laden =================================
 % Typographische Verbesserungen (Verbot mancher Ligaturen)
 \usepackage{selnolig}
 % Typographische Verbesserungen (Mikrotypographie)
 \usepackage{microtype}
-
-% Daten/Zeiten formatieren
-\usepackage[useregional]{datetime2}
-% Formatierung von Telefonnummern
-\usepackage{phonenumbers}
-% „Schöne“ Brüche im Fließtext mit \sfrac
-\usepackage{xfrac}
-% Ermöglicht die Nutzung von „\SI{Zahl}{Einheit}“
-\usepackage{siunitx}
-% Automatisches Umwandeln von Anführungszeichen
-\usepackage{csquotes}
 
 % Farben ermöglichen
 \usepackage{xcolor}
@@ -47,8 +16,8 @@
 % Bessere Verarbeitung von Dateinamen für \includegraphics etc.
 \usepackage{grffile}
 
-
-% latex
+%% =============== Paketeinstellungen ===========================
+% LaTeX
 \renewcommand{\arraystretch}{1.3}
 % graphicx
 % Standardmäßig „keepaspectratio“ verwenden
@@ -56,22 +25,6 @@
 \setkeys{Gin}{keepaspectratio}
 % hyperref
 \hypersetup{unicode}
-% siunitx
-\sisetup{
-	locale=DE,
-	binary-units,
-	quotient-mode=fraction,
-	per-mode=fraction,
-	fraction-function=\sfrac,
-	detect-weight
-}
-% csquotes
-\MakeOuterQuote{"}
 
-\institutelogo{\includegraphics[width=3.8cm]{fsphys-logo.pdf}}
-\institutelogosmall{\raisebox{-2.5mm}[0pt][0pt]{\includegraphics[width=2.6cm]{fsphys-logo.pdf}}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Zusätzliche Einstellungen/Befehle
+%% =============== Zusätzliche Einstellungen/Befehle ============
 \newcommand*{\email}[1]{\href{mailto:#1}{\texttt{#1}}}

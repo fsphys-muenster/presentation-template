@@ -2,18 +2,43 @@
 % Auch „german“ muss angegeben werden, damit die Sprache (z.B. in siunitx)
 % auf Deutsch gestellt wird.
 \documentclass[german, ngerman]{beamer}
+% Spracheinstellung
+\usepackage{polyglossia}
+\setmainlanguage{german}
+
+% Offizielles WWU-LaTeX-Paket für Präsentationen: wwustyle
+% Mögliche Optionen:
+% - english: Verwendet englischen Claim („living.knowledge“)
+% - Verschiedene Farbvarianten:
+%   pantone312, pantone3135, pantone7462,
+%   pantoneblack7, pantone315, pantone369, pantone390
+% - Verschiedene Titel-Motive:
+%   - belltower (Standard-Wert): Glockenturm des Schlosses
+%   - wedge: Textkeil
+%   - prinz: WWU-Schriftzug auf dem Prinzipalmarkt (Foto)
+% - inverse: Inverses Titelbild (Weiß auf farbigem Hintergrund statt Farbe auf
+%            weißem Hintergrund)
+% - nopagenumbering:   Nummerierung der Folien deaktivieren
+% - fullpagenumbering: Neben aktueller Folienzahl auch Gesamtzahl anzeigen
+\usepackage[pantone312]{wwustyle}
+
+% In dieser Datei können eigene Einstellungen vorgenommen werden
 \input{einstellungen.tex}
+
+% Mit \institutelogo kann das Logo auf der Titelfolie festgelegt werden
+\institutelogo{\parbox{4cm}{\footnotesize Freiraum für Sekundärlogo(s)/\\Nam des Fachbereichs, Instituts oder SFB}}
+% Mit \institutelogosmall kann das Logo in der Kopfzeile der Folien festgelegt werden
+\institutelogosmall{[institutelogosmall]}
 
 \title[Kurzer Titel]{Ausführlicher Titel}
 \subtitle{Untertitel}
-% \subject wird von der Vorlage nicht direkt verwendet
-%\subject{Thema}
-% Autor angeben
 \author{Autor}
-% \institute wird von der Vorlage nicht direkt verwendet
-\institute{Fachschaft Physik}
 \date{\today}
-\keywords{Münster, Fachschaft Physik}
+% \subject und \institute werden von der Vorlage nicht direkt verwendet
+%\subject{Thema}
+%\institute{Institut}
+% Schlagwörter für die Metadaten der PDF-Datei
+%\keywords{...}
 
 \begin{document}
 
@@ -63,25 +88,6 @@
 	\begin{exampleblock}{Beispiel}
 		Hier kommt Grün ins Spiel!
 	\end{exampleblock}
-\end{frame}
-
-\begin{frame}
-	\begin{block}{}
-		\centering
-		Vielen Dank für eure Aufmerksamkeit!
-	\end{block}
-
-	\begin{block}{}
-		\centering
-		Habt ihr noch Fragen?
-	\end{block}
-
-	\begin{center}
-		\includegraphics[width=7cm]{fsphys-logo.pdf}
-
-		\medskip
-		\url{https://www.uni-muenster.de/Physik.FSPHYS}
-	\end{center}
 \end{frame}
 
 \end{document}
