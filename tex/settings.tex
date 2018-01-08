@@ -1,30 +1,30 @@
-%%% Einstellungen zur richtigen Benutzung von wwustyle.sty
+%%% settings for the correct use of wwustyle.sty
 \input{wwustyle/font-setup-meta-office-pro.tex}
 
-%% =============== Pakete laden =================================
-% Typographische Verbesserungen (Verbot mancher Ligaturen)
+%% =============== load packages ================================
+% typographical improvements (forbid some ligatures)
 \usepackage{selnolig}
-% Typographische Verbesserungen (Mikrotypographie)
+% typographical improvements (micro-typography)
 \usepackage{microtype}
 
-% Farben ermöglichen
+% enable colors
 \usepackage{xcolor}
-% Paket für Bilder-Einbindung (EPS, PNG, JPG, PDF)
+% package for image inclusion (EPS, PNG, JPG, PDF)
 \usepackage{graphicx}
-% .tex-Dateien mit \includegraphics einbinden
+% include .tex files with \includegraphics
 \usepackage{gincltex}
-% Bessere Verarbeitung von Dateinamen für \includegraphics etc.
+% better handling of filenames with \includegraphics etc.
 \usepackage{grffile}
 
-%% =============== Paketeinstellungen ===========================
+%% =============== package settings =============================
 % LaTeX
 \renewcommand{\arraystretch}{1.3}
 % graphicx
-% Standardmäßig „keepaspectratio“ verwenden
-% s. https://tex.stackexchange.com/a/91619/51235
+% use “keepaspectratio” as a default
+% s. https://tex.stackexchange.com/a/91619
 \setkeys{Gin}{keepaspectratio}
 % hyperref
 \hypersetup{unicode}
 
-%% =============== Zusätzliche Einstellungen/Befehle ============
+%% =============== additional settings/commands =================
 \newcommand*{\email}[1]{\href{mailto:#1}{\texttt{#1}}}
