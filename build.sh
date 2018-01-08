@@ -1,9 +1,29 @@
 #!/bin/sh
+# Generates a complete .zip file with templates in German and English as well
+# as all example presentations (all possible combinations of color and title
+# image).
+# Note: This takes quite a long time due to the amount of processed TeX
+# documents.
+# Command line arguments:
+# $1: the LaTeX engine used for compilation (lualatex or xelatex)
 
 texdir=tex
 fontdir=tex/fonts
 zipname=latex_wwu_ppt_2018
-if [ ! -f "$fontdir/MetaOffcPro-Bold.ttf" ]   || \
+
+latex_engine=$1
+case "$latex_engine" in
+	lualatex|xelatex)
+		;;
+	'')
+		latex_engine=lualatex
+		;;
+	*)
+		echo "Invalid LaTeX engine (must be lualatex or xelatex): $latex_engine"
+		exit 2
+		;;
+esac
+if [ ! -f "$fontdir/MetaOffcPro-Bold.ttf" ]     || \
 	[ ! -f "$fontdir/MetaOffcPro-Norm.ttf" ]    || \
 	[ ! -f "$fontdir/MetaOffcPro-NormIta.ttf" ] || \
 	[ ! -f "$fontdir/MetaScOffcPro-Bold.ttf" ]  || \
@@ -63,9 +83,9 @@ for d in de/beispiele en/examples; do
 	rm presentation.tex
 	# compile all .tex files in the current directory
 	# run compilations in parallel for improved speed
-	latexmk -lualatex -interaction=nonstopmode -silent pantone3[0-1]*.tex &
-	latexmk -lualatex -interaction=nonstopmode -silent pantone3[2-9]*.tex &
-	latexmk -lualatex -interaction=nonstopmode -silent pantone[a-z0-24-9]*.tex &
+	latexmk "-$latex_engine" -interaction=nonstopmode -silent pantone3[0-1]*.tex &
+	latexmk "-$latex_engine" -interaction=nonstopmode -silent pantone3[2-9]*.tex &
+	latexmk "-$latex_engine" -interaction=nonstopmode -silent pantone[a-z0-24-9]*.tex &
 	wait
 	# remove source files
 	rm -r $(basename "$fontdir/") wwustyle/ *.tex *.sty

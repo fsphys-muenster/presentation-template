@@ -29,7 +29,7 @@ itself can be found using the link
 https://sso.uni-muenster.de/intern/marketing/informationsmedien/praesentationsmedien.html
 within the WWU internal area.
 
-A complete  `.zip` file with templates in German and English as well as all
+A complete `.zip` file with templates in German and English as well as all
 example presentations can be obtained by running [`build.sh`](build.sh).
 
 ## A note on fonts
