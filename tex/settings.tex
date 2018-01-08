@@ -1,0 +1,30 @@
+%%% Einstellungen zur richtigen Benutzung von wwustyle.sty
+\input{wwustyle/font-setup-meta-office-pro.tex}
+
+%% =============== Pakete laden =================================
+% Typographische Verbesserungen (Verbot mancher Ligaturen)
+\usepackage{selnolig}
+% Typographische Verbesserungen (Mikrotypographie)
+\usepackage{microtype}
+
+% Farben ermöglichen
+\usepackage{xcolor}
+% Paket für Bilder-Einbindung (EPS, PNG, JPG, PDF)
+\usepackage{graphicx}
+% .tex-Dateien mit \includegraphics einbinden
+\usepackage{gincltex}
+% Bessere Verarbeitung von Dateinamen für \includegraphics etc.
+\usepackage{grffile}
+
+%% =============== Paketeinstellungen ===========================
+% LaTeX
+\renewcommand{\arraystretch}{1.3}
+% graphicx
+% Standardmäßig „keepaspectratio“ verwenden
+% s. https://tex.stackexchange.com/a/91619/51235
+\setkeys{Gin}{keepaspectratio}
+% hyperref
+\hypersetup{unicode}
+
+%% =============== Zusätzliche Einstellungen/Befehle ============
+\newcommand*{\email}[1]{\href{mailto:#1}{\texttt{#1}}}
