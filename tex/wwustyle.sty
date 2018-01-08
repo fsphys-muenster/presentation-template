@@ -1,5 +1,5 @@
 \ProvidesPackage{wwustyle}[%
-	2018/01/07 beamer presentations using the WWU corporate design%
+	2018/01/08 beamer presentations using the WWU corporate design%
 ]
 % Usage:    Just put \usepackage{wwustyle} in the header of your tex
 %           file, thats all!
@@ -55,10 +55,10 @@
 \colorlet{prinz}{white}
 
 % set pantone312 as the default main color
-\newcommand*{\bg@maincolor}{pantone312}
 \newcommand*{\fn@maincolor}{pantone312}
+\newcommand*{\bg@maincolor}{pantone312}
 % set bell tower as default background
-\newcommand*{\fn@motiv}{glocke}
+\newcommand*{\bg@motiv}{glocke}
 
 \newcommand*{\wedgeskip}{0pt}
 
@@ -74,8 +74,8 @@
 % #1: font color
 % #2: background color (fragment of the background image file)
 \newcommand*{\set@wwu@maincolor}[2]{%
-	\renewcommand*{\bg@maincolor}{#1}%
-	\renewcommand*{\fn@maincolor}{#2}%
+	\renewcommand*{\fn@maincolor}{#1}%
+	\renewcommand*{\bg@maincolor}{#2}%
 	\def\reserved@a{#1}%
 	\def\reserved@b{#2}%
 	\ifx\reserved@a\reserved@b
@@ -146,17 +146,17 @@
 % - text wedge
 % - WWU letters at Prinzipalmarkt
 \DeclareOption{belltower}{
-	\renewcommand*{\fn@motiv}{glocke}
+	\renewcommand*{\bg@motiv}{glocke}
 }
 \newif\if@wedge
 \@wedgefalse
 \DeclareOption{wedge}{
 	\@wedgetrue
-	\renewcommand*{\fn@motiv}{textkeil}
+	\renewcommand*{\bg@motiv}{textkeil}
 	\renewcommand*{\wedgeskip}{4.5cm}
 }
 \DeclareOption{prinz}{
-	\renewcommand*{\fn@motiv}{prinzipalmarkt}
+	\renewcommand*{\bg@motiv}{prinzipalmarkt}
 	\@inverstrue
 	\renewcommand*{\fn@invers}{invers}
 	\renewcommand*{\bg@invers}{invers}
@@ -226,7 +226,7 @@
 }
 
 \newbox\bg@title
-\def\hintergrundbild{\setbox\bg@title\hbox{\includegraphics[height=\paperheight]{\fn@maincolor\fn@motiv\fn@invers}}}%
+\def\hintergrundbild{\setbox\bg@title\hbox{\includegraphics[height=\paperheight]{\bg@maincolor\bg@motiv\fn@invers}}}%
 \AtBeginDocument{\hintergrundbild}
 
 % define the institute logo command
