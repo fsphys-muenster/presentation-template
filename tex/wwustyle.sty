@@ -84,6 +84,9 @@
 	\fi
 }
 
+\newcommand*{\title@fnt@color}{maincolor}
+\newcommand*{\title@date@color}{wwu-textcolor}
+
 % The inverted title image only appears on the title page.
 % The text color must be white there.
 % \fn@invers is used to read the corresponding background image file
@@ -110,27 +113,32 @@
 	\set@wwu@maincolor{pantone7462}{pantone7462}}
 % the remaining colors are only available as text colors and will use one of the
 % three available background colors instead
-\DeclareOption{pantoneblack7}{%
+\DeclareOption{pantoneblack7}{
 	\set@wwu@maincolor{pantoneblack7}{pantone312}}
 \DeclareOption{pantone315}{
 	\set@wwu@maincolor{pantone315}{pantone3135}}
-\DeclareOption{pantone369}{%
+\DeclareOption{pantone369}{
 	\set@wwu@maincolor{pantone369}{pantone312}}
-\DeclareOption{pantone390}{%
+\DeclareOption{pantone390}{
 	\set@wwu@maincolor{pantone390}{pantone312}}
 % the following colors are no longer part of the WWU corporate design and remain
 % available only for compatibility.
 \DeclareOption{pantone3282}{
 	\set@wwu@maincolor{pantone3282}{pantone3135}}
-\DeclareOption{pantone396}{%
+\DeclareOption{pantone396}{
 	\set@wwu@maincolor{pantone396}{pantone312}}
-\DeclareOption{pantoneprozessyellow}{%
+\DeclareOption{pantoneprozessyellow}{
 	\set@wwu@maincolor{pantoneprozessyellow}{pantone312}}
 
-\DeclareOption{inverse}{%
+\DeclareOption{inverse}{
 	\@inverstrue
 	\renewcommand*{\fn@invers}{invers}
 	\renewcommand*{\bg@invers}{invers}
+	\renewcommand*{\title@fnt@color}{white}
+	\renewcommand*{\title@date@color}{white}
+	% with inverse title image: switch to white title text
+	\renewcommand*{\title@fnt@color}{white}
+	\renewcommand*{\title@date@color}{white}
 }
 
 % There are three title images:
@@ -142,17 +150,20 @@
 }
 \newif\if@wedge
 \@wedgefalse
-\DeclareOption{wedge}{%
+\DeclareOption{wedge}{
 	\@wedgetrue
-	\renewcommand*{\fn@motiv}{textkeil}%
-	\renewcommand*{\wedgeskip}{4.5cm}%
+	\renewcommand*{\fn@motiv}{textkeil}
+	\renewcommand*{\wedgeskip}{4.5cm}
 }
-\newcommand*{\p@markt}{prinzipalmarkt}
-\DeclareOption{prinz}{%
-	\renewcommand*{\fn@motiv}{prinzipalmarkt}%
+\DeclareOption{prinz}{
+	\renewcommand*{\fn@motiv}{prinzipalmarkt}
 	\@inverstrue
-	\renewcommand*{\fn@invers}{invers}%
-	\renewcommand*{\bg@invers}{invers}%
+	\renewcommand*{\fn@invers}{invers}
+	\renewcommand*{\bg@invers}{invers}
+	% with inverse title image “Prinzipalmarkt”:
+	% switch to text color “prinz” on title
+	\renewcommand*{\title@fnt@color}{prinz}
+	\renewcommand*{\title@date@color}{prinz}
 }
 
 \DeclareOption{english}{
@@ -175,11 +186,11 @@
 }
 
 % decide whether the page number should show up
-\DeclareOption{nopagenumbering}{%
-	\renewcommand*{\@@insert@framenumber}{}%
+\DeclareOption{nopagenumbering}{
+	\renewcommand*{\@@insert@framenumber}{}
 }
-\DeclareOption{fullpagenumbering}{%
-	\renewcommand*{\@@insert@framenumber}{\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber}%
+\DeclareOption{fullpagenumbering}{
+	\renewcommand*{\@@insert@framenumber}{\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber}
 }
 
 \ProcessOptions\relax
@@ -215,7 +226,7 @@
 }
 
 \newbox\bg@title
-\def\hintergrundbild{\setbox\bg@title\hbox{\includegraphics[height=\paperheight]{\fn@maincolor\fn@motiv\fn@invers.pdf}}}%
+\def\hintergrundbild{\setbox\bg@title\hbox{\includegraphics[height=\paperheight]{\fn@maincolor\fn@motiv\fn@invers}}}%
 \AtBeginDocument{\hintergrundbild}
 
 % define the institute logo command
@@ -307,16 +318,7 @@
 	\setlength{\unitlength}{1mm}
 	\begin{picture}(0,15)
 		\put(0,4){\parbox[c]{10cm}{%
-			\edef\curr@fnt@color{maincolor}%
-			\if@invers%
-				\edef\curr@fnt@color{white}%
-			\fi%
-			% switch to color “prinz” for image “Prinzipalmarkt”
-			\ifx\p@markt\fn@motiv%
-				\edef\curr@fnt@color{prinz}%
-			\fi%
-			% with inverse title image: switch to white text
-			\color{\curr@fnt@color}%
+			\color{\title@fnt@color}%
 			% title
 			\LARGE%
 			\bfseries%
@@ -335,7 +337,7 @@
 			% date
 			\medskip%
 			\scriptsize%
-			\color{wwu-textcolor}%
+			\color{\title@date@color}%
 			\insertdate%
 			\par%
 		}}
@@ -352,6 +354,7 @@
 		% institute logo (bottom right)
 		\node[xshift=-0.5cm, yshift=0.8cm, inner sep=0, anchor=east]
 			at (current page.south east) {%
+				% see \claimMain
 				\if@wedge%
 					\if@invers%
 						\color{white}%
