@@ -1,6 +1,8 @@
 % !TeX program = lualatex
-% Auch „german“ muss angegeben werden, damit die Sprache (z.B. in siunitx)
-% auf Deutsch gestellt wird.
+% Verschiedene Bildformate können mit der Option „aspectratio“
+% ausgewählt werden, z.B. „aspectratio=169“ für 16:9.
+% Auch „german“ muss hier angegeben werden, damit die Sprache
+% (z.B. in siunitx) auf Deutsch gestellt wird.
 \documentclass[german, ngerman]{beamer}
 % Spracheinstellung
 \usepackage{polyglossia}
@@ -16,8 +18,8 @@
 %   - belltower (Standard-Wert): Glockenturm des Schlosses
 %   - wedge: Textkeil
 %   - prinz: WWU-Schriftzug auf dem Prinzipalmarkt (Foto)
-% - inverse: Inverses Titelbild (Weiß auf farbigem Hintergrund statt Farbe auf
-%            weißem Hintergrund)
+% - inverse: Inverses Titelbild (Weiß auf farbigem Hintergrund
+%            statt Farbe auf weißem Hintergrund)
 % - nopagenumbering:   Nummerierung der Folien deaktivieren
 % - fullpagenumbering: Neben aktueller Folienzahl auch Gesamtzahl anzeigen
 \usepackage[pantone312]{wwustyle}
@@ -39,6 +41,14 @@
 %\institute{Institut}
 % Schlagwörter für die Metadaten der PDF-Datei
 %\keywords{...}
+
+% Die hier auskommentierten Angaben unterlegen die weiße Schrift
+% mit einem Balken in der Hauptfarbe des Dokuments. Dies kann sinnvoll
+% sein, wenn mit der Option “prinz” der Prinzipalmarkt als
+% Hintergrundbild ausgewählt wurde.
+%\title{\bgbox{Hier steht der zweizeilige Titel}\\\bgbox{der Präsentation}}
+%\subtitle{\bgbox{Verwendung von \texttt{\string\bgbox}}}
+%\author{\bgbox{Name: der Referentin/des Referenten}}
 
 \begin{document}
 
@@ -137,7 +147,7 @@
 			\begin{itemize}
 				\item \textbf{Dritte Ebene} mit Text dahinter
 				\item \textbf{Dritte Ebene}
-				
+
 				mit Text darunter
 			\end{itemize}
 		\end{itemize}
