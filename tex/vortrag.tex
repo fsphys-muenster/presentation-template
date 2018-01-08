@@ -28,11 +28,11 @@
 % Mit \institutelogo kann das Logo auf der Titelfolie festgelegt werden
 \institutelogo{\parbox{4cm}{\footnotesize Freiraum für Sekundärlogo(s)/\\Nam des Fachbereichs, Instituts oder SFB}}
 % Mit \institutelogosmall kann das Logo in der Kopfzeile der Folien festgelegt werden
-\institutelogosmall{[institutelogosmall]}
+\institutelogosmall{Hier erscheint „institutelogosmall“}
 
-\title[Kurzer Titel]{Ausführlicher Titel}
-\subtitle{Untertitel}
-\author{Autor}
+\title[Hier steht der Titel der Präsentation]{Hier steht der zweizeilige Titel der Präsentation}
+\subtitle{Untertitel bzw.\ Kurzbeschreibung der Präsentation}
+\author{Name: der Referentin/des Referenten}
 \date{\today}
 % \subject und \institute werden von der Vorlage nicht direkt verwendet
 %\subject{Thema}
@@ -48,11 +48,37 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Hier steht eine Überschrift, die aufgrund ihrer Länge zwei Zeilen umfasst}
+
+	Hier steht \textbf{Blindtext}, der später durch den richtigen Text ersetzt wird.
+	An dieser \textbf{Stelle steht Blindtext}.
+	Hier steht Blindtext – dieser wird später ersetzt.
+	An dieser \textbf{Stelle steht Blindtext}.
+	Hier steht Blindtext.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Hier steht eine einzeilige Überschrift}
+	\framesubtitle{Inklusive Untertitel}
+
+	Erste Ebene (Fließtext)
+	\begin{itemize}
+		\item \textbf{Zweite Ebene} (Aufzählung)
+		\begin{itemize}
+			\item \textbf{Dritte Ebene} (Aufzählung)
+			\begin{itemize}
+				\item \textbf{Vierte Ebene} (Aufzählung)
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Folien-Überschrift}
 
 	Hier kommt Text!
 
-	\begin{block}{Ein "normaler" Block}
+	\begin{block}{Ein „normaler“ Block}
 		Inhalt hier.
 	\end{block}
 
@@ -75,7 +101,6 @@
 
 \begin{frame}
 	\frametitle{Ein Alert-Block}
-	\framesubtitle{Ein Folien-Untertitel}
 
 	\begin{alertblock}{Achtung!}
 		Hier kommt Rot ins Spiel!
@@ -88,6 +113,35 @@
 	\begin{exampleblock}{Beispiel}
 		Hier kommt Grün ins Spiel!
 	\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Weitere Aufzählungen}
+
+	Gestufte Listen
+	\begin{itemize}
+		\item \textbf{Erste Ebene}
+		\begin{itemize}
+			\item \textbf{Zweite Ebene}
+			\begin{itemize}
+				\item \textbf{Dritte Ebene}
+				\item \textbf{Dritte Ebene}
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	Gestufte Listen
+	\begin{itemize}
+		\item \textbf{Erste Ebene}
+		\begin{itemize}
+			\item \textbf{Zweite Ebene}
+			\begin{itemize}
+				\item \textbf{Dritte Ebene} mit Text dahinter
+				\item \textbf{Dritte Ebene}
+				
+				mit Text darunter
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
 \end{frame}
 
 \end{document}
