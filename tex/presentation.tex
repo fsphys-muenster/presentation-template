@@ -1,0 +1,159 @@
+% !TeX program = lualatex
+% NOTE: This file must be run using xelatex or lualatex!
+
+% different aspect ratios can be set using the option “aspectratio”,
+% e.g. “aspectratio=169” for 16:9
+\documentclass[english]{beamer}
+% language setting
+\usepackage{polyglossia}
+\setmainlanguage{english}
+
+% Official WWU LaTeX package for presentations: wwustyle
+% The use of wwustyle requires xelatex or lualatex (due to the fonts).
+% If you have any questions regarding this, contact fsphys@uni-muenster.de
+% Available Options:
+% - english: uses the English claim (“living.knowledge”)
+% - Color variants:
+%   pantone312, pantone3135, pantone7462,
+%   pantoneblack7, pantone315, pantone369, pantone390
+% - Different title images:
+%   - belltower (default): castle bell tower
+%   - wedge: text wedge
+%   - prinz: WWU letters at Prinzipalmarkt (photo)
+% - inverse: inverse title image (white on colored background
+%            instead of color on white background)
+% - nopagenumbering:   disables slide numbering
+% - fullpagenumbering: displays total slide number in addition to current slide number
+\usepackage[english, pantone312]{wwustyle}
+
+% custom settings can be placed in this file
+\input{settings.tex}
+
+% with \institutelogo, the logo on the title slide can be set
+\institutelogo{\parbox{4cm}{\footnotesize space for secondary logo(s)/\\name of department, institute or SFB}}
+% with \institutelogosmall, the logo in the slide headline can be set
+\institutelogosmall{“institutelogosmall” appears here}
+
+\title[Here is the presentation title]{Here is the presentation title on two separate lines}
+\subtitle{Subtitle or short description of the presentation}
+\author{Presenter's name}
+\date{\today}
+% \subject und \institute are not directly used by the template
+%\subject{Subject}
+%\institute{Institute}
+% Keywords for metadata in the PDF file
+%\keywords{...}
+
+% The commands commented here place a bar in the main color
+% behind the white text. This can make sense if the title image
+% “Prinzipalmarkt” has been chose using the option “prinz”.
+%\title[Here is the presentation title]{\bgbox{Here is the presentation title}\\\bgbox{on two separate lines}}
+%\subtitle{\bgbox{Subtitle or short description of the presentation}}
+%\author{\bgbox{Presenter's name}}
+%\date{\bgbox{Date}}
+
+\begin{document}
+
+% title slide
+\begin{frame}[plain, noframenumbering]
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Here is a title which takes up two lines due to its length}
+
+	Here is some \textbf{dummy text} which will be replaced by the real text later.
+	In this \textbf{line, there is some dummy text}.
+	Here is some dummy text – it will be replaced later.
+	In this \textbf{line, there is some dummy text}.
+	Here is dummy text.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Here is a one-line title}
+	\framesubtitle{With subtitle}
+
+	First level (text)
+	\begin{itemize}
+		\item \textbf{Second level} (list)
+		\begin{itemize}
+			\item \textbf{Third level} (list)
+			\begin{itemize}
+				\item \textbf{Fourth level} (list)
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Slide title}
+
+	Here is some text!
+
+	\begin{block}{A “normal” block}
+		Contents here.
+	\end{block}
+
+	\texttt{itemize} and \texttt{enumerate}:
+	\begin{itemize}
+		\item An item
+		\begin{itemize}
+			\item A sub-item
+		\end{itemize}
+		\item Another item
+	\end{itemize}
+	\begin{enumerate}
+		\item An item
+		\begin{enumerate}
+			\item A sub-item
+		\end{enumerate}
+		\item Another item
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{An alert block}
+
+	\begin{alertblock}{Attention!}
+		Red comes into play here!
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}
+	\frametitle{An example block}
+
+	\begin{exampleblock}{Example}
+		Green comes into play here!
+	\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+	\frametitle{More lists}
+
+	Nested lists
+	\begin{itemize}
+		\item \textbf{First level}
+		\begin{itemize}
+			\item \textbf{Second level}
+			\begin{itemize}
+				\item \textbf{Third level}
+				\item \textbf{Third level}
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	Nested lists
+	\begin{itemize}
+		\item \textbf{First level}
+		\begin{itemize}
+			\item \textbf{Second level}
+			\begin{itemize}
+				\item \textbf{Third level} with text behind
+				\item \textbf{Third level}
+
+				with text below
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\end{document}

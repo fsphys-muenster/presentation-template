@@ -1,0 +1,28 @@
+%%% settings for the correct use of wwustyle.sty
+\input{wwustyle/font-setup-meta-office-pro.tex}
+
+%% =============== load packages ================================
+% typographical improvements (micro-typography)
+\usepackage{microtype}
+
+% enable colors
+\usepackage{xcolor}
+% package for image inclusion (EPS, PNG, JPG, PDF)
+\usepackage{graphicx}
+% include .tex files with \includegraphics
+\usepackage{gincltex}
+% better handling of filenames with \includegraphics etc.
+\usepackage{grffile}
+
+%% =============== package settings =============================
+% LaTeX
+\renewcommand{\arraystretch}{1.3}
+% graphicx
+% use “keepaspectratio” as a default
+% s. https://tex.stackexchange.com/a/91619
+\setkeys{Gin}{keepaspectratio}
+% hyperref
+\hypersetup{unicode}
+
+%% =============== additional settings/commands =================
+\newcommand*{\email}[1]{\href{mailto:#1}{\texttt{#1}}}

@@ -1,0 +1,414 @@
+\ProvidesPackage{wwustyle}[%
+	2018/01/08 beamer presentations using the WWU corporate design%
+]
+% Usage:    Just put \usepackage{wwustyle} in the header of your tex
+%           file, thats all!
+%           You may set the main color by using COLORCODE
+%           as an option to the package, where COLORCODE is the
+%           name of the color (in one word, all in small letters)
+%           as defined in the corporate design manual which is
+%           to be found on the web:
+%           https://sso.uni-muenster.de/intern/marketing/corporatedesign/cdmanual.html
+% Remark:   This is supposed to be used with the font “Meta”, which is to
+%           be found on the WWU homepage and should be available
+%           for employees on WWU workstations.
+% Maintainers: Simon May (simon.may@uni-muenster.de)
+%              Fachschaft Physik (fsphys@uni-muenster.de)
+
+%% =============== required packages ============================
+\RequirePackage{tikz}
+\RequirePackage{xcolor}
+\RequirePackage{graphicx}
+% add resource directory to search path
+\graphicspath{{wwustyle/}}
+
+
+%% =============== definitions (\definecolor, \newcommand) ======
+% available font and background colors
+% RGB color values have been taken from the WWU corporate design manual
+% https://sso.uni-muenster.de/intern/marketing/corporatedesign/cdmanual.html
+% the following three colors are available as backgrounds
+% Pantone 312: “variant 1” of the PowerPoint template
+\definecolor{pantone312} {RGB}{0,   157, 209} % light blue
+% Pantone 3135: “variant 2” of the PowerPoint template
+\definecolor{pantone3135}{RGB}{0,   142, 150} % green
+% Pantone 7462: “variant 3” of the PowerPoint template
+\definecolor{pantone7462}{RGB}{0,    78, 138} % dark blue
+% the remaining colors are only available as text colors
+\definecolor{pantoneblack7}{RGB}{62, 62, 59}
+\definecolor{pantone315} {RGB}{0,   110, 137} % dark green/blue
+\definecolor{pantone369} {RGB}{122, 181,  22} % light green
+\definecolor{pantone390} {RGB}{177, 200,   0} % olive green
+% the following colors are no longer part of the WWU corporate design and remain
+% available only for compatibility.
+\definecolor{pantone3282}{RGB}{0,   142, 150} % similar to 3135
+\definecolor{pantone396} {RGB}{223, 219,   0} % pale green
+\definecolor{pantoneprozessyellow}{RGB}{255, 237, 0} % yellow
+
+% use the same text color as in the PowerPoint presentation template
+% the same color is also used for the WWU logo
+\definecolor{wwu-textcolor}{RGB}{88, 88, 90}
+% set frame background to same color as title page background
+% (“Schwarz, 5% Deckkraft”)
+\definecolor{wwu-bgcolor}{RGB}{244, 244, 244}
+
+\colorlet{prinz}{white}
+
+% set pantone312 as the default main color
+\newcommand*{\fn@maincolor}{pantone312}
+\newcommand*{\bg@maincolor}{pantone312}
+% set bell tower as default background
+\newcommand*{\bg@motiv}{glocke}
+
+\newcommand*{\wedgeskip}{0pt}
+
+% by default give only current page number
+\newcommand*{\@@insert@framenumber}{\insertframenumber}
+
+% command to set the main color
+% for the color definitions see
+% WWU corporate design manual
+% https://sso.uni-muenster.de/intern/marketing/corporatedesign/cdmanual.html
+% Font and background color must be set separately because background images are
+% not available for all colors.
+% #1: font color
+% #2: background color (fragment of the background image file)
+\newcommand*{\set@wwu@maincolor}[2]{%
+	\renewcommand*{\fn@maincolor}{#1}%
+	\renewcommand*{\bg@maincolor}{#2}%
+	\def\reserved@a{#1}%
+	\def\reserved@b{#2}%
+	\ifx\reserved@a\reserved@b
+	\else
+		\PackageWarning{wwustyle}{Background for font color #1 not available. Background color changed to #2}{}%
+	\fi
+}
+
+\newcommand*{\title@fnt@color}{maincolor}
+\newcommand*{\title@date@color}{wwu-textcolor}
+
+% The inverted title image only appears on the title page.
+% The text color must be white there.
+% \fn@invers is used to read the corresponding background image file
+% \bg@invers is used to switch the text color
+\newcommand*{\fn@invers}{}
+\newcommand*{\bg@invers}{}
+\newif\if@invers
+
+\newcommand*{\logoHeadline}{\wwulogo{2cm}}
+\newcommand*{\logoTitleSmall}{\csname wwulogo\bg@invers\endcsname{3.5cm}}
+
+\newcommand*{\claimText}{wissenleben}
+\newcommand*{\claimDeEn}{}
+
+%% ========= possible package options ===========================
+% Pantone 312: “variant 1” of the PowerPoint template
+\DeclareOption{pantone312}{
+	\set@wwu@maincolor{pantone312}{pantone312}}
+% Pantone 3135: “variant 2” of the PowerPoint template
+\DeclareOption{pantone3135}{
+	\set@wwu@maincolor{pantone3135}{pantone3135}}
+% Pantone 7462: “variant 3” of the PowerPoint template
+\DeclareOption{pantone7462}{
+	\set@wwu@maincolor{pantone7462}{pantone7462}}
+% the remaining colors are only available as text colors and will use one of the
+% three available background colors instead
+\DeclareOption{pantoneblack7}{
+	\set@wwu@maincolor{pantoneblack7}{pantone7462}}
+\DeclareOption{pantone315}{
+	\set@wwu@maincolor{pantone315}{pantone3135}}
+\DeclareOption{pantone369}{
+	\set@wwu@maincolor{pantone369}{pantone3135}}
+\DeclareOption{pantone390}{
+	\set@wwu@maincolor{pantone390}{pantone3135}}
+% the following colors are no longer part of the WWU corporate design and remain
+% available only for compatibility.
+\DeclareOption{pantone3282}{
+	\set@wwu@maincolor{pantone3282}{pantone3135}}
+\DeclareOption{pantone396}{
+	\set@wwu@maincolor{pantone396}{pantone312}}
+\DeclareOption{pantoneprozessyellow}{
+	\set@wwu@maincolor{pantoneprozessyellow}{pantone312}}
+
+\DeclareOption{inverse}{
+	\@inverstrue
+	\renewcommand*{\fn@invers}{invers}
+	\renewcommand*{\bg@invers}{invers}
+	\renewcommand*{\title@fnt@color}{white}
+	\renewcommand*{\title@date@color}{white}
+	% with inverse title image: switch to white title text
+	\renewcommand*{\title@fnt@color}{white}
+	\renewcommand*{\title@date@color}{white}
+}
+
+% There are three title images:
+% - castle bell tower
+% - text wedge
+% - WWU letters at Prinzipalmarkt
+\DeclareOption{belltower}{
+	\renewcommand*{\bg@motiv}{glocke}
+}
+\newif\if@wedge
+\@wedgefalse
+\DeclareOption{wedge}{
+	\@wedgetrue
+	\renewcommand*{\bg@motiv}{textkeil}
+	\renewcommand*{\wedgeskip}{4.5cm}
+}
+\DeclareOption{prinz}{
+	\renewcommand*{\bg@motiv}{prinzipalmarkt}
+	\@inverstrue
+	\renewcommand*{\fn@invers}{invers}
+	\renewcommand*{\bg@invers}{invers}
+	% with inverse title image “Prinzipalmarkt”:
+	% switch to text color “prinz” on title
+	\renewcommand*{\title@fnt@color}{prinz}
+	\renewcommand*{\title@date@color}{prinz}
+}
+
+\DeclareOption{english}{
+	\renewcommand*{\claimText}{livingknowledge}
+	\renewcommand*{\claimDeEn}{-en}
+}
+
+% For the text wedge, the whole background is colored.
+% For the other images, a white strip remains at the bottom.
+\newcommand*{\claimMain}{%
+	\if@wedge%
+		\if@invers%
+			\claim{white}%
+		\else%
+			\claim{gray}%
+		\fi%
+	\else%
+		\claim{gray}%
+	\fi%
+}
+
+% decide whether the page number should show up
+\DeclareOption{nopagenumbering}{
+	\renewcommand*{\@@insert@framenumber}{}
+}
+\DeclareOption{fullpagenumbering}{
+	\renewcommand*{\@@insert@framenumber}{\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber}
+}
+
+\ProcessOptions\relax
+
+% save the specified color as “maincolor”
+\colorlet{maincolor}{\fn@maincolor}
+
+
+%% =============== images and graphics ==========================
+\newcommand*{\bgbox}[1]{\texorpdfstring{\colorbox{maincolor}{#1}}{#1}}
+
+% WWU claim with \includegraphics; uses one parameter:
+% parameter #1: color
+\newcommand*{\claim}[1]{%
+	% unfortunately, the image must be scaled here instead of using a fixed
+	% width or height, because the German and English versions of the claim
+	% differ in both
+	\rlap{\includegraphics[scale=0.5]{\claimText#1}}%
+}
+
+% WWU logo with \includegraphics; uses one parameter
+% parameter #1: width
+\newcommand*{\wwulogo}[1]{\wwu@logo{#1}{wwu-textcolor}}
+\newcommand*{\wwulogoinvers}[1]{\wwu@logo{#1}{white}}
+
+\newcommand*{\wwu@logo}[2]{%
+	\def\temp@a{#2}\def\temp@b{white}%
+	\ifx\temp@a\temp@b%
+		\includegraphics[width=#1]{WWUMuenster_Logo_2017_rgb_negativ}
+	\else%
+		\includegraphics[width=#1]{WWUMuenster_Logo_2017_rgb_beamergray}
+	\fi%
+}
+
+\newbox\bg@title
+\def\hintergrundbild{\setbox\bg@title\hbox{\includegraphics[height=\paperheight]{\bg@maincolor\bg@motiv\fn@invers}}}%
+\AtBeginDocument{\hintergrundbild}
+
+% define the institute logo command
+\newcommand*{\@institutelogo}{}
+\newcommand*{\institutelogo}[1]{%
+	\renewcommand*{\@institutelogo}{#1}
+}
+
+\newcommand*{\@institutelogosmall}{}
+\newcommand*{\institutelogosmall}[1]{%
+	\renewcommand*{\@institutelogosmall}{#1}
+}
+
+%% =============== margins, spacing, etc. =======================
+% disable left sidebar (empty)
+\setbeamersize{sidebar width left=0cm}
+% disable right sidebar now that the claim isn’t shown there anymore
+\setbeamersize{sidebar width right=0cm}
+
+% set text margins to 0.5cm
+% this gives the same margins as before with the sidebars
+% (with empty sidebars and sidebar width left=-0.25cm, sidebar width right=0.25cm)
+\setbeamersize{text margin left=0.5cm}
+\setbeamersize{text margin right=0.5cm}
+
+% switch off the navigation symbols
+\beamertemplatenavigationsymbolsempty
+
+
+%% =============== color definitions for beamer =================
+% colors to be used
+\definecolor{text-gray}{rgb}{0.45, 0.45, 0.45} % gray text on white background
+\definecolor{fu-blue} {RGB}{0,   51, 102} % blue text
+\definecolor{fu-green}{RGB}{153, 204,  0} % green text
+\definecolor{fu-red}  {RGB}{204, 0,    0} % red text (used by \alert)
+
+
+%% =============== redefinition of styles =======================
+% colors
+\usecolortheme{lily}
+\setbeamercolor{normal text}{fg=wwu-textcolor, bg=wwu-bgcolor}
+\setbeamercolor{alerted text}{fg=fu-red}
+\setbeamercolor{example text}{fg=fu-green}
+\setbeamercolor{structure}{fg=maincolor}
+
+\setbeamercolor{block title}{fg=white, bg=maincolor}
+\setbeamercolor{block title alerted}{fg=white, bg=fu-red}
+\setbeamercolor{block title example}{fg=white, bg=fu-green}
+\setbeamercolor{block body}{bg=maincolor!10}
+\setbeamercolor{block body alerted}{bg=fu-red!10}
+\setbeamercolor{block body example}{bg=fu-green!10}
+
+\setbeamercolor{bibliography entry author}{fg=fu-blue}
+\setbeamercolor{bibliography entry journal}{fg=text-gray}
+
+% frame title
+\setbeamertemplate{frametitle}{%
+	\vskip4mm
+	\fontsize{14pt}{14pt}
+	\selectfont
+	\color{maincolor}
+	\bfseries
+	\insertframetitle
+	\par
+	\ifx\insertframesubtitle\empty%
+	\else
+	\fontsize{12pt}{12pt}
+	\selectfont
+	% set frame subtitles in pantoneblack7
+	% (which darker than the color of normal text)
+	\color{pantoneblack7}
+	\mdseries
+	\insertframesubtitle
+	\fi%
+}
+
+% title page
+
+% The background for the title page is saved in \bg@title.
+% This box is output on the first page and is empty afterwards.
+\setbeamertemplate{background}{\hbox to \paperwidth{\hss\box\bg@title}}
+
+% redefine \@arrayparboxrestore so that the presentation title (which is set
+% using a \parbox) uses \raggedright instead of justifying text
+\g@addto@macro\@arrayparboxrestore{\raggedright}
+
+\setbeamertemplate{title page}{%
+	% set the title, subtitle, author and date
+	\setlength{\unitlength}{1mm}
+	\begin{picture}(0,15)
+		\put(0,4){\parbox[c]{10cm}{%
+			\color{\title@fnt@color}%
+			% title
+			\LARGE%
+			\bfseries%
+			\inserttitle%
+			\par%
+			\vskip2mm%
+			% subtitle
+			\footnotesize%
+			\normalfont%
+			\insertsubtitle%
+			\smallskip%
+			% author
+			\par%
+			\insertauthor%
+			\par%
+			% date
+			\medskip%
+			\scriptsize%
+			\color{\title@date@color}%
+			\insertdate%
+			\par%
+		}}
+	\end{picture}
+	\begin{tikzpicture}[remember picture, overlay]
+		% WWU logo (top left)
+		\node[xshift=0.4cm, yshift=-1cm, anchor=west]
+			at (current page.north west)
+			{\logoTitleSmall};
+		% WWU claim (bottom left)
+		\node[xshift=0.5cm, yshift=0.65cm]
+			at (current page.south west)
+			{\claimMain};
+		% institute logo (bottom right)
+		\node[xshift=-0.5cm, yshift=0.8cm, inner sep=0, anchor=east]
+			at (current page.south east) {%
+				% see \claimMain
+				\if@wedge%
+					\if@invers%
+						\color{white}%
+					\fi%
+				\fi%
+				\@institutelogo\hspace*{\wedgeskip}%
+			};
+	\end{tikzpicture}
+}
+
+% headline
+\setbeamertemplate{headline}{
+	\fontsize{6pt}{1pt}%
+	\selectfont%
+	{%
+		\begin{tikzpicture}[remember picture, overlay]
+			\node[xshift=0.5cm, yshift=-1cm, anchor=south west, inner sep=0]
+				at (current page.north west) {\logoHeadline};
+			\node[xshift=3.5cm, yshift=-1cm, anchor=south west, inner sep=0]
+				at (current page.north west) {\@institutelogosmall};
+		\end{tikzpicture}
+	}%
+	\hfill%
+	\bfseries%
+	\color{maincolor}%
+	\let\bgbox\relax\insertshorttitle%
+	% same space to the right as text margin
+	\hspace{0.5cm}%
+	% invisible rule to set headline height
+	\rule{0pt}{10mm}%
+}
+
+% footline
+% make footline background non-transparent so that frame content cannot “slide
+% into” the footer
+\setbeamercolor{footlinecolor}{bg=wwu-bgcolor}
+\setbeamertemplate{footline}{%
+	\begin{beamercolorbox}[wd=\paperwidth]{footlinecolor}
+		\fontsize{6pt}{1pt}%
+		\selectfont%
+		\color{maincolor}%
+		\rule{\textwidth}{0.8pt}% horizontal line
+		\vskip2mm%
+		\hspace{5mm}%
+		\color{wwu-textcolor}%
+		\let\bgbox\relax\insertshortauthor%
+		\vrule height7pt depth3pt width0pt\hfill%
+		\fontsize{9pt}{12pt}%
+		\selectfont%
+		\color{maincolor}%
+		\bfseries%
+		\@@insert@framenumber%
+		\hspace{5mm}%
+		\strut%
+		\vskip3mm%
+	\end{beamercolorbox}%
+}
