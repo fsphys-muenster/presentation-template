@@ -64,34 +64,37 @@ rm -r "$texdir/"
 for d in de/beispiele en/examples; do
 	cd "$d/"
 	# generate all title backgrounds and color options
-	for background in belltower 'belltower,inverse' wedge 'wedge,inverse' prinz; do
-		for color in 312 3135 7462 black7 315 369 390; do
-			options="pantone$color,$background"
-			# remove commas from file names
-			filename=$(echo "$options" | sed 's/,/_/g')
-			cp presentation.tex "$filename.tex"
-			# use \bgbox for option “prinz”
-			if [ "$background" = prinz ]; then
-				sed -i 's/%\\title/\\title/' "$filename.tex"
-				sed -i 's/%\\subtitle/\\subtitle/' "$filename.tex"
-				sed -i 's/%\\author/\\author/' "$filename.tex"
-				sed -i 's/%\\date/\\date/' "$filename.tex"
-			fi
-			sed -i "s/pantone312]/$options]/" "$filename.tex"
+	for aspect_ratio in 4x3 16x9; do
+		for background in belltower 'belltower,inverse' wedge 'wedge,inverse' prinz; do
+			for color in 312 3135 7462; do
+				aspect_ratio_beamer=$(echo "$aspect_ratio" | sed 's/x//')
+				aspect_ratio_beamer=", aspectratio=$aspect_ratio_beamer"
+				options="pantone$color,$background"
+				# remove commas from file names
+				filename=$(echo "${options}_${aspect_ratio}" | sed 's/,/_/g')
+				cp presentation.tex "$filename.tex"
+				# set options in the TeX file
+				sed -i "s/]{beamer}/$aspect_ratio_beamer]{beamer}/" "$filename.tex"
+				sed -i "s/pantone312]/$options]/" "$filename.tex"
+				# use \bgbox for option “prinz”
+				if [ "$background" = prinz ]; then
+					sed -i 's/%\\title/\\title/' "$filename.tex"
+					sed -i 's/%\\subtitle/\\subtitle/' "$filename.tex"
+					sed -i 's/%\\author/\\author/' "$filename.tex"
+					sed -i 's/%\\date/\\date/' "$filename.tex"
+				fi
+				# run compilations in parallel for improved speed
+				latexmk "-$latex_engine" -interaction=nonstopmode -silent \
+					"$filename.tex" &
+			done
+			wait
 		done
+		echo "$d/$aspect_ratio complete"
 	done
-	rm presentation.tex
-	# compile all .tex files in the current directory
-	# run compilations in parallel for improved speed
-	latexmk "-$latex_engine" -interaction=nonstopmode -silent pantone3[0-1]*.tex &
-	latexmk "-$latex_engine" -interaction=nonstopmode -silent pantone3[2-9]*.tex &
-	latexmk "-$latex_engine" -interaction=nonstopmode -silent pantone[a-z0-24-9]*.tex &
-	wait
 	# remove source files
 	rm -r $(basename "$fontdir/") wwustyle/ *.tex *.sty
 	# remove auxiliary files
 	rm *.aux *.log *.out *.toc *.fls *.fdb_latexmk *.synctex.gz *.nav *.snm
-	echo "$d complete"
 	cd "$tempdir"
 done
 
