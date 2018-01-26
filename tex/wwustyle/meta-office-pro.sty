@@ -1,12 +1,18 @@
-\makeatletter
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{wwustyle/meta-office-pro}[%
+	2018/01/26 use Meta Office Pro by FontFont (LinoType GmbH) as text and math font%
+]
+
 \@ifclassloaded{beamer}{
 	\usefonttheme{professionalfonts}
 }{}
-\makeatother
+
+% AMS-LaTeX-Pakete müssen vor unicode-math geladen werden
+\RequirePackage{mathtools}
 
 % Einstellungen der Schriftart (Meta Office Pro) für Text und Mathematik
 % math**=sym angeben, damit auch diese Befehle die Schriftart Meta verwenden
-\usepackage[mathrm=sym, mathit=sym, mathsf=sym, mathbf=sym]{unicode-math}
+\RequirePackage[mathrm=sym, mathit=sym, mathsf=sym, mathbf=sym]{unicode-math}
 \setmainfont{MetaOffcPro}[Path=fonts/,
 	Extension=.ttf,
 	UprightFont=*-Norm,

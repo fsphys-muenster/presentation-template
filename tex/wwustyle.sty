@@ -1,3 +1,4 @@
+\NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{wwustyle}[%
 	2018/01/26 beamer presentations using the WWU corporate design%
 ]
@@ -117,7 +118,6 @@
 	\renewcommand*{\bg@motiv}{glocke}
 }
 \newif\if@wedge
-\@wedgefalse
 \DeclareOption{wedge}{
 	\@wedgetrue
 	\renewcommand*{\bg@motiv}{textkeil}
@@ -161,11 +161,21 @@
 	\renewcommand*{\@@insert@framenumber}{\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber}
 }
 
+% allow the user to do the font setup instead of doing it in the package
+\newif\if@manualfonts
+\DeclareOption{manualfonts}{
+	\@manualfontstrue
+}
+
 \ProcessOptions\relax
 
 % save the specified color as “maincolor”
 \colorlet{maincolor}{\main@color}
-
+% do font setup if “manualfonts” wasn’t specified
+\if@manualfonts
+\else
+	\RequirePackage{wwustyle/meta-office-pro}
+\fi
 
 %% =============== images and graphics ==========================
 \newcommand*{\bgbox}[1]{\texorpdfstring{\colorbox{maincolor}{#1}}{#1}}
