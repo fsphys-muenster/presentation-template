@@ -11,6 +11,7 @@
 \RequirePackage{mathtools}
 
 % Einstellungen der Schriftart (Meta Office Pro) für Text und Mathematik
+\RequirePackage{newunicodechar}
 % math**=sym angeben, damit auch diese Befehle die Schriftart Meta verwenden
 \RequirePackage[mathrm=sym, mathit=sym, mathsf=sym, mathbf=sym]{unicode-math}
 \setmainfont{MetaOffcPro}[Path=fonts/,
@@ -66,3 +67,11 @@
 		`\§, `\€, `\$, `\£, `\¥, `\©, `\®,
 	}
 ]
+% Meta Office Pro enthält keine Symbole für \epsilon und \varrho (ϵ und ϱ)
+% Verwende stattdessen \varepsilon und \rho (ε und ρ)
+\AtBeginDocument{%
+	\let\epsilon=\varepsilon%
+	\let\varrho=\rho%
+	\newunicodechar{ϵ}{ε}%
+	\newunicodechar{ϱ}{ρ}%
+}
