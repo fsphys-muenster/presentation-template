@@ -158,7 +158,9 @@
 	\renewcommand*{\@@insert@framenumber}{}
 }
 \DeclareOption{fullpagenumbering}{
-	\renewcommand*{\@@insert@framenumber}{\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber}
+	\renewcommand*{\@@insert@framenumber}{%
+		\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber%
+	}
 }
 
 % allow the user to do the font setup instead of doing it in the package
@@ -197,9 +199,9 @@
 \newcommand*{\wwu@logo}[2]{%
 	\def\temp@a{#2}\def\temp@b{white}%
 	\ifx\temp@a\temp@b%
-		\includegraphics[width=#1]{wwustyle/WWUMuenster_Logo_2017_rgb_negativ}
+		\includegraphics[width=#1]{wwustyle/WWUMuenster_Logo_2017_rgb_negativ}%
 	\else%
-		\includegraphics[width=#1]{wwustyle/WWUMuenster_Logo_2017_rgb_beamergray}
+		\includegraphics[width=#1]{wwustyle/WWUMuenster_Logo_2017_rgb_beamergray}%
 	\fi%
 }
 
@@ -214,12 +216,12 @@
 % define the institute logo command
 \newcommand*{\@institutelogo}{}
 \newcommand*{\institutelogo}[1]{%
-	\renewcommand*{\@institutelogo}{#1}
+	\renewcommand*{\@institutelogo}{#1}%
 }
 
 \newcommand*{\@institutelogosmall}{}
 \newcommand*{\institutelogosmall}[1]{%
-	\renewcommand*{\@institutelogosmall}{#1}
+	\renewcommand*{\@institutelogosmall}{#1}%
 }
 
 %% =============== margins, spacing, etc. =======================
