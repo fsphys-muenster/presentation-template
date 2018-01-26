@@ -1,5 +1,7 @@
 # don’t accidentally commit font files
 tex/fonts/*.*
+# don’t include compiled template PDF files
+tex/*.pdf
 
 ### .gitignore template for TeX from GitHub
 ## Core latex/pdflatex auxiliary files:
