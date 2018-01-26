@@ -27,9 +27,6 @@
 \RequirePackage{tikz}
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
-% add resource directory to search path
-\graphicspath{{wwustyle/}}
-
 
 %% =============== definitions (\definecolor, \newcommand) ======
 % available font and background colors
@@ -179,7 +176,7 @@
 	% unfortunately, the image must be scaled here instead of using a fixed
 	% width or height, because the German and English versions of the claim
 	% differ in both
-	\rlap{\includegraphics[scale=0.5]{\claimText#1}}%
+	\rlap{\includegraphics[scale=0.5]{wwustyle/\claimText#1}}%
 }
 
 % WWU logo with \includegraphics; uses one parameter
@@ -190,14 +187,18 @@
 \newcommand*{\wwu@logo}[2]{%
 	\def\temp@a{#2}\def\temp@b{white}%
 	\ifx\temp@a\temp@b%
-		\includegraphics[width=#1]{WWUMuenster_Logo_2017_rgb_negativ}
+		\includegraphics[width=#1]{wwustyle/WWUMuenster_Logo_2017_rgb_negativ}
 	\else%
-		\includegraphics[width=#1]{WWUMuenster_Logo_2017_rgb_beamergray}
+		\includegraphics[width=#1]{wwustyle/WWUMuenster_Logo_2017_rgb_beamergray}
 	\fi%
 }
 
 \newbox\bg@title
-\def\hintergrundbild{\setbox\bg@title\hbox{\includegraphics[height=\paperheight]{\main@color\bg@motiv\fn@invers}}}%
+\def\hintergrundbild{%
+	\setbox\bg@title\hbox{%
+		\includegraphics[height=\paperheight]{wwustyle/\main@color\bg@motiv\fn@invers}%
+	}%
+}
 \AtBeginDocument{\hintergrundbild}
 
 % define the institute logo command
