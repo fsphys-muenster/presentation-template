@@ -5,7 +5,8 @@
 # Note: This takes quite a long time due to the amount of processed TeX
 # documents.
 # Command line arguments:
-# $1: the LaTeX engine used for compilation (lualatex or xelatex)
+# $1: the LaTeX engine used for compilation (lualatex or xelatex);
+#     optional (default: lualatex)
 
 texdir=tex
 fontdir=tex/fonts
@@ -33,7 +34,10 @@ if [ ! -f "$fontdir/MetaOffcPro-Bold.ttf" ]     || \
 	exit 1
 fi
 
-olddir=$PWD
+# clean up previous build
+rm -rf "$zipname/"
+
+olddir="$PWD"
 
 tempdir=$(mktemp -d /tmp/latex-beamer.XXXXXX)
 cp -r "$texdir/" "$tempdir/"
@@ -41,6 +45,7 @@ cd $tempdir
 # delete dummy file
 find "$fontdir/" -type f ! -name '*.ttf' -delete
 
+# set up directories for compilation of example PDFs
 mkdir -p de/vorlage/
 mkdir -p en/template/
 
@@ -61,6 +66,7 @@ cp -r en/template/ en/examples/
 
 rm -r "$texdir/"
 
+# compile examples
 for d in de/beispiele en/examples; do
 	cd "$d/"
 	# generate all title backgrounds and color options
