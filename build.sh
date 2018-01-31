@@ -50,12 +50,12 @@ mkdir -p de/vorlage/
 mkdir -p en/template/
 
 cp -r "$fontdir/" "$texdir/wwustyle/" \
-	"$texdir/wwustyle.sty" \
+	"$texdir"/*.sty \
 	"$texdir/einstellungen.tex" \
 	"$texdir/praesentation.tex" \
 	'de/vorlage/'
 cp -r "$fontdir/" "$texdir/wwustyle/" \
-	"$texdir/wwustyle.sty" \
+	"$texdir"/*.sty \
 	"$texdir/settings.tex" \
 	"$texdir/presentation.tex" \
 	'en/template/'
