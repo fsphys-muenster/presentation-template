@@ -2,6 +2,8 @@
 tex/fonts/*.*
 # don’t include compiled template PDF files
 tex/*.pdf
+# ignore build files
+latex_wwu_ppt*
 
 ### .gitignore template for TeX from GitHub
 ## Core latex/pdflatex auxiliary files:
