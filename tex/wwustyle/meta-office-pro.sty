@@ -61,10 +61,46 @@
 	range=bfit/{greek,Greek,latin,Latin,num}]
 % Symbole (leider enthält Meta Office Pro nicht das Symbol ∓)
 \setmathfont{MetaOffcPro-Norm.ttf}[Path=fonts/,
-	range={`\+, `\-, `\−, \minus, `\×, `\÷, `\·, `\⋅, `\/, `\⁄, `\±,
-		`\=, `\≠, `\≈, `\<, `\>, `\≤, `\≥, \partial, `\∞, `\†, `\‡,
-		`\%, `\‰, `\!, `\?, `\., `\,, `\:, `\;, `\&, `\#, `\@,
-		`\§, `\€, `\$, `\£, `\¥,
+	range={
+		"002B,    % +
+		"002D,    % -
+		"2212,    % −
+		\minus,   % s. https://github.com/wspr/unicode-math/issues/451
+		"00D7,    % ×
+		"00F7,    % ÷
+		"00B7,    % ·
+		"22C5,    % ⋅
+		"002F,    % /
+		"2044,    % ⁄
+		"00B1,    % ±
+		"003D,    % =
+		"2260,    % ≠
+		"2248,    % ≈
+		"003C,    % <
+		"003E,    % >
+		"2264,    % ≤
+		"2265,    % ≥
+		"2202,    % ∂
+		\partial, % s. https://github.com/wspr/unicode-math/issues/416
+		"221E,    % ∞
+		"2020,    % †
+		"2021,    % ‡
+		"0025,    % %
+		"2030,    % ‰ (aber s. https://github.com/wspr/unicode-math/issues/452)
+		"0021,    % !
+		"003F,    % ?
+		"002E,    % .
+		"002C,    % ,
+		"003A,    % :
+		"003B,    % ;
+		"0026,    % &
+		"0023,    % #
+		"0040,    % @
+		"00A7,    % §
+		"20AC,    % €
+		"0024,    % $
+		"00A3,    % £
+		"00A5,    % ¥
 	}
 ]
 % Meta Office Pro enthält keine Symbole für \epsilon und \varrho (ϵ und ϱ)
