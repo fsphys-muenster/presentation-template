@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{wwustyle-beamer}[%
-	2018/01/30 beamer presentations using the WWU corporate design%
+	2018/02/26 beamer presentations using the WWU corporate design%
 ]
 % Usage: Just put \usepackage{wwustyle-beamer} in the header of your tex
 %        file!
@@ -28,6 +28,7 @@
 \RequirePackage{tikz}
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
+\RequirePackage{xpatch}
 
 %% =============== definitions (\definecolor, \newcommand) ======
 % available font and background colors
@@ -205,13 +206,23 @@
 	\fi%
 }
 
+% background image (in a saved box, so only for the first frame)
 \newbox\bg@title
 \def\hintergrundbild{%
-	\setbox\bg@title\hbox{%
+	\sbox\bg@title{%
 		\includegraphics[height=\paperheight]{wwustyle/\main@color\bg@motiv\fn@invers}%
 	}%
 }
 \AtBeginDocument{\hintergrundbild}
+% workaround for the issue in https://tex.stackexchange.com/q/417282
+\xpatchcmd{\ps@empty}{%
+	\vbox{\hbox{\hskip-\Gm@lmargin\raise\headheight\box\beamer@tempbox\box\@tempboxa}\hfil}%
+}{%
+	\vbox{\hbox{\hskip-\Gm@lmargin\raise\headheight\box\beamer@tempbox\raise\headheight\box\@tempboxa}\hfil}%
+}{\PackageWarning{wwustyle-beamer}{%
+	Applying workaround for plain frame background in older beamer versions\MessageBreak%
+	(see https://tex.stackexchange.com/q/417282)%
+}}{}
 
 % define the institute logo command
 \newcommand*{\@institutelogo}{}
