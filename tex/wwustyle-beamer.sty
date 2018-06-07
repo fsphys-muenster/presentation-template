@@ -1,8 +1,8 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{wwustyle-beamer}[%
-	2018/02/26 beamer presentations using the WWU corporate design%
+	2018/06/06 beamer presentations using the WWU corporate design%
 ]
-% Usage: Just put \usepackage{wwustyle-beamer} in the header of your tex
+% Usage: Just put \usepackage{wwustyle-beamer} in the preamble of your .tex
 %        file!
 %        Available options:
 %        - english: uses the English claim (“living.knowledge”)
@@ -25,6 +25,7 @@
 %              Fachschaft Physik (fsphys@uni-muenster.de)
 
 %% =============== required packages ============================
+\RequirePackage{kvoptions}
 \RequirePackage{tikz}
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
@@ -54,7 +55,7 @@
 % set pantone312 as the default main color
 \newcommand*{\main@color}{pantone312}
 % set bell tower as default background
-\newcommand*{\bg@motiv}{glocke}
+\newcommand*{\bg@image@name}{glocke}
 
 \newcommand*{\wedgeskip}{0pt}
 
@@ -87,20 +88,22 @@
 \newcommand*{\claimDeEn}{}
 
 %% ========= possible package options ===========================
+\SetupKeyvalOptions{prefix=wwustyle@}
+
 % Pantone 312: “variant 1” of the PowerPoint template
-\DeclareOption{pantone312}{
+\DeclareVoidOption{pantone312}{
 	\set@wwu@maincolor{pantone312}
 }
 % Pantone 3135: “variant 2” of the PowerPoint template
-\DeclareOption{pantone3135}{
+\DeclareVoidOption{pantone3135}{
 	\set@wwu@maincolor{pantone3135}
 }
 % Pantone 7462: “variant 3” of the PowerPoint template
-\DeclareOption{pantone7462}{
+\DeclareVoidOption{pantone7462}{
 	\set@wwu@maincolor{pantone7462}
 }
 
-\DeclareOption{inverse}{
+\DeclareVoidOption{inverse}{
 	\@inverstrue
 	\renewcommand*{\fn@invers}{invers}
 	\renewcommand*{\bg@invers}{invers}
@@ -115,17 +118,17 @@
 % - castle bell tower
 % - text wedge
 % - WWU letters at Prinzipalmarkt
-\DeclareOption{belltower}{
-	\renewcommand*{\bg@motiv}{glocke}
+\DeclareVoidOption{belltower}{
+	\renewcommand*{\bg@image@name}{glocke}
 }
 \newif\if@wedge
-\DeclareOption{wedge}{
+\DeclareVoidOption{wedge}{
 	\@wedgetrue
-	\renewcommand*{\bg@motiv}{textkeil}
+	\renewcommand*{\bg@image@name}{textkeil}
 	\renewcommand*{\wedgeskip}{4.5cm}
 }
-\DeclareOption{prinz}{
-	\renewcommand*{\bg@motiv}{prinzipalmarkt}
+\DeclareVoidOption{prinz}{
+	\renewcommand*{\bg@image@name}{prinzipalmarkt}
 	\@inverstrue
 	\renewcommand*{\fn@invers}{invers}
 	\renewcommand*{\bg@invers}{invers}
@@ -135,7 +138,7 @@
 	\renewcommand*{\title@date@color}{prinz}
 }
 
-\DeclareOption{english}{
+\DeclareVoidOption{english}{
 	\renewcommand*{\claimText}{livingknowledge}
 	\renewcommand*{\claimDeEn}{-en}
 }
@@ -155,27 +158,28 @@
 }
 
 % decide whether the page number should show up
-\DeclareOption{nopagenumbering}{
+\DeclareVoidOption{nopagenumbering}{
 	\renewcommand*{\@@insert@framenumber}{}
 }
-\DeclareOption{fullpagenumbering}{
+\DeclareVoidOption{fullpagenumbering}{
 	\renewcommand*{\@@insert@framenumber}{%
 		\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber%
 	}
 }
 
 % allow the user to do the font setup instead of doing it in the package
-\newif\if@manualfonts
-\DeclareOption{manualfonts}{
-	\@manualfontstrue
-}
+\DeclareBoolOption{manualfonts}
 
-\ProcessOptions\relax
+% whether the first slide is assumed to be a title slide;
+% defaults to true for backwards compatibility
+\DeclareBoolOption[true]{firstistitle}
+
+\ProcessKeyvalOptions*
 
 % save the specified color as “maincolor”
 \colorlet{maincolor}{\main@color}
 % do font setup if “manualfonts” wasn’t specified
-\if@manualfonts
+\ifwwustyle@manualfonts
 \else
 	\RequirePackage{wwustyle/meta-office-pro}
 \fi
@@ -206,14 +210,6 @@
 	\fi%
 }
 
-% background image (in a saved box, so only for the first frame)
-\newbox\bg@title
-\def\hintergrundbild{%
-	\sbox\bg@title{%
-		\includegraphics[height=\paperheight]{wwustyle/\main@color\bg@motiv\fn@invers}%
-	}%
-}
-\AtBeginDocument{\hintergrundbild}
 % workaround for the issue in https://tex.stackexchange.com/q/417282
 \xpatchcmd{\ps@empty}{%
 	\vbox{\hbox{\hskip-\Gm@lmargin\raise\headheight\box\beamer@tempbox\box\@tempboxa}\hfil}%
@@ -300,9 +296,25 @@
 
 % title page
 
-% The background for the title page is saved in \bg@title.
-% This box is output on the first page and is empty afterwards.
-\setbeamertemplate{background}{\hbox to \paperwidth{\hss\box\bg@title}}
+\newcommand*{\bg@image}{\includegraphics[height=\paperheight]{wwustyle/\main@color\bg@image@name\fn@invers}}
+% with option “firstistitle”: assume that the first slide is the title page,
+% use background
+\ifwwustyle@firstistitle
+	\setbeamertemplate{background}{%
+		\ifnum\arabic{page}=1\relax\ifbeamer@plainframe%
+		\hbox to \paperwidth{\hss\bg@image}%
+		\fi\fi%
+	}
+\fi
+% use a plain frame without numbering in \maketitle and set the background
+\def\maketitle{%
+	\ifbeamer@inframe\titlepage\else%
+	{%
+		\setbeamertemplate{background}{\hbox to \paperwidth{\hss\bg@image}}%
+		\frame[plain, noframenumbering]{\titlepage}%
+	}%
+	\fi%
+}
 
 % redefine \@arrayparboxrestore so that the presentation title (which is set
 % using a \parbox) uses \raggedright instead of justifying text
