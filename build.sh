@@ -10,7 +10,7 @@
 
 texdir=tex
 fontdir=tex/fonts
-zipname=latex_wwu_ppt_2018
+zipname=latex_wwu_ppt_$(date +%F)
 
 latex_engine=$1
 case "$latex_engine" in
